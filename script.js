@@ -8,8 +8,8 @@
 
 /* ── STATE ── */
 let activeCategory = 'all';
-let currentView    = 'grid';
-let editingId      = null;
+let currentView = 'grid';
+let editingId = null;
 
 /* ══════════════════════════════
    INIT
@@ -101,18 +101,18 @@ function filterCards() { applyFilters(); }
    COMBINED FILTER
 ══════════════════════════════ */
 function applyFilters() {
-  const query  = (document.getElementById('searchInput').value || '').toLowerCase().trim();
-  const saved  = getSavedLinks();
-  const cards  = document.querySelectorAll('.card');
-  let visible  = 0;
+  const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+  const saved = getSavedLinks();
+  const cards = document.querySelectorAll('.card');
+  let visible = 0;
 
   cards.forEach(card => {
-    const name     = (card.querySelector('h3')?.textContent || '').toLowerCase();
-    const desc     = (card.querySelector('p')?.textContent  || '').toLowerCase();
-    const tags     = (card.dataset.tags || '').toLowerCase();
-    const domain   = (card.querySelector('.card-domain')?.textContent || '').toLowerCase();
+    const name = (card.querySelector('h3')?.textContent || '').toLowerCase();
+    const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
+    const tags = (card.dataset.tags || '').toLowerCase();
+    const domain = (card.querySelector('.card-domain')?.textContent || '').toLowerCase();
     const category = card.dataset.category || '';
-    const href     = getHref(card);
+    const href = getHref(card);
 
     const matchSearch = !query
       || name.includes(query)
@@ -218,7 +218,7 @@ function restoreSavedButtons() {
   const saved = getSavedLinks();
   document.querySelectorAll('.card').forEach(card => {
     const href = getHref(card);
-    const btn  = card.querySelector('.save-btn');
+    const btn = card.querySelector('.save-btn');
     if (btn && saved.includes(href)) btn.classList.add('saved');
   });
 }
@@ -231,7 +231,7 @@ function renderCustomCards() {
   document.querySelectorAll('.card.custom-card').forEach(c => c.remove());
 
   const items = getCustomLinks();
-  const grid  = document.getElementById('cardGrid');
+  const grid = document.getElementById('cardGrid');
   const saved = getSavedLinks();
 
   items.forEach(item => {
@@ -244,7 +244,7 @@ function renderCustomCards() {
     card.dataset.tags = item.tags || '';
 
     const catClass = `cat-${item.category}`;
-    const isSaved  = saved.includes(item.url);
+    const isSaved = saved.includes(item.url);
 
     card.innerHTML = `
       <div class="card-icon-wrap ${catClass}">
@@ -277,7 +277,7 @@ function renderCustomCards() {
 }
 
 function catLabel(cat) {
-  return { design:'Design', coding:'Coding', hosting:'Hosting', ai:'AI Tools', learning:'Learning' }[cat] || cat;
+  return { design: 'Design', coding: 'Coding', hosting: 'Hosting', ai: 'AI Tools', learning: 'Learning' }[cat] || cat;
 }
 
 function domainOf(url) {
@@ -287,7 +287,7 @@ function domainOf(url) {
 
 function escHtml(str) {
   return String(str || '')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 /* ── ADD FORM ── */
@@ -303,7 +303,7 @@ function openAddForm() {
 
 function openEditForm(id) {
   const items = getCustomLinks();
-  const item  = items.find(i => i.id === id);
+  const item = items.find(i => i.id === id);
   if (!item) return;
 
   editingId = id;
@@ -322,16 +322,16 @@ function handleResourceForm(e) {
   e.preventDefault();
   clearFieldErrors();
 
-  const title  = document.getElementById('resourceTitle').value.trim();
-  const url    = document.getElementById('resourceUrl').value.trim();
-  const desc   = document.getElementById('resourceDescription').value.trim();
-  const cat    = document.getElementById('resourceCategory').value;
+  const title = document.getElementById('resourceTitle').value.trim();
+  const url = document.getElementById('resourceUrl').value.trim();
+  const desc = document.getElementById('resourceDescription').value.trim();
+  const cat = document.getElementById('resourceCategory').value;
 
   let valid = true;
   if (!title) { setFieldError('err-title', 'Title is required'); valid = false; }
   if (!url || !/^https?:\/\//i.test(url)) { setFieldError('err-url', 'Enter a valid URL (https://…)'); valid = false; }
-  if (!desc)  { setFieldError('err-desc', 'Description is required'); valid = false; }
-  if (!cat)   { setFieldError('err-cat', 'Please select a category'); valid = false; }
+  if (!desc) { setFieldError('err-desc', 'Description is required'); valid = false; }
+  if (!cat) { setFieldError('err-cat', 'Please select a category'); valid = false; }
   if (!valid) return;
 
   const items = getCustomLinks();
@@ -366,7 +366,7 @@ function handleResourceForm(e) {
 
 function deleteResource(id) {
   if (!confirm('Delete this resource?')) return;
-  const items   = getCustomLinks().filter(i => i.id !== id);
+  const items = getCustomLinks().filter(i => i.id !== id);
   const deleted = getCustomLinks().find(i => i.id === id);
   setCustomLinks(items);
 
@@ -385,31 +385,31 @@ function deleteResource(id) {
    FAVICONS / LOGOS
 ══════════════════════════════ */
 const LOGO_MAP = {
-  'figma.com':          'figma',
-  'coolors.co':         'coolors',
-  'fonts.google.com':   'googlefonts',
-  'undraw.co':          'undraw',
+  'figma.com': 'figma',
+  'coolors.co': 'coolors',
+  'fonts.google.com': 'googlefonts',
+  'undraw.co': 'undraw',
   'developer.mozilla.org': 'mdnwebdocs',
-  'codepen.io':         'codepen',
-  'caniuse.com':        'caniuse',
-  'stackoverflow.com':  'stackoverflow',
-  'vercel.com':         'vercel',
-  'netlify.com':        'netlify',
-  'pages.github.com':   'github',
-  'github.com':         'github',
-  'railway.app':        'railway',
-  'claude.ai':          'anthropic',
-  'v0.dev':             'vercel',
-  'chat.openai.com':    'openai',
-  'freecodecamp.org':   'freecodecamp',
+  'codepen.io': 'codepen',
+  'caniuse.com': 'caniuse',
+  'stackoverflow.com': 'stackoverflow',
+  'vercel.com': 'vercel',
+  'netlify.com': 'netlify',
+  'pages.github.com': 'github',
+  'github.com': 'github',
+  'railway.app': 'railway',
+  'claude.ai': 'anthropic',
+  'v0.dev': 'vercel',
+  'chat.openai.com': 'openai',
+  'freecodecamp.org': 'freecodecamp',
   'theodinproject.com': 'theodinproject',
-  'cs50.harvard.edu':   'harvard',
-  'javascript.info':    'javascript',
+  'cs50.harvard.edu': 'harvard',
+  'javascript.info': 'javascript',
 };
 
 function loadFavicons() {
   document.querySelectorAll('.card').forEach(card => {
-    const href   = getHref(card);
+    const href = getHref(card);
     const iconEl = card.querySelector('.card-icon');
     if (!href || !iconEl) return;
     loadFaviconFor(iconEl, href, card.querySelector('h3')?.textContent || '?');
@@ -435,7 +435,7 @@ function loadFaviconFor(iconEl, href, title) {
       };
     };
     iconEl.appendChild(img);
-  } catch {}
+  } catch { }
 }
 
 /* ══════════════════════════════
@@ -443,7 +443,7 @@ function loadFaviconFor(iconEl, href, title) {
 ══════════════════════════════ */
 function updateAllCounts() {
   const allCards = document.querySelectorAll('.card');
-  const cats = { design:0, coding:0, hosting:0, ai:0, learning:0 };
+  const cats = { design: 0, coding: 0, hosting: 0, ai: 0, learning: 0 };
 
   allCards.forEach(c => {
     const cat = c.dataset.category;
@@ -488,7 +488,7 @@ function setFieldError(id, msg) {
 }
 
 function clearFieldErrors() {
-  ['err-title','err-url','err-desc','err-cat'].forEach(id => {
+  ['err-title', 'err-url', 'err-desc', 'err-cat'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.textContent = '';
   });
@@ -516,10 +516,25 @@ function showToast(msg, type = '') {
 /* ══════════════════════════════
    KEYBOARD SHORTCUTS
 ══════════════════════════════ */
+let cmdSelectedIndex = 0;
+let cmdItems = [];
+
 function initKeyboard() {
   document.addEventListener('keydown', e => {
     const tag = document.activeElement?.tagName;
     const inInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+
+    // Ctrl+K / Cmd+K
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      openCmdPalette();
+      return;
+    }
+
+    if (isCmdPaletteOpen()) {
+      handleCmdKeydown(e);
+      return;
+    }
 
     // "/" focuses search
     if (e.key === '/' && !inInput) {
@@ -543,5 +558,177 @@ function initKeyboard() {
     if (e.key === 't' && !inInput && !e.ctrlKey && !e.metaKey) {
       toggleTheme();
     }
+  });
+
+  const cmdInput = document.getElementById('cmd-input');
+  if (cmdInput) {
+    cmdInput.addEventListener('input', updateCmdResults);
+  }
+}
+
+function isCmdPaletteOpen() {
+  const overlay = document.getElementById('cmd-overlay');
+  return overlay && !overlay.classList.contains('hidden');
+}
+
+function openCmdPalette() {
+  const overlay = document.getElementById('cmd-overlay');
+  const input = document.getElementById('cmd-input');
+  if (overlay && input) {
+    overlay.classList.remove('hidden');
+    input.value = '';
+    updateCmdResults();
+    setTimeout(() => input.focus(), 50);
+  }
+}
+
+function closeCmdPalette() {
+  const overlay = document.getElementById('cmd-overlay');
+  if (overlay) {
+    overlay.classList.add('hidden');
+    document.getElementById('cmd-input').blur();
+  }
+}
+
+function handleCmdOverlayClick(e) {
+  if (e.target === document.getElementById('cmd-overlay')) {
+    closeCmdPalette();
+  }
+}
+
+function handleCmdKeydown(e) {
+  if (e.key === 'Escape') {
+    closeCmdPalette();
+    e.preventDefault();
+    return;
+  }
+
+  const resultCards = document.querySelectorAll('.cmd-item');
+  if (resultCards.length === 0) return;
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    cmdSelectedIndex = (cmdSelectedIndex + 1) % resultCards.length;
+    renderCmdSelection();
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    cmdSelectedIndex = (cmdSelectedIndex - 1 + resultCards.length) % resultCards.length;
+    renderCmdSelection();
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    const selected = cmdItems[cmdSelectedIndex];
+    if (selected) executeCmdAction(selected);
+  }
+}
+
+function renderCmdSelection() {
+  const items = document.querySelectorAll('.cmd-item');
+  items.forEach((el, idx) => {
+    if (idx === cmdSelectedIndex) {
+      el.classList.add('selected');
+      el.scrollIntoView({ block: 'nearest' });
+    } else {
+      el.classList.remove('selected');
+    }
+  });
+}
+
+function executeCmdAction(item) {
+  closeCmdPalette();
+  if (item.type === 'action') {
+    if (item.actionId === 'theme') toggleTheme();
+    else if (item.actionId === 'add') openAddForm();
+    else if (item.actionId === 'view-grid') setView('grid');
+    else if (item.actionId === 'view-list') setView('list');
+  } else if (item.type === 'category') {
+    const btn = document.querySelector(`.nav-btn[data-cat="${item.categoryId}"]`);
+    if (btn) filterCategory(item.categoryId, btn);
+  } else if (item.type === 'resource') {
+    window.open(item.url, '_blank', 'noreferrer');
+  }
+}
+
+function updateCmdResults() {
+  const query = document.getElementById('cmd-input').value.toLowerCase().trim();
+  const resultsContainer = document.getElementById('cmd-results');
+  resultsContainer.innerHTML = '';
+  cmdItems = [];
+  cmdSelectedIndex = 0;
+
+  // Actions
+  const actions = [
+    { type: 'action', actionId: 'theme', title: 'Toggle Dark Mode', icon: '🌙' },
+    { type: 'action', actionId: 'add', title: 'Add Resource', icon: '＋' },
+    { type: 'action', actionId: 'view-grid', title: 'Grid View', icon: '⊞' },
+    { type: 'action', actionId: 'view-list', title: 'List View', icon: '☰' },
+  ].filter(a => !query || a.title.toLowerCase().includes(query));
+
+  if (actions.length) appendCmdGroup('Actions', actions, resultsContainer);
+
+  // Categories
+  const categories = [
+    { type: 'category', categoryId: 'all', title: 'All Resources', icon: '⊞' },
+    { type: 'category', categoryId: 'saved', title: 'Saved Links', icon: '★' },
+    { type: 'category', categoryId: 'design', title: 'Design', icon: '✦' },
+    { type: 'category', categoryId: 'coding', title: 'Coding', icon: '</>' },
+    { type: 'category', categoryId: 'hosting', title: 'Hosting', icon: '▲' },
+    { type: 'category', categoryId: 'ai', title: 'AI Tools', icon: '◈' },
+    { type: 'category', categoryId: 'learning', title: 'Learning', icon: '◉' },
+  ].filter(c => !query || c.title.toLowerCase().includes(query));
+
+  if (categories.length) appendCmdGroup('Categories', categories, resultsContainer);
+
+  // Resources
+  const allCards = document.querySelectorAll('.card');
+  const resources = [];
+  allCards.forEach(c => {
+    const title = c.querySelector('h3')?.textContent || '';
+    const url = getHref(c) || '';
+    const desc = c.querySelector('p')?.textContent || '';
+    if (!query || title.toLowerCase().includes(query) || url.toLowerCase().includes(query) || desc.toLowerCase().includes(query)) {
+      resources.push({ type: 'resource', title, url, desc, icon: '🔗' });
+    }
+  });
+
+  if (resources.length) appendCmdGroup('Resources', resources, resultsContainer);
+
+  renderCmdSelection();
+}
+
+function appendCmdGroup(label, items, container) {
+  const groupLabel = document.createElement('div');
+  groupLabel.className = 'cmd-group-label';
+  groupLabel.textContent = label;
+  container.appendChild(groupLabel);
+
+  items.forEach(item => {
+    const idx = cmdItems.length;
+    cmdItems.push(item);
+
+    const el = document.createElement('div');
+    el.className = 'cmd-item';
+    
+    let subtext = '';
+    let actionText = 'Jump to';
+    if (item.type === 'action') actionText = 'Execute';
+    else if (item.type === 'resource') { subtext = item.url; actionText = 'Open link'; }
+    
+    // We already have escHtml from the script context
+    el.innerHTML = `
+      <div class="cmd-item-icon">${item.icon}</div>
+      <div class="cmd-item-content">
+        <div class="cmd-item-title">${escHtml(item.title)}</div>
+        ${subtext ? `<div class="cmd-item-sub">${domainOf(subtext)}</div>` : ''}
+      </div>
+      <div class="cmd-item-action">${actionText} ↵</div>
+    `;
+
+    el.addEventListener('click', () => executeCmdAction(item));
+    el.addEventListener('mouseenter', () => {
+      cmdSelectedIndex = idx;
+      renderCmdSelection();
+    });
+
+    container.appendChild(el);
   });
 }
