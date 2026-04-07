@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DevLinks — Developer Resource Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="brand">
+        <div class="logo-badge" aria-hidden="true">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img">
+            <defs>
+              <linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ef4160" />
+                <stop offset="100%" stop-color="#f76e7d" />
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="120" height="120" rx="28" fill="url(#logoGradient)" />
+            <circle cx="32" cy="36" r="10" fill="#fff" />
+            <circle cx="86" cy="84" r="10" fill="#fff" />
+            <path d="M32 46 V56" stroke="#fff" stroke-width="10" stroke-linecap="round" />
+            <path d="M86 74 V64" stroke="#fff" stroke-width="10" stroke-linecap="round" />
+            <path d="M32 56 L86 64" stroke="#fff" stroke-width="12" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title"><span class="brand-text">Dev</span><span class="brand-highlight">Links</span></div>
+          <div class="brand-tagline">developer resource hub</div>
+        </div>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()"><span class="icon icon-theme">T</span> Dark</button>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+      <div class="stat-box"><span class="stat-icon icon-folder">C</span> <span id="total-categories">5</span> Categories</div>
+      <div class="stat-box"><span class="stat-icon icon-link">R</span> <span id="total-links">20</span> Resources</div>
+      <div class="stat-box"><span class="stat-icon icon-star">S</span> <span id="total-saved">0</span> Saved</div>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="search-wrapper">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search resources..."
+        oninput="filterCards()"
+      />
+    </div>
+
+    <!-- SAVED PANEL -->
+    <div class="saved-panel hidden" id="savedPanel">
+      <div class="saved-panel-header">
+        <div>
+          <div class="saved-panel-title">Saved resources</div>
+          <div class="saved-panel-subtitle">Quick access to links you saved for later.</div>
+        </div>
+        <button class="clear-saved" onclick="clearSaved()">Clear all</button>
+      </div>
+      <ul class="saved-list" id="savedList"></ul>
+    </div>
+
+    <!-- ADD RESOURCE OPTION -->
+    <div class="form-toggle-bar">
+      <button id="toggleResourceFormBtn" class="btn btn-secondary" onclick="toggleResourceForm()">Add resource</button>
+    </div>
+
+    <!-- ADD RESOURCE FORM -->
+    <div id="resourceFormPanel" class="resource-form card form-card hidden" role="region" aria-labelledby="resourceFormTitle">
+      <div class="form-header">
+        <div>
+          <h2 id="resourceFormTitle">Add your own resource</h2>
+          <p>Save custom developer links and manage them directly from the page.</p>
+        </div>
+      </div>
+      <form id="resourceForm" onsubmit="handleResourceForm(event)">
+        <input type="hidden" id="resourceId" value="" />
+        <div class="form-row">
+          <label for="resourceTitle">Title</label>
+          <input type="text" id="resourceTitle" placeholder="e.g. Tailwind CSS" required />
+        </div>
+        <div class="form-row">
+          <label for="resourceUrl">URL</label>
+          <input type="url" id="resourceUrl" placeholder="https://example.com" required />
+        </div>
+        <div class="form-row">
+          <label for="resourceDescription">Description</label>
+          <textarea id="resourceDescription" rows="3" placeholder="Short description of the resource" required></textarea>
+        </div>
+        <div class="form-row">
+          <label for="resourceCategory">Category</label>
+          <select id="resourceCategory" required>
+            <option value="design">Design</option>
+            <option value="coding">Coding</option>
+            <option value="hosting">Hosting</option>
+            <option value="ai">AI Tools</option>
+            <option value="learning">Learning</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="resourceSubmitButton">Save resource</button>
+          <button type="button" class="btn btn-secondary" onclick="resetResourceForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- CATEGORY TABS -->
+    <div class="tabs">
+      <button class="tab active" onclick="filterCategory('all', this)">All</button>
+      <button class="tab" onclick="filterCategory('saved', this)"><span class="tab-icon icon-saved">★</span> Saved</button>
+      <button class="tab" onclick="filterCategory('design', this)"><span class="tab-icon icon-design">D</span> Design</button>
+      <button class="tab" onclick="filterCategory('coding', this)"><span class="tab-icon icon-coding">C</span> Coding</button>
+      <button class="tab" onclick="filterCategory('hosting', this)"><span class="tab-icon icon-hosting">H</span> Hosting</button>
+      <button class="tab" onclick="filterCategory('ai', this)"><span class="tab-icon icon-ai">A</span> AI Tools</button>
+      <button class="tab" onclick="filterCategory('learning', this)"><span class="tab-icon icon-learning">L</span> Learning</button>
+    </div>
+
+    <!-- RESOURCE CARDS -->
+    <div class="card-grid" id="cardGrid">
+
+      <a class="card" href="https://figma.com" target="_blank" data-category="design">
+        <div class="card-icon">🎨</div>
+        <div class="card-info">
+          <h3>Figma</h3>
+          <p>Free UI/UX design tool used by professionals worldwide.</p>
+          <span class="tag">Design</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://coolors.co" target="_blank" data-category="design">
+        <div class="card-icon">🌈</div>
+        <div class="card-info">
+          <h3>Coolors</h3>
+          <p>Generate beautiful color palettes instantly.</p>
+          <span class="tag">Design</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://fonts.google.com" target="_blank" data-category="design">
+        <div class="card-icon">🔤</div>
+        <div class="card-info">
+          <h3>Google Fonts</h3>
+          <p>Free fonts for your websites and apps.</p>
+          <span class="tag">Design</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://undraw.co" target="_blank" data-category="design">
+        <div class="card-icon">🖼️</div>
+        <div class="card-info">
+          <h3>unDraw</h3>
+          <p>Free open-source illustrations for any project.</p>
+          <span class="tag">Design</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://developer.mozilla.org" target="_blank" data-category="coding">
+        <div class="card-icon">📖</div>
+        <div class="card-info">
+          <h3>MDN Docs</h3>
+          <p>The best reference for HTML, CSS, and JavaScript.</p>
+          <span class="tag">Coding</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://codepen.io" target="_blank" data-category="coding">
+        <div class="card-icon">✏️</div>
+        <div class="card-info">
+          <h3>CodePen</h3>
+          <p>Build and share frontend snippets in the browser.</p>
+          <span class="tag">Coding</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://caniuse.com" target="_blank" data-category="coding">
+        <div class="card-icon">✅</div>
+        <div class="card-info">
+          <h3>Can I Use</h3>
+          <p>Check browser support for CSS and JS features.</p>
+          <span class="tag">Coding</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://stackoverflow.com" target="_blank" data-category="coding">
+        <div class="card-icon">💬</div>
+        <div class="card-info">
+          <h3>Stack Overflow</h3>
+          <p>The go-to Q&A site for coding questions.</p>
+          <span class="tag">Coding</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://vercel.com" target="_blank" data-category="hosting">
+        <div class="card-icon">▲</div>
+        <div class="card-info">
+          <h3>Vercel</h3>
+          <p>Deploy websites instantly for free with GitHub.</p>
+          <span class="tag">Hosting</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://netlify.com" target="_blank" data-category="hosting">
+        <div class="card-icon">🌐</div>
+        <div class="card-info">
+          <h3>Netlify</h3>
+          <p>Free hosting with drag-and-drop deployment.</p>
+          <span class="tag">Hosting</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://pages.github.com" target="_blank" data-category="hosting">
+        <div class="card-icon">🐙</div>
+        <div class="card-info">
+          <h3>GitHub Pages</h3>
+          <p>Host static sites directly from your GitHub repo.</p>
+          <span class="tag">Hosting</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://railway.app" target="_blank" data-category="hosting">
+        <div class="card-icon">🚂</div>
+        <div class="card-info">
+          <h3>Railway</h3>
+          <p>Deploy backend apps and databases with ease.</p>
+          <span class="tag">Hosting</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://claude.ai" target="_blank" data-category="ai">
+        <div class="card-icon">🧠</div>
+        <div class="card-info">
+          <h3>Claude</h3>
+          <p>Anthropic's AI — great for coding help and explanations.</p>
+          <span class="tag">AI Tools</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/features/copilot" target="_blank" data-category="ai">
+        <div class="card-icon">🤖</div>
+        <div class="card-info">
+          <h3>GitHub Copilot</h3>
+          <p>AI pair programmer that suggests code as you type.</p>
+          <span class="tag">AI Tools</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://v0.dev" target="_blank" data-category="ai">
+        <div class="card-icon">⚡</div>
+        <div class="card-info">
+          <h3>v0 by Vercel</h3>
+          <p>Generate UI components from text prompts instantly.</p>
+          <span class="tag">AI Tools</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://chat.openai.com" target="_blank" data-category="ai">
+        <div class="card-icon">💡</div>
+        <div class="card-info">
+          <h3>ChatGPT</h3>
+          <p>OpenAI's assistant for coding, writing, and more.</p>
+          <span class="tag">AI Tools</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://freecodecamp.org" target="_blank" data-category="learning">
+        <div class="card-icon">🏕️</div>
+        <div class="card-info">
+          <h3>freeCodeCamp</h3>
+          <p>Free coding courses from HTML to machine learning.</p>
+          <span class="tag">Learning</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://theodinproject.com" target="_blank" data-category="learning">
+        <div class="card-icon">⚔️</div>
+        <div class="card-info">
+          <h3>The Odin Project</h3>
+          <p>Full-stack web dev curriculum, completely free.</p>
+          <span class="tag">Learning</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://cs50.harvard.edu" target="_blank" data-category="learning">
+        <div class="card-icon">🎓</div>
+        <div class="card-info">
+          <h3>CS50</h3>
+          <p>Harvard's legendary intro to computer science. Free.</p>
+          <span class="tag">Learning</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://javascript.info" target="_blank" data-category="learning">
+        <div class="card-icon">📘</div>
+        <div class="card-info">
+          <h3>JavaScript.info</h3>
+          <p>The best modern JavaScript tutorial on the internet.</p>
+          <span class="tag">Learning</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- NO RESULTS -->
+    <p class="no-results hidden" id="noResults">😕 No results found.</p>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      Made with <svg class="footer-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> for <a href="https://game.hackclub.com" target="_blank">Hack Club: The Game</a>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
