@@ -6,11 +6,11 @@ A clean, beautiful webpage where developers can find all the best free tools, we
 
 ##  Features
 
--  **Live search** — filter resources instantly as you type
--  **Dark / Light mode** toggle
--  **Organized by category** — Design, Coding, Hosting, AI Tools & more
--  **Clickable cards** — each resource opens directly in a new tab
--  **No frameworks** — pure HTML, CSS, and JavaScript
+-  Live search — filter resources instantly as you type
+-  Dark / Light mode toggle
+-  Organized by category — Design, Coding, Hosting, AI Tools & more
+-  Clickable cards — each resource opens directly in a new tab
+-  No frameworks — pure HTML, CSS, and JavaScript
 
 
 ##  Project Structure

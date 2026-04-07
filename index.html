@@ -4,317 +4,545 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DevLinks — Developer Resource Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <!-- BACKGROUND GRAIN -->
+  <div class="grain" aria-hidden="true"></div>
+
   <div class="app">
 
-    <!-- HEADER -->
-    <div class="header">
-      <div class="brand">
-        <div class="logo-badge" aria-hidden="true">
-          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img">
-            <defs>
-              <linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#ef4160" />
-                <stop offset="100%" stop-color="#f76e7d" />
-              </linearGradient>
-            </defs>
-            <rect x="0" y="0" width="120" height="120" rx="28" fill="url(#logoGradient)" />
-            <circle cx="32" cy="36" r="10" fill="#fff" />
-            <circle cx="86" cy="84" r="10" fill="#fff" />
-            <path d="M32 46 V56" stroke="#fff" stroke-width="10" stroke-linecap="round" />
-            <path d="M86 74 V64" stroke="#fff" stroke-width="10" stroke-linecap="round" />
-            <path d="M32 56 L86 64" stroke="#fff" stroke-width="12" stroke-linecap="round" />
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-mark">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="5" fill="white"/>
+            <circle cx="28" cy="28" r="5" fill="white"/>
+            <line x1="12" y1="17" x2="28" y2="23" stroke="white" stroke-width="4" stroke-linecap="round"/>
           </svg>
         </div>
         <div>
-          <div class="brand-title"><span class="brand-text">Dev</span><span class="brand-highlight">Links</span></div>
-          <div class="brand-tagline">developer resource hub</div>
+          <div class="brand-name">Dev<span>Links</span></div>
+          <div class="brand-sub">resource hub</div>
         </div>
       </div>
-      <button class="theme-toggle" onclick="toggleTheme()"><span class="icon icon-theme">T</span> Dark</button>
-    </div>
 
-    <!-- STATS BAR -->
-    <div class="stats-bar">
-      <div class="stat-box"><span class="stat-icon icon-folder">C</span> <span id="total-categories">5</span> Categories</div>
-      <div class="stat-box"><span class="stat-icon icon-link">R</span> <span id="total-links">20</span> Resources</div>
-      <div class="stat-box"><span class="stat-icon icon-star">S</span> <span id="total-saved">0</span> Saved</div>
-    </div>
+      <nav class="sidebar-nav">
+        <button class="nav-btn active" data-cat="all" onclick="filterCategory('all',this)">
+          <span class="nav-icon">⊞</span> All Resources
+          <span class="nav-count" id="nc-all">20</span>
+        </button>
+        <button class="nav-btn" data-cat="saved" onclick="filterCategory('saved',this)">
+          <span class="nav-icon">★</span> Saved
+          <span class="nav-count" id="nc-saved">0</span>
+        </button>
+        <div class="nav-divider">Categories</div>
+        <button class="nav-btn" data-cat="design" onclick="filterCategory('design',this)">
+          <span class="nav-icon cat-design">✦</span> Design
+          <span class="nav-count" id="nc-design">4</span>
+        </button>
+        <button class="nav-btn" data-cat="coding" onclick="filterCategory('coding',this)">
+          <span class="nav-icon cat-coding">&lt;/&gt;</span> Coding
+          <span class="nav-count" id="nc-coding">4</span>
+        </button>
+        <button class="nav-btn" data-cat="hosting" onclick="filterCategory('hosting',this)">
+          <span class="nav-icon cat-hosting">▲</span> Hosting
+          <span class="nav-count" id="nc-hosting">4</span>
+        </button>
+        <button class="nav-btn" data-cat="ai" onclick="filterCategory('ai',this)">
+          <span class="nav-icon cat-ai">◈</span> AI Tools
+          <span class="nav-count" id="nc-ai">4</span>
+        </button>
+        <button class="nav-btn" data-cat="learning" onclick="filterCategory('learning',this)">
+          <span class="nav-icon cat-learning">◉</span> Learning
+          <span class="nav-count" id="nc-learning">4</span>
+        </button>
+      </nav>
 
-    <!-- SEARCH BAR -->
-    <div class="search-wrapper">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search resources..."
-        oninput="filterCards()"
-      />
-    </div>
+      <div class="sidebar-footer">
+        <button class="sidebar-action" onclick="toggleTheme()" id="theme-btn">
+          <span>🌙</span> Dark mode
+        </button>
+        <button class="sidebar-action" onclick="openAddForm()">
+          <span>＋</span> Add resource
+        </button>
+      </div>
+    </aside>
 
-    <!-- SAVED PANEL -->
-    <div class="saved-panel hidden" id="savedPanel">
-      <div class="saved-panel-header">
+    <!-- ══ MAIN ══ -->
+    <main class="main">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="searchInput" placeholder="Search resources, tools, docs…" oninput="filterCards()" autocomplete="off" />
+          <kbd class="search-kbd" id="search-kbd">/</kbd>
+        </div>
+        <div class="topbar-actions">
+          <button class="topbar-btn" onclick="openAddForm()" title="Add resource">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+          <button class="topbar-btn mobile-menu-btn" onclick="toggleMobileSidebar()" title="Menu">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- HERO STATS -->
+      <div class="hero-stats" id="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" id="total-links">20</span>
+          <span class="hero-stat-label">Resources</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" id="total-categories">5</span>
+          <span class="hero-stat-label">Categories</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" id="total-saved">0</span>
+          <span class="hero-stat-label">Saved</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" id="total-custom">0</span>
+          <span class="hero-stat-label">Custom</span>
+        </div>
+      </div>
+
+      <!-- SECTION HEADER -->
+      <div class="section-header">
         <div>
-          <div class="saved-panel-title">Saved resources</div>
-          <div class="saved-panel-subtitle">Quick access to links you saved for later.</div>
+          <h1 class="section-title" id="section-title">All Resources</h1>
+          <p class="section-sub" id="section-sub">Curated tools and references for developers</p>
         </div>
-        <button class="clear-saved" onclick="clearSaved()">Clear all</button>
-      </div>
-      <ul class="saved-list" id="savedList"></ul>
-    </div>
-
-    <!-- ADD RESOURCE OPTION -->
-    <div class="form-toggle-bar">
-      <button id="toggleResourceFormBtn" class="btn btn-secondary" onclick="toggleResourceForm()">Add resource</button>
-    </div>
-
-    <!-- ADD RESOURCE FORM -->
-    <div id="resourceFormPanel" class="resource-form card form-card hidden" role="region" aria-labelledby="resourceFormTitle">
-      <div class="form-header">
-        <div>
-          <h2 id="resourceFormTitle">Add your own resource</h2>
-          <p>Save custom developer links and manage them directly from the page.</p>
+        <div class="view-toggle">
+          <button class="view-btn active" id="view-grid" onclick="setView('grid')" title="Grid view">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          <button class="view-btn" id="view-list" onclick="setView('list')" title="List view">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
         </div>
       </div>
-      <form id="resourceForm" onsubmit="handleResourceForm(event)">
+
+      <!-- CARD GRID -->
+      <div class="card-grid" id="cardGrid">
+
+        <a class="card" href="https://figma.com" target="_blank" rel="noreferrer" data-category="design" data-tags="ui ux wireframe prototype vector">
+          <div class="card-icon-wrap cat-design"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Figma</h3>
+              <span class="card-badge cat-design">Design</span>
+            </div>
+            <p>Professional UI/UX design tool used by top product teams worldwide.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">figma.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://coolors.co" target="_blank" rel="noreferrer" data-category="design" data-tags="colors palette generator">
+          <div class="card-icon-wrap cat-design"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Coolors</h3>
+              <span class="card-badge cat-design">Design</span>
+            </div>
+            <p>Generate stunning color palettes instantly with a single keypress.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">coolors.co</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://fonts.google.com" target="_blank" rel="noreferrer" data-category="design" data-tags="typography fonts web google">
+          <div class="card-icon-wrap cat-design"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Google Fonts</h3>
+              <span class="card-badge cat-design">Design</span>
+            </div>
+            <p>Free, open-source fonts for your websites and apps.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">fonts.google.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://undraw.co" target="_blank" rel="noreferrer" data-category="design" data-tags="illustrations svg free open-source">
+          <div class="card-icon-wrap cat-design"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>unDraw</h3>
+              <span class="card-badge cat-design">Design</span>
+            </div>
+            <p>Free open-source illustrations for any project, customizable colors.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">undraw.co</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://developer.mozilla.org" target="_blank" rel="noreferrer" data-category="coding" data-tags="html css javascript docs reference mdn">
+          <div class="card-icon-wrap cat-coding"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>MDN Web Docs</h3>
+              <span class="card-badge cat-coding">Coding</span>
+            </div>
+            <p>The definitive reference for HTML, CSS, and JavaScript on the web.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">developer.mozilla.org</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://codepen.io" target="_blank" rel="noreferrer" data-category="coding" data-tags="frontend playground editor demo snippet">
+          <div class="card-icon-wrap cat-coding"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>CodePen</h3>
+              <span class="card-badge cat-coding">Coding</span>
+            </div>
+            <p>Build, share, and discover front-end snippets right in your browser.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">codepen.io</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://caniuse.com" target="_blank" rel="noreferrer" data-category="coding" data-tags="browser support compatibility css javascript">
+          <div class="card-icon-wrap cat-coding"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Can I Use</h3>
+              <span class="card-badge cat-coding">Coding</span>
+            </div>
+            <p>Check browser support for CSS and JS features before you ship.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">caniuse.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://stackoverflow.com" target="_blank" rel="noreferrer" data-category="coding" data-tags="qa answers community questions bugs">
+          <div class="card-icon-wrap cat-coding"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Stack Overflow</h3>
+              <span class="card-badge cat-coding">Coding</span>
+            </div>
+            <p>The world's largest developer Q&amp;A community for coding problems.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">stackoverflow.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://vercel.com" target="_blank" rel="noreferrer" data-category="hosting" data-tags="deploy serverless frontend edge cdn">
+          <div class="card-icon-wrap cat-hosting"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Vercel</h3>
+              <span class="card-badge cat-hosting">Hosting</span>
+            </div>
+            <p>Deploy websites and APIs instantly with zero-config from GitHub.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">vercel.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://netlify.com" target="_blank" rel="noreferrer" data-category="hosting" data-tags="static deploy drag drop forms lambda">
+          <div class="card-icon-wrap cat-hosting"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Netlify</h3>
+              <span class="card-badge cat-hosting">Hosting</span>
+            </div>
+            <p>Free hosting with drag-and-drop deployment and form handling.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">netlify.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://pages.github.com" target="_blank" rel="noreferrer" data-category="hosting" data-tags="github static pages free repo">
+          <div class="card-icon-wrap cat-hosting"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>GitHub Pages</h3>
+              <span class="card-badge cat-hosting">Hosting</span>
+            </div>
+            <p>Host static sites directly from your GitHub repository for free.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">pages.github.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://railway.app" target="_blank" rel="noreferrer" data-category="hosting" data-tags="backend database postgres redis deploy">
+          <div class="card-icon-wrap cat-hosting"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Railway</h3>
+              <span class="card-badge cat-hosting">Hosting</span>
+            </div>
+            <p>Deploy backend apps and databases with a beautifully simple interface.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">railway.app</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://claude.ai" target="_blank" rel="noreferrer" data-category="ai" data-tags="llm anthropic chat assistant coding">
+          <div class="card-icon-wrap cat-ai"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>Claude</h3>
+              <span class="card-badge cat-ai">AI Tools</span>
+            </div>
+            <p>Anthropic's AI assistant — exceptional for coding, writing and analysis.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">claude.ai</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/features/copilot" target="_blank" rel="noreferrer" data-category="ai" data-tags="github copilot autocomplete vscode ide">
+          <div class="card-icon-wrap cat-ai"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>GitHub Copilot</h3>
+              <span class="card-badge cat-ai">AI Tools</span>
+            </div>
+            <p>AI pair programmer that suggests whole lines and functions as you type.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">github.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://v0.dev" target="_blank" rel="noreferrer" data-category="ai" data-tags="ui generator react components vercel prompt">
+          <div class="card-icon-wrap cat-ai"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>v0 by Vercel</h3>
+              <span class="card-badge cat-ai">AI Tools</span>
+            </div>
+            <p>Generate polished UI components from plain text prompts instantly.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">v0.dev</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://chat.openai.com" target="_blank" rel="noreferrer" data-category="ai" data-tags="openai gpt chatgpt assistant chat">
+          <div class="card-icon-wrap cat-ai"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>ChatGPT</h3>
+              <span class="card-badge cat-ai">AI Tools</span>
+            </div>
+            <p>OpenAI's conversational AI for coding, writing, and problem-solving.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">chat.openai.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://freecodecamp.org" target="_blank" rel="noreferrer" data-category="learning" data-tags="free courses html css javascript certification">
+          <div class="card-icon-wrap cat-learning"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>freeCodeCamp</h3>
+              <span class="card-badge cat-learning">Learning</span>
+            </div>
+            <p>Free, structured coding courses from HTML basics to machine learning.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">freecodecamp.org</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://theodinproject.com" target="_blank" rel="noreferrer" data-category="learning" data-tags="fullstack curriculum web ruby javascript free">
+          <div class="card-icon-wrap cat-learning"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>The Odin Project</h3>
+              <span class="card-badge cat-learning">Learning</span>
+            </div>
+            <p>A comprehensive, free full-stack web development curriculum.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">theodinproject.com</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://cs50.harvard.edu" target="_blank" rel="noreferrer" data-category="learning" data-tags="harvard cs computer science intro free mooc">
+          <div class="card-icon-wrap cat-learning"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>CS50</h3>
+              <span class="card-badge cat-learning">Learning</span>
+            </div>
+            <p>Harvard's legendary intro to computer science — completely free online.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">cs50.harvard.edu</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+        <a class="card" href="https://javascript.info" target="_blank" rel="noreferrer" data-category="learning" data-tags="javascript tutorial modern es6 in-depth">
+          <div class="card-icon-wrap cat-learning"><div class="card-icon"></div></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3>JavaScript.info</h3>
+              <span class="card-badge cat-learning">Learning</span>
+            </div>
+            <p>The best modern JavaScript tutorial — from basics to advanced concepts.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-domain">javascript.info</span>
+            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- NO RESULTS -->
+      <div class="no-results hidden" id="noResults">
+        <div class="no-results-icon">⊘</div>
+        <p id="noResultsText">No resources found</p>
+        <span>Try a different search or category</span>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <span>Made with</span>
+        <svg class="footer-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <span>for <a href="https://game.hackclub.com" target="_blank">Hack Club</a></span>
+        <span class="footer-dot">·</span>
+        <span id="footer-count">20 resources</span>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ══ ADD/EDIT RESOURCE MODAL ══ -->
+  <div class="modal-overlay hidden" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add Resource</h2>
+        <button class="modal-close" onclick="closeModal()">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <form id="resourceForm" onsubmit="handleResourceForm(event)" novalidate>
         <input type="hidden" id="resourceId" value="" />
-        <div class="form-row">
-          <label for="resourceTitle">Title</label>
-          <input type="text" id="resourceTitle" placeholder="e.g. Tailwind CSS" required />
+        <div class="form-field">
+          <label for="resourceTitle">Title <span class="required">*</span></label>
+          <input type="text" id="resourceTitle" placeholder="e.g. Tailwind CSS" autocomplete="off" />
+          <span class="field-error" id="err-title"></span>
         </div>
-        <div class="form-row">
-          <label for="resourceUrl">URL</label>
-          <input type="url" id="resourceUrl" placeholder="https://example.com" required />
+        <div class="form-field">
+          <label for="resourceUrl">URL <span class="required">*</span></label>
+          <input type="url" id="resourceUrl" placeholder="https://example.com" autocomplete="off" />
+          <span class="field-error" id="err-url"></span>
         </div>
-        <div class="form-row">
-          <label for="resourceDescription">Description</label>
-          <textarea id="resourceDescription" rows="3" placeholder="Short description of the resource" required></textarea>
+        <div class="form-field">
+          <label for="resourceDescription">Description <span class="required">*</span></label>
+          <textarea id="resourceDescription" rows="3" placeholder="Short description of the resource"></textarea>
+          <span class="field-error" id="err-desc"></span>
         </div>
-        <div class="form-row">
-          <label for="resourceCategory">Category</label>
-          <select id="resourceCategory" required>
+        <div class="form-field">
+          <label for="resourceCategory">Category <span class="required">*</span></label>
+          <select id="resourceCategory">
+            <option value="">Select a category</option>
             <option value="design">Design</option>
             <option value="coding">Coding</option>
             <option value="hosting">Hosting</option>
             <option value="ai">AI Tools</option>
             <option value="learning">Learning</option>
           </select>
+          <span class="field-error" id="err-cat"></span>
         </div>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary" id="resourceSubmitButton">Save resource</button>
-          <button type="button" class="btn btn-secondary" onclick="resetResourceForm()">Cancel</button>
+        <div class="modal-actions">
+          <button type="submit" class="btn-submit" id="resourceSubmitBtn">Add Resource</button>
+          <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
         </div>
       </form>
     </div>
-
-    <!-- CATEGORY TABS -->
-    <div class="tabs">
-      <button class="tab active" onclick="filterCategory('all', this)">All</button>
-      <button class="tab" onclick="filterCategory('saved', this)"><span class="tab-icon icon-saved">★</span> Saved</button>
-      <button class="tab" onclick="filterCategory('design', this)"><span class="tab-icon icon-design">D</span> Design</button>
-      <button class="tab" onclick="filterCategory('coding', this)"><span class="tab-icon icon-coding">C</span> Coding</button>
-      <button class="tab" onclick="filterCategory('hosting', this)"><span class="tab-icon icon-hosting">H</span> Hosting</button>
-      <button class="tab" onclick="filterCategory('ai', this)"><span class="tab-icon icon-ai">A</span> AI Tools</button>
-      <button class="tab" onclick="filterCategory('learning', this)"><span class="tab-icon icon-learning">L</span> Learning</button>
-    </div>
-
-    <!-- RESOURCE CARDS -->
-    <div class="card-grid" id="cardGrid">
-
-      <a class="card" href="https://figma.com" target="_blank" data-category="design">
-        <div class="card-icon">🎨</div>
-        <div class="card-info">
-          <h3>Figma</h3>
-          <p>Free UI/UX design tool used by professionals worldwide.</p>
-          <span class="tag">Design</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://coolors.co" target="_blank" data-category="design">
-        <div class="card-icon">🌈</div>
-        <div class="card-info">
-          <h3>Coolors</h3>
-          <p>Generate beautiful color palettes instantly.</p>
-          <span class="tag">Design</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://fonts.google.com" target="_blank" data-category="design">
-        <div class="card-icon">🔤</div>
-        <div class="card-info">
-          <h3>Google Fonts</h3>
-          <p>Free fonts for your websites and apps.</p>
-          <span class="tag">Design</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://undraw.co" target="_blank" data-category="design">
-        <div class="card-icon">🖼️</div>
-        <div class="card-info">
-          <h3>unDraw</h3>
-          <p>Free open-source illustrations for any project.</p>
-          <span class="tag">Design</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://developer.mozilla.org" target="_blank" data-category="coding">
-        <div class="card-icon">📖</div>
-        <div class="card-info">
-          <h3>MDN Docs</h3>
-          <p>The best reference for HTML, CSS, and JavaScript.</p>
-          <span class="tag">Coding</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://codepen.io" target="_blank" data-category="coding">
-        <div class="card-icon">✏️</div>
-        <div class="card-info">
-          <h3>CodePen</h3>
-          <p>Build and share frontend snippets in the browser.</p>
-          <span class="tag">Coding</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://caniuse.com" target="_blank" data-category="coding">
-        <div class="card-icon">✅</div>
-        <div class="card-info">
-          <h3>Can I Use</h3>
-          <p>Check browser support for CSS and JS features.</p>
-          <span class="tag">Coding</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://stackoverflow.com" target="_blank" data-category="coding">
-        <div class="card-icon">💬</div>
-        <div class="card-info">
-          <h3>Stack Overflow</h3>
-          <p>The go-to Q&A site for coding questions.</p>
-          <span class="tag">Coding</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://vercel.com" target="_blank" data-category="hosting">
-        <div class="card-icon">▲</div>
-        <div class="card-info">
-          <h3>Vercel</h3>
-          <p>Deploy websites instantly for free with GitHub.</p>
-          <span class="tag">Hosting</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://netlify.com" target="_blank" data-category="hosting">
-        <div class="card-icon">🌐</div>
-        <div class="card-info">
-          <h3>Netlify</h3>
-          <p>Free hosting with drag-and-drop deployment.</p>
-          <span class="tag">Hosting</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://pages.github.com" target="_blank" data-category="hosting">
-        <div class="card-icon">🐙</div>
-        <div class="card-info">
-          <h3>GitHub Pages</h3>
-          <p>Host static sites directly from your GitHub repo.</p>
-          <span class="tag">Hosting</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://railway.app" target="_blank" data-category="hosting">
-        <div class="card-icon">🚂</div>
-        <div class="card-info">
-          <h3>Railway</h3>
-          <p>Deploy backend apps and databases with ease.</p>
-          <span class="tag">Hosting</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://claude.ai" target="_blank" data-category="ai">
-        <div class="card-icon">🧠</div>
-        <div class="card-info">
-          <h3>Claude</h3>
-          <p>Anthropic's AI — great for coding help and explanations.</p>
-          <span class="tag">AI Tools</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/features/copilot" target="_blank" data-category="ai">
-        <div class="card-icon">🤖</div>
-        <div class="card-info">
-          <h3>GitHub Copilot</h3>
-          <p>AI pair programmer that suggests code as you type.</p>
-          <span class="tag">AI Tools</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://v0.dev" target="_blank" data-category="ai">
-        <div class="card-icon">⚡</div>
-        <div class="card-info">
-          <h3>v0 by Vercel</h3>
-          <p>Generate UI components from text prompts instantly.</p>
-          <span class="tag">AI Tools</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://chat.openai.com" target="_blank" data-category="ai">
-        <div class="card-icon">💡</div>
-        <div class="card-info">
-          <h3>ChatGPT</h3>
-          <p>OpenAI's assistant for coding, writing, and more.</p>
-          <span class="tag">AI Tools</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://freecodecamp.org" target="_blank" data-category="learning">
-        <div class="card-icon">🏕️</div>
-        <div class="card-info">
-          <h3>freeCodeCamp</h3>
-          <p>Free coding courses from HTML to machine learning.</p>
-          <span class="tag">Learning</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://theodinproject.com" target="_blank" data-category="learning">
-        <div class="card-icon">⚔️</div>
-        <div class="card-info">
-          <h3>The Odin Project</h3>
-          <p>Full-stack web dev curriculum, completely free.</p>
-          <span class="tag">Learning</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://cs50.harvard.edu" target="_blank" data-category="learning">
-        <div class="card-icon">🎓</div>
-        <div class="card-info">
-          <h3>CS50</h3>
-          <p>Harvard's legendary intro to computer science. Free.</p>
-          <span class="tag">Learning</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://javascript.info" target="_blank" data-category="learning">
-        <div class="card-icon">📘</div>
-        <div class="card-info">
-          <h3>JavaScript.info</h3>
-          <p>The best modern JavaScript tutorial on the internet.</p>
-          <span class="tag">Learning</span>
-        </div>
-      </a>
-
-    </div>
-
-    <!-- NO RESULTS -->
-    <p class="no-results hidden" id="noResults">😕 No results found.</p>
-
-    <!-- FOOTER -->
-    <div class="footer">
-      Made with <svg class="footer-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> for <a href="https://game.hackclub.com" target="_blank">Hack Club: The Game</a>
-    </div>
-
   </div>
+
+  <!-- TOAST -->
+  <div class="toast hidden" id="toast"></div>
 
   <script src="script.js"></script>
 </body>
