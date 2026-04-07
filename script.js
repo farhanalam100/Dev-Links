@@ -14,7 +14,7 @@ let editingId      = null;
 /* ══════════════════════════════
    INIT
 ══════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
   restoreTheme();
   renderCustomCards();
   updateAllCounts();
@@ -29,19 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
 ══════════════════════════════ */
 function toggleTheme() {
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const btn = document.getElementById('theme-btn');
+  const html = document.documentElement;
   if (isLight) {
-    document.documentElement.removeAttribute('data-theme');
-    document.getElementById('theme-btn').innerHTML = '<span>🌙</span> Dark mode';
-    localStorage.setItem('devlinks-theme', 'dark');
+    html.removeAttribute('data-theme');
+    if (btn) btn.innerHTML = '<span>🌙</span> Dark mode';
+    safeSetItem('devlinks-theme', 'dark');
   } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-    document.getElementById('theme-btn').innerHTML = '<span>☀️</span> Light mode';
-    localStorage.setItem('devlinks-theme', 'light');
+    html.setAttribute('data-theme', 'light');
+    if (btn) btn.innerHTML = '<span>☀️</span> Light mode';
+    safeSetItem('devlinks-theme', 'light');
   }
 }
 
 function restoreTheme() {
-  const saved = localStorage.getItem('devlinks-theme');
+  const saved = safeGetItem('devlinks-theme');
   if (saved === 'light') {
     document.documentElement.setAttribute('data-theme', 'light');
     const btn = document.getElementById('theme-btn');
@@ -61,7 +63,7 @@ function setView(view) {
   grid.classList.toggle('list-view', view === 'list');
   btnGrid.classList.toggle('active', view === 'grid');
   btnList.classList.toggle('active', view === 'list');
-  localStorage.setItem('devlinks-view', view);
+  safeSetItem('devlinks-view', view);
 }
 
 /* ══════════════════════════════
@@ -145,26 +147,41 @@ function applyFilters() {
 /* ══════════════════════════════
    HELPERS
 ══════════════════════════════ */
+function safeGetItem(key) {
+  try { return localStorage.getItem(key); }
+  catch (error) { console.warn('Storage error: ', error); return null; }
+}
+
+function safeSetItem(key, value) {
+  try { localStorage.setItem(key, value); }
+  catch (error) {
+    console.warn('Storage error: ', error);
+    if (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+      alert('Hard disk / storage quota exceeded! Unable to save changes. Please try clearing your saved links.');
+    }
+  }
+}
+
 function getHref(card) {
   return card.getAttribute('href') || card.querySelector('a')?.href || '';
 }
 
 function getSavedLinks() {
-  try { return JSON.parse(localStorage.getItem('dl-saved') || '[]'); }
+  try { return JSON.parse(safeGetItem('dl-saved') || '[]'); }
   catch { return []; }
 }
 
 function setSavedLinks(arr) {
-  localStorage.setItem('dl-saved', JSON.stringify(arr));
+  safeSetItem('dl-saved', JSON.stringify(arr));
 }
 
 function getCustomLinks() {
-  try { return JSON.parse(localStorage.getItem('dl-custom') || '[]'); }
+  try { return JSON.parse(safeGetItem('dl-custom') || '[]'); }
   catch { return []; }
 }
 
 function setCustomLinks(arr) {
-  localStorage.setItem('dl-custom', JSON.stringify(arr));
+  safeSetItem('dl-custom', JSON.stringify(arr));
 }
 
 /* ══════════════════════════════
