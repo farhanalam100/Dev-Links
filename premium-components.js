@@ -168,7 +168,7 @@ function showPremiumNotification(message, type = 'info', duration = 5000) {
 function initPremiumComponents() {
   // Only initialize if enabled in settings
   const enableParticles = localStorage.getItem('devlinks-particles') === 'true';
-  const enableFloatingActions = localStorage.getItem('devlinks-floating-actions') !== 'false';
+  const enableFloatingActions = localStorage.getItem('devlinks-floating-actions') === 'true';
   const enableProgressBar = localStorage.getItem('devlinks-progress-bar') === 'true';
   
   if (enableParticles) {
