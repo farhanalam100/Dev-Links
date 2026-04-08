@@ -56,6 +56,7 @@ function initDomCache() {
    INIT
 ══════════════════════════════ */
 window.addEventListener('DOMContentLoaded', () => {
+  initDomCache();
   restoreTheme();
   renderCustomCards();
   updateAllCounts();
