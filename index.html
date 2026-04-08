@@ -19,210 +19,75 @@
 
   <div class="app">
 
-    <!-- PROFESSIONAL TOP NAVIGATION -->
-    <header class="top-nav">
-      <div class="nav-container">
-        <div class="nav-brand">
-          <div class="logo">
-            <svg viewBox="0 0 32 32" fill="none">
-              <circle cx="10" cy="10" r="4" fill="currentColor"/>
-              <circle cx="22" cy="22" r="4" fill="currentColor"/>
-              <line x1="10" y1="14" x2="22" y2="18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="brand-text">
-            <h1>DevLinks</h1>
-            <span>Professional Resource Hub</span>
-          </div>
-        </div>
-
-        <nav class="main-nav">
-          <div class="nav-group">
-            <button class="nav-item active" data-cat="all" onclick="filterCategory('all',this)">
-              <span class="nav-label">All Resources</span>
-              <span class="nav-count" id="nc-all">20</span>
-            </button>
-            <button class="nav-item" data-cat="saved" onclick="filterCategory('saved',this)">
-              <span class="nav-label">Saved</span>
-              <span class="nav-count" id="nc-saved">0</span>
-            </button>
-          </div>
-
-          <div class="nav-dropdown">
-            <button class="nav-item dropdown-toggle" onclick="toggleDropdown('categories')">
-              <span class="nav-label">Categories</span>
-              <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none">
-                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <div class="dropdown-menu" id="categories-dropdown">
-              <button class="dropdown-item" data-cat="design" onclick="filterCategory('design',this)">
-                <span class="item-icon design-icon">â¦</span>
-                <span class="item-text">Design</span>
-                <span class="item-count" id="nc-design">4</span>
-              </button>
-              <button class="dropdown-item" data-cat="coding" onclick="filterCategory('coding',this)">
-                <span class="item-icon coding-icon"></span>
-                <span class="item-text">Coding</span>
-                <span class="item-count" id="nc-coding">4</span>
-              </button>
-              <button class="dropdown-item" data-cat="hosting" onclick="filterCategory('hosting',this)">
-                <span class="item-icon hosting-icon">â²</span>
-                <span class="item-text">Hosting</span>
-                <span class="item-count" id="nc-hosting">4</span>
-              </button>
-              <button class="dropdown-item" data-cat="ai" onclick="filterCategory('ai',this)">
-                <span class="item-icon ai-icon">â</span>
-                <span class="item-text">AI Tools</span>
-                <span class="item-count" id="nc-ai">4</span>
-              </button>
-              <button class="dropdown-item" data-cat="learning" onclick="filterCategory('learning',this)">
-                <span class="item-icon learning-icon">â</span>
-                <span class="item-text">Learning</span>
-                <span class="item-count" id="nc-learning">4</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="nav-dropdown">
-            <button class="nav-item dropdown-toggle" onclick="toggleDropdown('tools')">
-              <span class="nav-label">Tools</span>
-              <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none">
-                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <div class="dropdown-menu" id="tools-dropdown">
-              <button class="dropdown-item" onclick="openAddForm()">
-                <span class="item-icon">ï¼</span>
-                <span class="item-text">Add Resource</span>
-              </button>
-              <button class="dropdown-item" onclick="openCollectionsPanel()">
-                <span class="item-icon">ð</span>
-                <span class="item-text">Collections</span>
-              </button>
-              <button class="dropdown-item" onclick="openDashboard()">
-                <span class="item-icon">ð</span>
-                <span class="item-text">Dashboard</span>
-              </button>
-              <button class="dropdown-item" onclick="openSharePanel()">
-                <span class="item-icon">ð</span>
-                <span class="item-text">Share</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="nav-actions">
-            <button class="action-btn" onclick="toggleTheme()" title="Toggle theme">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </button>
-            <button class="action-btn" onclick="openThemePanel()" title="Customize">
-              <svg viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 1.54l4.24 4.24M20.46 20.46l-4.24-4.24M1.54 20.46l4.24-4.24" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </button>
-          </div>
-        </nav>
-
-        <!-- Mobile Menu Toggle -->
-        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-mark">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="5" fill="white" />
+            <circle cx="28" cy="28" r="5" fill="white" />
+            <line x1="12" y1="17" x2="28" y2="23" stroke="white" stroke-width="4" stroke-linecap="round" />
           </svg>
-        </button>
+        </div>
+        <div>
+          <div class="brand-name">Dev<span>Links</span></div>
+          <div class="brand-sub">resource hub</div>
+        </div>
       </div>
 
-      <!-- Mobile Navigation -->
-      <nav class="mobile-nav" id="mobileNav">
-        <div class="mobile-nav-header">
-          <div class="mobile-brand">
-            <div class="logo">
-              <svg viewBox="0 0 32 32" fill="none">
-                <circle cx="10" cy="10" r="4" fill="currentColor"/>
-                <circle cx="22" cy="22" r="4" fill="currentColor"/>
-                <line x1="10" y1="14" x2="22" y2="18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <span>DevLinks</span>
-          </div>
-          <button class="mobile-close" onclick="toggleMobileNav()">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
-        <div class="mobile-nav-content">
-          <div class="mobile-nav-section">
-            <h3>Browse</h3>
-            <button class="mobile-nav-item active" data-cat="all" onclick="filterCategory('all',this)">
-              <span>All Resources</span>
-              <span class="mobile-count" id="nc-all-mobile">20</span>
-            </button>
-            <button class="mobile-nav-item" data-cat="saved" onclick="filterCategory('saved',this)">
-              <span>Saved</span>
-              <span class="mobile-count" id="nc-saved-mobile">0</span>
-            </button>
-          </div>
-          <div class="mobile-nav-section">
-            <h3>Categories</h3>
-            <button class="mobile-nav-item" data-cat="design" onclick="filterCategory('design',this)">
-              <span class="mobile-icon design-icon">â¦</span>
-              <span>Design</span>
-              <span class="mobile-count" id="nc-design-mobile">4</span>
-            </button>
-            <button class="mobile-nav-item" data-cat="coding" onclick="filterCategory('coding',this)">
-              <span class="mobile-icon coding-icon"></span>
-              <span>Coding</span>
-              <span class="mobile-count" id="nc-coding-mobile">4</span>
-            </button>
-            <button class="mobile-nav-item" data-cat="hosting" onclick="filterCategory('hosting',this)">
-              <span class="mobile-icon hosting-icon">â²</span>
-              <span>Hosting</span>
-              <span class="mobile-count" id="nc-hosting-mobile">4</span>
-            </button>
-            <button class="mobile-nav-item" data-cat="ai" onclick="filterCategory('ai',this)">
-              <span class="mobile-icon ai-icon">â</span>
-              <span>AI Tools</span>
-              <span class="mobile-count" id="nc-ai-mobile">4</span>
-            </button>
-            <button class="mobile-nav-item" data-cat="learning" onclick="filterCategory('learning',this)">
-              <span class="mobile-icon learning-icon">â</span>
-              <span>Learning</span>
-              <span class="mobile-count" id="nc-learning-mobile">4</span>
-            </button>
-          </div>
-          <div class="mobile-nav-section">
-            <h3>Tools</h3>
-            <button class="mobile-nav-item" onclick="openAddForm()">
-              <span class="mobile-icon">ï¼</span>
-              <span>Add Resource</span>
-            </button>
-            <button class="mobile-nav-item" onclick="openCollectionsPanel()">
-              <span class="mobile-icon">ð</span>
-              <span>Collections</span>
-            </button>
-            <button class="mobile-nav-item" onclick="openDashboard()">
-              <span class="mobile-icon">ð</span>
-              <span>Dashboard</span>
-            </button>
-            <button class="mobile-nav-item" onclick="openSharePanel()">
-              <span class="mobile-icon">ð</span>
-              <span>Share</span>
-            </button>
-            <button class="mobile-nav-item" onclick="toggleTheme()">
-              <span class="mobile-icon">ð</span>
-              <span>Toggle Theme</span>
-            </button>
-            <button class="mobile-nav-item" onclick="openThemePanel()">
-              <span class="mobile-icon">ð¨</span>
-              <span>Customize</span>
-            </button>
-          </div>
-        </div>
+      <nav class="sidebar-nav">
+        <button class="nav-btn active" data-cat="all" onclick="filterCategory('all',this)" aria-label="All Resources" aria-pressed="true">
+          <span class="nav-icon" aria-hidden="true">â¡</span> All Resources
+          <span class="nav-count" id="nc-all" aria-label="20 resources">20</span>
+        </button>
+        <button class="nav-btn" data-cat="saved" onclick="filterCategory('saved',this)" aria-label="Saved Resources">
+          <span class="nav-icon" aria-hidden="true">â</span> Saved
+          <span class="nav-count" id="nc-saved" aria-label="0 resources">0</span>
+        </button>
+        <div class="nav-divider">Categories</div>
+        <button class="nav-btn" data-cat="design" onclick="filterCategory('design',this)" aria-label="Design Resources">
+          <span class="nav-icon cat-design" aria-hidden="true">â¦</span> Design
+          <span class="nav-count" id="nc-design" aria-label="4 resources">4</span>
+        </button>
+        <button class="nav-btn" data-cat="coding" onclick="filterCategory('coding',this)" aria-label="Coding Resources">
+          <span class="nav-icon cat-coding" aria-hidden="true"></></span> Coding
+          <span class="nav-count" id="nc-coding" aria-label="4 resources">4</span>
+        </button>
+        <button class="nav-btn" data-cat="hosting" onclick="filterCategory('hosting',this)" aria-label="Hosting Resources">
+          <span class="nav-icon cat-hosting" aria-hidden="true">â²</span> Hosting
+          <span class="nav-count" id="nc-hosting" aria-label="4 resources">4</span>
+        </button>
+        <button class="nav-btn" data-cat="ai" onclick="filterCategory('ai',this)" aria-label="AI Tools Resources">
+          <span class="nav-icon cat-ai" aria-hidden="true">â</span> AI Tools
+          <span class="nav-count" id="nc-ai" aria-label="4 resources">4</span>
+        </button>
+        <button class="nav-btn" data-cat="learning" onclick="filterCategory('learning',this)" aria-label="Learning Resources">
+          <span class="nav-icon cat-learning" aria-hidden="true">â</span> Learning
+          <span class="nav-count" id="nc-learning" aria-label="4 resources">4</span>
+        </button>
       </nav>
-    </header>
+
+      <div class="sidebar-footer">
+        <button class="sidebar-action" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle dark mode">
+          <span>ð</span> Dark mode
+        </button>
+        <button class="sidebar-action" onclick="openThemePanel()">
+          <span>ð¨</span> Customize
+        </button>
+        <button class="sidebar-action" onclick="openDashboard()">
+          <span>ð</span> Dashboard
+        </button>
+        <button class="sidebar-action" onclick="openSharePanel()">
+          <span>ð</span> Share
+        </button>
+        <button class="sidebar-action" onclick="openCollectionsPanel()" aria-label="Open collections">
+          <span>ð</span> Collections
+        </button>
+        <button class="sidebar-action" onclick="openAddForm()" aria-label="Add new resource">
+          <span>ï¼</span> Add resource
+        </button>
+      </div>
+    </aside>
 
     <!-- ══ COMMAND PALETTE ══ -->
   <div class="cmd-overlay hidden" id="cmd-overlay" onclick="handleCmdOverlayClick(event)">
