@@ -431,12 +431,16 @@ const LOGO_MAP = {
 };
 
 function loadFavicons() {
-  document.querySelectorAll('.card').forEach(card => {
-    const href = getHref(card);
-    const iconEl = card.querySelector('.card-icon');
-    if (!href || !iconEl) return;
-    loadFaviconFor(iconEl, href, card.querySelector('h3')?.textContent || '?');
-  });
+  try {
+    document.querySelectorAll('.card').forEach(card => {
+      const href = getHref(card);
+      const iconEl = card.querySelector('.card-icon');
+      if (!href || !iconEl) return;
+      loadFaviconFor(iconEl, href, card.querySelector('h3')?.textContent || '?');
+    });
+  } catch (error) {
+    console.warn('Error loading favicons:', error);
+  }
 }
 
 function loadFaviconFor(iconEl, href, title) {
@@ -458,34 +462,45 @@ function loadFaviconFor(iconEl, href, title) {
       };
     };
     iconEl.appendChild(img);
-  } catch { }
+  } catch (error) {
+    console.warn('Error loading favicon for', href, ':', error);
+    // Fallback to first letter
+    if (iconEl && title) {
+      iconEl.textContent = title.charAt(0).toUpperCase();
+      iconEl.classList.add('logo-missing');
+    }
+  }
 }
 
 /* ══════════════════════════════
    COUNTS
 ══════════════════════════════ */
 function updateAllCounts() {
-  const allCards = document.querySelectorAll('.card');
-  const cats = { design: 0, coding: 0, hosting: 0, ai: 0, learning: 0 };
+  try {
+    const allCards = document.querySelectorAll('.card');
+    const cats = { design: 0, coding: 0, hosting: 0, ai: 0, learning: 0 };
 
-  allCards.forEach(c => {
-    const cat = c.dataset.category;
-    if (cats[cat] !== undefined) cats[cat]++;
-  });
+    allCards.forEach(c => {
+      const cat = c.dataset.category;
+      if (cats[cat] !== undefined) cats[cat]++;
+    });
 
-  const saved = getSavedLinks();
-  const custom = getCustomLinks();
+    const saved = getSavedLinks();
+    const custom = getCustomLinks();
 
-  document.getElementById('total-links').textContent = allCards.length;
-  document.getElementById('total-categories').textContent = Object.keys(cats).length;
-  document.getElementById('total-saved').textContent = saved.length;
-  document.getElementById('total-custom').textContent = custom.length;
+    document.getElementById('total-links').textContent = allCards.length;
+    document.getElementById('total-categories').textContent = Object.keys(cats).length;
+    document.getElementById('total-saved').textContent = saved.length;
+    document.getElementById('total-custom').textContent = custom.length;
 
-  const nc = { all: allCards.length, saved: saved.length, ...cats };
-  Object.entries(nc).forEach(([cat, count]) => {
-    const el = document.getElementById(`nc-${cat}`);
-    if (el) el.textContent = count;
-  });
+    const nc = { all: allCards.length, saved: saved.length, ...cats };
+    Object.entries(nc).forEach(([cat, count]) => {
+      const el = document.getElementById(`nc-${cat}`);
+      if (el) el.textContent = count;
+    });
+  } catch (error) {
+    console.warn('Error updating counts:', error);
+  }
 }
 
 /* ══════════════════════════════
