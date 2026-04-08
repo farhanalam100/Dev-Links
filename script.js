@@ -1219,13 +1219,6 @@ function initKeyboard() {
     const tag = document.activeElement?.tagName;
     const inInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
 
-    // Ctrl+K / Cmd+K
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      openCmdPalette();
-      return;
-    }
-
     if (isCmdPaletteOpen()) {
       handleCmdKeydown(e);
       return;

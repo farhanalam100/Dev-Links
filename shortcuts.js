@@ -63,6 +63,13 @@ const shortcuts = {
 
 function initAdvancedKeyboard() {
   document.addEventListener('keydown', (e) => {
+    // Handle Ctrl+K specifically first
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      openCmdPalette();
+      return;
+    }
+    
     // Don't trigger shortcuts when typing in input fields
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
       // Allow some shortcuts even in inputs
