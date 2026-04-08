@@ -674,6 +674,9 @@ function deleteResource(id) {
   updateAllCounts();
   applyFilters();
   showToast('Resource deleted', 't-info');
+}
+
+/* ══════════════════════════════
    FAVICONS / LOGOS
 ══════════════════════════════ */
 const LOGO_MAP = {
@@ -1001,7 +1004,7 @@ const LOGO_MAP = {
   'dropbox.com': 'dropbox',
   'googledrive.com': 'googledrive',
   'onedrive.live.com': 'microsoft',
-  'icloud.com': 'apple',
+  'icloud.com': 'apple'
 };
 
 function loadFavicons() {
