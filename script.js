@@ -1179,6 +1179,63 @@ function toggleMobileSidebar() {
 }
 
 /* ══════════════════════════════
+   PROFESSIONAL NAVIGATION FUNCTIONS
+══════════════════════════════ */
+function toggleDropdown(name) {
+  const dropdown = document.getElementById(name + '-dropdown');
+  const allDropdowns = document.querySelectorAll('.dropdown-menu');
+  
+  // Close all other dropdowns
+  allDropdowns.forEach(d => {
+    if (d !== dropdown) {
+      d.style.opacity = '0';
+      d.style.visibility = 'hidden';
+      d.style.transform = 'translateX(-50%) translateY(-8px)';
+    }
+  });
+  
+  // Toggle current dropdown
+  if (dropdown.style.opacity === '1') {
+    dropdown.style.opacity = '0';
+    dropdown.style.visibility = 'hidden';
+    dropdown.style.transform = 'translateX(-50%) translateY(-8px)';
+  } else {
+    dropdown.style.opacity = '1';
+    dropdown.style.visibility = 'visible';
+    dropdown.style.transform = 'translateX(-50%) translateY(0)';
+  }
+}
+
+function toggleMobileNav() {
+  const mobileNav = document.getElementById('mobileNav');
+  mobileNav.classList.toggle('open');
+  
+  // Close dropdowns when mobile nav toggles
+  document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+    dropdown.style.opacity = '0';
+    dropdown.style.visibility = 'hidden';
+    dropdown.style.transform = 'translateX(-50%) translateY(-8px)';
+  });
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.nav-dropdown')) {
+    document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+      dropdown.style.opacity = '0';
+      dropdown.style.visibility = 'hidden';
+      dropdown.style.transform = 'translateX(-50%) translateY(-8px)';
+    });
+  }
+  
+  // Close mobile nav when clicking outside
+  if (!e.target.closest('.mobile-nav') && !e.target.closest('.mobile-nav-toggle')) {
+    const mobileNav = document.getElementById('mobileNav');
+    if (mobileNav) mobileNav.classList.remove('open');
+  }
+});
+
+/* ══════════════════════════════
    TOAST
 ══════════════════════════════ */
 let toastTimeout;
