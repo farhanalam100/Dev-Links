@@ -94,15 +94,22 @@
       </div>
     </aside>
 
-    <!-- ══ COMMAND PALETTE ══ -->
+    <!-- COMMAND PALETTE -->
   <div class="cmd-overlay hidden" id="cmd-overlay" onclick="handleCmdOverlayClick(event)">
     <div class="cmd-modal">
-      <div class="cmd-search">
-        <svg class="cmd-icon" viewBox="0 0 24 24" fill="none">
-          <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
-          <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
-        <input type="text" id="cmd-input" placeholder="Type a command or search..." autocomplete="off">
+      <div class="cmd-header">
+        <div class="cmd-search">
+          <svg class="cmd-icon" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <input type="text" id="cmd-input" placeholder="Type a command or search..." autocomplete="off">
+        </div>
+        <button class="cmd-close" onclick="closeCmdPalette()" aria-label="Close command palette">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
       <div class="cmd-results" id="cmd-results"></div>
     </div>
@@ -297,6 +304,11 @@
           </div>
         </div>
         <div class="topbar-actions">
+          <button class="topbar-btn close-btn" onclick="history.back()" title="Go back" aria-label="Go back to previous page">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
           <button class="topbar-btn" onclick="openAddForm()" title="Add resource" aria-label="Add new resource">
             <svg viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />

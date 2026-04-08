@@ -673,6 +673,32 @@ body {
   color: var(--text);
 }
 
+.topbar-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 8px;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar-btn.close-btn {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.topbar-btn.close-btn:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 65, 96, 0.3);
+}
+
 /* ── SEARCH FILTERS PANEL ── */
 .search-filters-panel {
   position: fixed;
