@@ -245,6 +245,7 @@ body {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+
 .sidebar-brand {
   display: flex;
   align-items: center;
@@ -3063,12 +3064,40 @@ body {
   transform: scale(1) translateY(0);
 }
 
+.cmd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
 .cmd-search {
   display: flex;
   align-items: center;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
   gap: 12px;
+  flex: 1;
+}
+
+.cmd-close {
+  background: none;
+  border: none;
+  color: var(--text-2);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--r);
+  transition: all 0.2s;
+  margin-left: 12px;
+}
+
+.cmd-close:hover {
+  background: var(--surface3);
+  color: var(--text);
+}
+
+.cmd-close svg {
+  width: 18px;
+  height: 18px;
 }
 
 .cmd-icon {

@@ -907,7 +907,56 @@
   <!-- TOAST -->
   <div class="toast hidden" id="toast"></div>
 
-  <!-- ══ COLLECTIONS PANEL ══ -->
+  <!-- SHARE PANEL -->
+  <div class="share-panel hidden" id="sharePanel">
+    <div class="share-modal">
+      <div class="share-header">
+        <h3>Share Your Resources</h3>
+        <button class="share-close" onclick="closeSharePanel()" aria-label="Close share panel">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="share-content">
+        <div class="share-options">
+          <button class="share-option" onclick="shareAsLink()">
+            <span class="share-icon">ð</span>
+            <div class="share-option-text">
+              <h4>Share as Link</h4>
+              <p>Get a shareable link to your collection</p>
+            </div>
+          </button>
+          <button class="share-option" onclick="exportAsJSON()">
+            <span class="share-icon">ð¼</span>
+            <div class="share-option-text">
+              <h4>Export as JSON</h4>
+              <p>Download your resources as JSON file</p>
+            </div>
+          </button>
+          <button class="share-option" onclick="exportAsCSV()">
+            <span class="share-icon">ð</span>
+            <div class="share-option-text">
+              <h4>Export as CSV</h4>
+              <p>Download your resources as CSV file</p>
+            </div>
+          </button>
+          <button class="share-option" onclick="copyToClipboard()">
+            <span class="share-icon">ð</span>
+            <div class="share-option-text">
+              <h4>Copy to Clipboard</h4>
+              <p>Copy all resources to clipboard</p>
+            </div>
+          </button>
+        </div>
+        <div class="share-actions">
+          <button class="btn-secondary" onclick="closeSharePanel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLLECTIONS PANEL -->
   <div class="collections-panel hidden" id="collectionsPanel">
     <div class="collections-modal">
       <div class="collections-header">
