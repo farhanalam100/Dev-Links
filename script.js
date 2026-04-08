@@ -11,6 +11,47 @@ let activeCategory = 'all';
 let currentView = 'grid';
 let editingId = null;
 
+/* ── CACHED DOM ELEMENTS ── */
+const domCache = {
+  searchInput: null,
+  cardGrid: null,
+  modalOverlay: null,
+  cmdOverlay: null,
+  cmdInput: null,
+  cmdResults: null,
+  sidebar: null,
+  themeBtn: null,
+  sectionTitle: null,
+  sectionSub: null,
+  noResults: null,
+  noResultsText: null,
+  footerCount: null,
+  totalLinks: null,
+  totalCategories: null,
+  totalSaved: null,
+  totalCustom: null
+};
+
+function initDomCache() {
+  domCache.searchInput = document.getElementById('searchInput');
+  domCache.cardGrid = document.getElementById('cardGrid');
+  domCache.modalOverlay = document.getElementById('modalOverlay');
+  domCache.cmdOverlay = document.getElementById('cmd-overlay');
+  domCache.cmdInput = document.getElementById('cmd-input');
+  domCache.cmdResults = document.getElementById('cmd-results');
+  domCache.sidebar = document.getElementById('sidebar');
+  domCache.themeBtn = document.getElementById('theme-btn');
+  domCache.sectionTitle = document.getElementById('section-title');
+  domCache.sectionSub = document.getElementById('section-sub');
+  domCache.noResults = document.getElementById('noResults');
+  domCache.noResultsText = document.getElementById('noResultsText');
+  domCache.footerCount = document.getElementById('footer-count');
+  domCache.totalLinks = document.getElementById('total-links');
+  domCache.totalCategories = document.getElementById('total-categories');
+  domCache.totalSaved = document.getElementById('total-saved');
+  domCache.totalCustom = document.getElementById('total-custom');
+}
+
 /* ══════════════════════════════
    INIT
 ══════════════════════════════ */
@@ -249,59 +290,6 @@ function restoreSavedButtons() {
 /* ══════════════════════════════
    CUSTOM RESOURCES — CRUD
 ══════════════════════════════ */
-function renderCustomCards() {
-  // Remove existing
-  document.querySelectorAll('.card.custom-card').forEach(c => c.remove());
-
-  const items = getCustomLinks();
-  const grid = document.getElementById('cardGrid');
-  const saved = getSavedLinks();
-
-  items.forEach(item => {
-    const card = document.createElement('a');
-    card.className = 'card custom-card';
-    card.href = item.url;
-    card.target = '_blank';
-    card.rel = 'noreferrer';
-    card.dataset.category = item.category;
-    card.dataset.tags = item.tags || '';
-
-    const catClass = `cat-${item.category}`;
-    const isSaved = saved.includes(item.url);
-
-    card.innerHTML = `
-      <div class="card-icon-wrap ${catClass}">
-        <div class="card-icon" id="ci-${item.id}">
-          <span>${item.title.charAt(0).toUpperCase()}</span>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-header-row">
-          <h3>${escHtml(item.title)}</h3>
-          <span class="card-badge ${catClass}">${catLabel(item.category)}</span>
-        </div>
-        <p>${escHtml(item.description)}</p>
-      </div>
-      <div class="card-footer">
-        <span class="card-domain">${domainOf(item.url)}</span>
-        <button class="save-btn ${isSaved ? 'saved' : ''}">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-      <div class="custom-actions" data-id="${item.id}">
-        <button class="edit-btn" data-action="edit">✏ Edit</button>
-        <button class="del-btn" data-action="delete">✕ Delete</button>
-      </div>
-    `;
-
-    grid.appendChild(card);
-    loadFaviconFor(card.querySelector('.card-icon'), item.url, item.title);
-  });
-}
-
-function catLabel(cat) {
-  return { design: 'Design', coding: 'Coding', hosting: 'Hosting', ai: 'AI Tools', learning: 'Learning' }[cat] || cat;
-}
 
 function domainOf(url) {
   try { return new URL(url).hostname.replace(/^www\./, ''); }
