@@ -1105,6 +1105,12 @@ function loadFaviconFor(iconEl, href, title) {
   }
 }
 
+// Force load logos immediately for testing
+setTimeout(() => {
+  console.log('Force loading logos...');
+  loadFavicons();
+}, 100);
+
 /* ══════════════════════════════
    COUNTS
 ══════════════════════════════ */
