@@ -53,6 +53,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: none !important;
+  animation: none !important;
 }
 
 /* ── PREMIUM ANIMATIONS ── */
@@ -263,12 +265,8 @@ body {
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 4px 12px rgba(239, 65, 96, 0.3);
-  transition: transform 0.3s ease;
 }
 
-.logo-mark:hover {
-  transform: rotate(360deg) scale(1.1);
-}
 
 .logo-mark svg {
   width: 24px;
@@ -698,17 +696,15 @@ body {
 
 /* ── SEARCH FILTERS PANEL ── */
 .search-filters-panel {
-  position: fixed;
-  top: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
   right: 0;
-  width: 320px;
-  height: 100vh;
   background: var(--surface);
-  border-left: 1px solid var(--border-md);
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-md);
+  border-radius: var(--r-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   z-index: 1000;
-  transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .search-filters-panel:not(.hidden) {
@@ -3206,7 +3202,6 @@ body {
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   transform: scale(0.96) translateY(-10px);
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
 }
