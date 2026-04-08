@@ -197,7 +197,7 @@ function addPremiumSettings() {
       </div>
       <div class="setting-item">
         <label>
-          <input type="checkbox" id="floatingActionsToggle" ${localStorage.getItem('devlinks-floating-actions') !== 'false' ? 'checked' : ''}>
+          <input type="checkbox" id="floatingActionsToggle" ${localStorage.getItem('devlinks-floating-actions') === 'true' ? 'checked' : ''}>
           Floating Action Buttons
         </label>
       </div>
