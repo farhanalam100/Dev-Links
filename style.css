@@ -1722,13 +1722,7 @@ body {
 }
 
 .page-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--surface3);
-  z-index: 1000;
+  display: none;
 }
 
 .progress-bar {
@@ -1740,17 +1734,7 @@ body {
 /* Floating actions removed - can be re-enabled via premium settings */
 
 .premium-notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  min-width: 300px;
-  max-width: 400px;
-  background: var(--surface);
-  border: 1px solid var(--border-md);
-  border-radius: var(--r-lg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  z-index: 10000;
-  animation: slideInUp 0.3s ease-out;
+  display: none;
 }
 
 .premium-notification.success {
