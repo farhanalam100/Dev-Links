@@ -22,6 +22,29 @@ window.addEventListener('DOMContentLoaded', () => {
   loadFavicons();
   applyFilters();
   initKeyboard();
+  
+  // Event delegation for custom card actions
+  document.addEventListener('click', (e) => {
+    const customActions = e.target.closest('.custom-actions');
+    if (customActions) {
+      e.preventDefault();
+      const id = customActions.dataset.id;
+      const action = e.target.dataset.action;
+      
+      if (action === 'edit') {
+        openEditForm(id);
+      } else if (action === 'delete') {
+        deleteResource(id);
+      }
+    }
+    
+    // Handle save button clicks on custom cards
+    const saveBtn = e.target.closest('.save-btn');
+    if (saveBtn && e.target.closest('.custom-card')) {
+      e.preventDefault();
+      toggleSaveCard(saveBtn);
+    }
+  });
 });
 
 /* ══════════════════════════════
