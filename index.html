@@ -89,24 +89,23 @@
     </aside>
 
     <!-- COMMAND PALETTE -->
-  <div class="cmd-overlay hidden" id="cmd-overlay" onclick="handleCmdOverlayClick(event)">
-    <div class="cmd-modal">
-      <div class="cmd-header">
-        <div class="cmd-search">
-          <svg class="cmd-icon" viewBox="0 0 24 24" fill="none">
-            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
-            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          <input type="text" id="cmd-input" placeholder="Type a command or search..." autocomplete="off">
-        </div>
-        <button class="cmd-close" onclick="closeCmdPalette()" aria-label="Close command palette">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+  <div class="cmd-modal hidden" id="cmd-modal">
+    <div class="cmd-header">
+      <div class="cmd-search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-1.5-1.5-1.5"/>
+          <path d="m4 4 12 12"/>
+        </svg>
+        <input type="text" id="cmd-input" placeholder="Type a command or search..." autocomplete="off">
       </div>
-      <div class="cmd-results" id="cmd-results"></div>
+      <button class="cmd-close" onclick="closeCmdPalette()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
     </div>
+    <div class="cmd-results" id="cmd-results"></div>
   </div>
 
   <!-- ══ DASHBOARD PANEL ══ -->
@@ -841,22 +840,14 @@
   </div>
 
   <!-- ══ ADD/EDIT RESOURCE MODAL ══ -->
-  <div class="modal-overlay hidden" id="modalOverlay" onclick="handleOverlayClick(event)">
-    <div class="modal" id="modal">
-      <div class="modal-header">
-        <h2 id="modalTitle">Add Resource</h2>
-        <button class="modal-close" onclick="closeModal()">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
-      </div>
-      <form id="resourceForm" onsubmit="handleResourceForm(event)" novalidate>
-        <input type="hidden" id="resourceId" value="" />
-        <div class="form-field">
-          <label for="resourceTitle">Title <span class="required">*</span></label>
-          <input type="text" id="resourceTitle" placeholder="e.g. Tailwind CSS" autocomplete="off" />
-          <span class="field-error" id="err-title"></span>
+  <div class="modal hidden" id="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Add Resource</h2>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
         </div>
         <div class="form-field">
           <label for="resourceUrl">URL <span class="required">*</span></label>
