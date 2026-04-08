@@ -532,8 +532,16 @@ function showToast(msg, type = '') {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
   toast.className = `toast show ${type}`;
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => toast.classList.remove('show'), 2600);
+  
+  // Clear existing timeout to prevent memory leaks
+  if (toastTimeout) {
+    clearTimeout(toastTimeout);
+  }
+  
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+    toastTimeout = null; // Clear reference
+  }, 2600);
 }
 
 /* ══════════════════════════════
