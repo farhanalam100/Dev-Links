@@ -1028,7 +1028,8 @@ const observer = new MutationObserver((mutations) => {
       mutation.addedNodes.forEach(node => {
         if (node.nodeType === 1 && node.classList.contains('card')) {
           const href = getHref(node);
-          const iconEl = node.querySelector('.card-icon');
+          const iconWrap = node.querySelector('.card-icon-wrap');
+          const iconEl = iconWrap ? iconWrap.querySelector('.card-icon') : null;
           if (href && iconEl) {
             setTimeout(() => loadFaviconFor(iconEl, href, node.querySelector('h3')?.textContent || '?'), 100);
           }
