@@ -831,12 +831,12 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  backdrop-filter: blur(4px);
+  backdrop-filter: none;
 }
 
 .theme-modal {
@@ -1059,12 +1059,12 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  backdrop-filter: blur(4px);
+  backdrop-filter: none;
 }
 
 .dashboard-modal {
@@ -1698,7 +1698,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1860,12 +1860,12 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 3000;
-  backdrop-filter: blur(4px);
+  backdrop-filter: none;
 }
 
 .share-overlay {
@@ -2638,14 +2638,12 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, .72);
-  backdrop-filter: blur(6px);
-  z-index: 100;
+  background: transparent;
+  backdrop-filter: none;
+  z-index: 5000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  animation: fadeIn .2s ease;
 }
 
 @keyframes fadeIn {
@@ -3168,16 +3166,16 @@ body {
 .cmd-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   z-index: 1000;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding-top: 12vh;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .cmd-overlay:not(.hidden) {
