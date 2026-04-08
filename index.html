@@ -71,14 +71,25 @@
         <button class="sidebar-action" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle dark mode">
           <span>🌙</span> Dark mode
         </button>
-        <button class="sidebar-action" onclick="openThemePanel()" aria-label="Customize theme">
+        <button class="sidebar-action" onclick="openThemePanel()">
           <span>🎨</span> Customize
+        </button>
+        <button class="sidebar-action" onclick="openDashboard()">
+          <span>📊</span> Dashboard
+        </button>
+        <button class="sidebar-action" onclick="openSharePanel()">
+          <span>🔗</span> Share
+        </button>
+        <button class="sidebar-close-btn" onclick="toggleMobileSidebar()" title="Close menu" aria-label="Close mobile menu">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="sidebar-action" onclick="openCollectionsPanel()" aria-label="Open collections">
+          <span>📁</span> Collections
         </button>
         <button class="sidebar-action" onclick="openAddForm()" aria-label="Add new resource">
           <span>＋</span> Add resource
-        </button>
-        <button class="sidebar-action" onclick="openDashboard()" aria-label="Open dashboard">
-          <span>📊</span> Dashboard
         </button>
         <button class="sidebar-action" onclick="openCollectionsPanel()" aria-label="Open collections">
           <span>📁</span> Collections
