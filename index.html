@@ -41,6 +41,7 @@
         </button>
         <button class="nav-btn" data-cat="saved" onclick="filterCategory('saved',this)" aria-label="Saved Resources">
           <span class="nav-icon" aria-hidden="true">SAV</span> Saved
+          <span class="nav-count" id="nc-saved" aria-label="0 resources">0</span>
         </button>
         <div class="nav-divider">Categories</div>
         <button class="nav-btn" data-cat="design" onclick="filterCategory('design',this)" aria-label="Design Resources">
@@ -150,23 +151,18 @@
             <div class="category-chart" id="categoryChart">
               <div class="chart-bar" data-category="design" style="width: 0%">
                 <span class="chart-label">Design</span>
-                <span class="chart-value">0</span>
               </div>
               <div class="chart-bar" data-category="coding" style="width: 0%">
                 <span class="chart-label">Coding</span>
-                <span class="chart-value">0</span>
               </div>
               <div class="chart-bar" data-category="hosting" style="width: 0%">
                 <span class="chart-label">Hosting</span>
-                <span class="chart-value">0</span>
               </div>
               <div class="chart-bar" data-category="ai" style="width: 0%">
                 <span class="chart-label">AI Tools</span>
-                <span class="chart-value">0</span>
               </div>
               <div class="chart-bar" data-category="learning" style="width: 0%">
                 <span class="chart-label">Learning</span>
-                <span class="chart-value">0</span>
               </div>
             </div>
           </div>

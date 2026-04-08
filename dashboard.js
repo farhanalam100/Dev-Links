@@ -49,8 +49,6 @@ function updateCategoryChart() {
     if (bar) {
       const percentage = total > 0 ? (count / total) * 100 : 0;
       bar.style.width = `${percentage}%`;
-      const valueElement = bar.querySelector('.chart-value');
-      if (valueElement) valueElement.textContent = count;
     }
   });
 }
