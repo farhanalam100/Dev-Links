@@ -1025,19 +1025,50 @@ function loadFaviconFor(iconEl, href, title) {
     const host = new URL(href).hostname.replace(/^www\./, '');
     const slug = LOGO_MAP[host] || host.split('.')[0];
 
+    console.log('Loading logo for:', host, '→', slug); // Debug log
+
     iconEl.innerHTML = '';
     const img = document.createElement('img');
     img.alt = title + ' logo';
-    img.style.cssText = 'width:24px;height:24px;object-fit:contain;';
-    img.src = `https://cdn.simpleicons.org/${slug}/ffffff`;
-    img.onerror = () => {
-      // fallback to favicon
-      img.src = `https://www.google.com/s2/favicons?sz=64&domain=${host}`;
-      img.onerror = () => {
-        iconEl.textContent = title.charAt(0).toUpperCase();
-        iconEl.classList.add('logo-missing');
-      };
+    img.style.cssText = 'width:24px;height:24px;object-fit:contain;display:block;';
+    
+    // Try multiple CDN sources for better reliability
+    const cdnSources = [
+      `https://cdn.simpleicons.org/${slug}/ffffff`,
+      `https://cdn.jsdelivr.net/npm/simple-icons@v5/svg/${slug}.svg`,
+      `https://unpkg.com/simple-icons@v5/svg/${slug}.svg`
+    ];
+    
+    let currentSource = 0;
+    
+    function tryNextSource() {
+      if (currentSource >= cdnSources.length) {
+        // All CDNs failed, try favicon
+        console.log('All CDNs failed for:', host, 'trying favicon fallback');
+        img.src = `https://www.google.com/s2/favicons?sz=64&domain=${host}`;
+        img.onerror = () => {
+          console.log('Favicon failed for:', host, 'using letter fallback');
+          iconEl.textContent = title.charAt(0).toUpperCase();
+          iconEl.classList.add('logo-missing');
+        };
+        return;
+      }
+      
+      img.src = cdnSources[currentSource];
+      console.log('Trying CDN source', currentSource + 1, 'for:', host);
+    }
+    
+    img.onload = () => {
+      console.log('Successfully loaded logo for:', host, 'from CDN:', currentSource + 1);
     };
+    
+    img.onerror = () => {
+      console.log('CDN source', currentSource + 1, 'failed for:', host);
+      currentSource++;
+      tryNextSource();
+    };
+    
+    tryNextSource();
     iconEl.appendChild(img);
   } catch (error) {
     console.warn('Error loading favicon for', href, ':', error);
