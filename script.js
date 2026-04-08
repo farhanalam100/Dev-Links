@@ -3,13 +3,20 @@
    Features: category filter, search with tag support,
    save/unsave, custom CRUD, grid/list view,
    favicon logos, keyboard shortcut, toast notifications,
-   per-category counters, theme persistence
+   per-category counters, theme persistence,
+   advanced search filters and sorting
 ══════════════════════════════════════════ */
 
 /* ── STATE ── */
 let activeCategory = 'all';
 let currentView = 'grid';
 let editingId = null;
+let currentSort = 'name';
+let activeFilters = {
+  categories: ['design', 'coding', 'hosting', 'ai', 'learning'],
+  types: ['builtin', 'custom'],
+  saved: false
+};
 
 /* ── CACHED DOM ELEMENTS ── */
 const domCache = {
@@ -166,36 +173,66 @@ function filterCards() { applyFilters(); }
    COMBINED FILTER
 ══════════════════════════════ */
 function applyFilters() {
-  const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+  const query = (domCache.searchInput?.value || '').toLowerCase().trim();
   const saved = getSavedLinks();
   const cards = document.querySelectorAll('.card');
   let visible = 0;
 
-  cards.forEach(card => {
+  // Convert NodeList to array for sorting
+  const cardsArray = Array.from(cards);
+
+  // Apply filters and sorting
+  const filteredCards = cardsArray.filter(card => {
     const name = (card.querySelector('h3')?.textContent || '').toLowerCase();
     const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
     const tags = (card.dataset.tags || '').toLowerCase();
     const domain = (card.querySelector('.card-domain')?.textContent || '').toLowerCase();
     const category = card.dataset.category || '';
     const href = getHref(card);
+    const isCustom = card.classList.contains('custom-card');
 
+    // Search filter
     const matchSearch = !query
       || name.includes(query)
       || desc.includes(query)
       || tags.includes(query)
       || domain.includes(query);
 
+    // Category filter
     const matchCat = activeCategory === 'all'
       || (activeCategory === 'saved' && saved.includes(href))
       || category === activeCategory;
 
-    const show = matchSearch && matchCat;
-    card.style.display = show ? '' : 'none';
-    if (show) visible++;
+    // Advanced filters
+    const matchCategoryFilter = activeFilters.categories.length === 0 || activeFilters.categories.includes(category);
+    const matchTypeFilter = activeFilters.types.length === 0 || 
+      (activeFilters.types.includes('builtin') && !isCustom) ||
+      (activeFilters.types.includes('custom') && isCustom) ||
+      (activeFilters.types.includes('saved') && saved.includes(href));
+
+    return matchSearch && matchCat && matchCategoryFilter && matchTypeFilter;
   });
 
-  const noRes = document.getElementById('noResults');
-  const noTxt = document.getElementById('noResultsText');
+  // Sort the filtered cards
+  const sortedCards = sortCards(filteredCards, currentSort);
+
+  // Hide all cards first
+  cardsArray.forEach(card => {
+    card.style.display = 'none';
+    card.style.order = '';
+  });
+
+  // Show and order sorted cards
+  sortedCards.forEach((card, index) => {
+    card.style.display = '';
+    card.style.order = index;
+    card.classList.add('premium-animate');
+    visible++;
+  });
+
+  // Update no results message
+  const noRes = domCache.noResults;
+  const noTxt = domCache.noResultsText;
 
   if (visible === 0) {
     noRes.classList.remove('hidden');
@@ -206,7 +243,98 @@ function applyFilters() {
     noRes.classList.add('hidden');
   }
 
-  document.getElementById('footer-count').textContent = `${visible} resource${visible !== 1 ? 's' : ''}`;
+  if (domCache.footerCount) {
+    domCache.footerCount.textContent = `${visible} resource${visible !== 1 ? 's' : ''}`;
+  }
+}
+
+function sortCards(cards, sortBy) {
+  const saved = getSavedLinks();
+  
+  return cards.sort((a, b) => {
+    const aHref = getHref(a);
+    const bHref = getHref(b);
+    const aTitle = (a.querySelector('h3')?.textContent || '').toLowerCase();
+    const bTitle = (b.querySelector('h3')?.textContent || '').toLowerCase();
+    const aCategory = a.dataset.category || '';
+    const bCategory = b.dataset.category || '';
+    const aIsCustom = a.classList.contains('custom-card');
+    const bIsCustom = b.classList.contains('custom-card');
+    const aIsSaved = saved.includes(aHref);
+    const bIsSaved = saved.includes(bHref);
+
+    switch (sortBy) {
+      case 'name':
+        return aTitle.localeCompare(bTitle);
+      case 'category':
+        return aCategory.localeCompare(bCategory);
+      case 'date':
+        // Put custom cards (newer) first, then sort by saved status
+        if (aIsCustom !== bIsCustom) return bIsCustom ? -1 : 1;
+        return aIsSaved !== bIsSaved ? bIsSaved ? -1 : 1 : aTitle.localeCompare(bTitle);
+      case 'saved':
+        // Saved items first, then by name
+        if (aIsSaved !== bIsSaved) return bIsSaved ? -1 : 1;
+        return aTitle.localeCompare(bTitle);
+      default:
+        return 0;
+    }
+  });
+}
+
+function toggleSearchFilters() {
+  const panel = document.getElementById('searchFiltersPanel');
+  panel.classList.toggle('hidden');
+}
+
+function applySorting() {
+  const sortSelect = document.getElementById('sortSelect');
+  if (sortSelect) {
+    currentSort = sortSelect.value;
+    applyFilters();
+  }
+}
+
+function updateActiveFilters() {
+  const checkboxes = document.querySelectorAll('.filter-checkboxes input[type="checkbox"]');
+  activeFilters.categories = [];
+  activeFilters.types = [];
+  activeFilters.saved = false;
+
+  checkboxes.forEach(checkbox => {
+    if (checkbox.checked) {
+      const value = checkbox.value;
+      if (['design', 'coding', 'hosting', 'ai', 'learning'].includes(value)) {
+        activeFilters.categories.push(value);
+      } else if (['builtin', 'custom', 'saved'].includes(value)) {
+        if (value === 'saved') {
+          activeFilters.saved = true;
+        } else {
+          activeFilters.types.push(value);
+        }
+      }
+    }
+  });
+
+  applyFilters();
+}
+
+function clearFilters() {
+  const checkboxes = document.querySelectorAll('.filter-checkboxes input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = false;
+  });
+  activeFilters = {
+    categories: [],
+    types: [],
+    saved: false
+  };
+  applyFilters();
+}
+
+function toggleViewMode() {
+  const newView = currentView === 'grid' ? 'list' : 'grid';
+  setView(newView);
 }
 
 /* ══════════════════════════════

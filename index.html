@@ -87,9 +87,63 @@
             <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
             <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
-          <input type="text" id="searchInput" placeholder="Search resources... or press Ctrl K" oninput="filterCards()"
-            autocomplete="off" aria-label="Search resources" />
-          <kbd class="search-kbd" id="search-kbd">Ctrl K</kbd>
+          <div class="search-input-wrapper">
+            <input type="text" id="searchInput" placeholder="Search resources... or press Ctrl K" oninput="filterCards()"
+              autocomplete="off" aria-label="Search resources" />
+            <button class="search-filters-btn" onclick="toggleSearchFilters()" aria-label="Toggle search filters">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3 4h18M3 12h18M3 20h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="search-controls">
+            <select id="sortSelect" onchange="applySorting()" aria-label="Sort resources">
+              <option value="name">Name</option>
+              <option value="category">Category</option>
+              <option value="date">Date Added</option>
+              <option value="saved">Saved First</option>
+            </select>
+            <button class="view-toggle-btn" onclick="toggleViewMode()" aria-label="Toggle view mode">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Advanced Search Filters Panel -->
+        <div class="search-filters-panel hidden" id="searchFiltersPanel">
+          <div class="filters-header">
+            <h3>Advanced Filters</h3>
+            <button class="filters-close" onclick="toggleSearchFilters()" aria-label="Close filters">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="filters-content">
+            <div class="filter-group">
+              <label>Categories</label>
+              <div class="filter-checkboxes">
+                <label><input type="checkbox" value="design" onchange="updateActiveFilters()" checked> Design</label>
+                <label><input type="checkbox" value="coding" onchange="updateActiveFilters()" checked> Coding</label>
+                <label><input type="checkbox" value="hosting" onchange="updateActiveFilters()" checked> Hosting</label>
+                <label><input type="checkbox" value="ai" onchange="updateActiveFilters()" checked> AI Tools</label>
+                <label><input type="checkbox" value="learning" onchange="updateActiveFilters()" checked> Learning</label>
+              </div>
+            </div>
+            <div class="filter-group">
+              <label>Resource Type</label>
+              <div class="filter-checkboxes">
+                <label><input type="checkbox" value="builtin" onchange="updateActiveFilters()" checked> Built-in</label>
+                <label><input type="checkbox" value="custom" onchange="updateActiveFilters()" checked> Custom</label>
+                <label><input type="checkbox" value="saved" onchange="updateActiveFilters()"> Saved Only</label>
+              </div>
+            </div>
+          <div class="filters-actions">
+            <button class="btn-secondary" onclick="clearFilters()">Clear All</button>
+            <button class="btn-primary" onclick="updateActiveFilters()">Apply Filters</button>
+          </div>
         </div>
         <div class="topbar-actions">
           <button class="topbar-btn" onclick="openAddForm()" title="Add resource" aria-label="Add new resource">
