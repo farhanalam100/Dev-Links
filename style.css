@@ -53,18 +53,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: none !important;
-  animation: none !important;
-  transform: none !important;
-}
-
-/* Disable all sliding and motion effects */
-* {
-  transition-property: none !important;
-  animation: none !important;
-  transform: none !important;
-  transition-duration: 0s !important;
-  animation-duration: 0s !important;
 }
 
 /* ── PREMIUM ANIMATIONS ── */
