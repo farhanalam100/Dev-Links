@@ -549,12 +549,28 @@ body {
   width: 100%;
 }
 
-.sidebar-action span {
-  font-size: 18px;
-  width: 20px;
-  text-align: center;
+.sidebar-action .action-icon {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  width: 28px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-2);
   flex-shrink: 0;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.sidebar-action:hover .action-icon {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.05);
 }
 
 .sidebar-action:hover span {
