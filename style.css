@@ -204,7 +204,6 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  transition: background .3s, color .3s;
   overflow-x: hidden;
 }
 
@@ -242,7 +241,6 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
@@ -323,7 +321,6 @@ body {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: left;
   position: relative;
   overflow: hidden;
@@ -382,7 +379,6 @@ body {
   font-weight: 700;
   letter-spacing: 0.5px;
   flex-shrink: 0;
-  transition: all 0.3s ease;
   background: var(--surface2);
   border-radius: 4px;
   color: var(--text-2);
@@ -864,7 +860,6 @@ body {
   max-height: 80vh;
   overflow: hidden;
   transform: scale(0.9);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .theme-panel:not(.hidden) .theme-modal {
@@ -1093,7 +1088,6 @@ body {
   max-height: 85vh;
   overflow: hidden;
   transform: scale(0.9);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dashboard-panel:not(.hidden) .dashboard-modal {
@@ -1154,20 +1148,17 @@ body {
 }
 
 .stat-card {
-  background: var(--surface2);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 20px;
+  text-decoration: none;
+  color: inherit;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: var(--accent);
+  position: relative;
+  overflow: hidden;
 }
 
 .stat-icon {
@@ -1299,7 +1290,6 @@ body {
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .share-panel:not(.hidden) {
@@ -1425,7 +1415,6 @@ body {
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
   z-index: 2000;
   transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .collections-panel:not(.hidden) {
@@ -3201,7 +3190,6 @@ body {
   padding-top: 12vh;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cmd-overlay:not(.hidden) {
