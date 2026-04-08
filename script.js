@@ -351,6 +351,16 @@ function closeThemePanel() {
   panel.classList.add('hidden');
 }
 
+function closeCollectionsPanel() {
+  const panel = document.getElementById('collectionsPanel');
+  panel.classList.add('hidden');
+}
+
+function closeDashboard() {
+  const panel = document.getElementById('dashboardPanel');
+  panel.classList.add('hidden');
+}
+
 function setThemeMode(mode) {
   const html = document.documentElement;
   const btn = document.getElementById('theme-btn');

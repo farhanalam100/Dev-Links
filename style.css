@@ -1259,6 +1259,128 @@ body {
   border-top: 1px solid var(--border);
 }
 
+/* ── SHARE PANEL ── */
+.share-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background: var(--surface);
+  border-left: 1px solid var(--border-md);
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.share-panel:not(.hidden) {
+  transform: translateX(0);
+}
+
+.share-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+
+.share-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.share-close {
+  background: none;
+  border: none;
+  color: var(--text-2);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--r);
+  transition: all 0.2s;
+}
+
+.share-close:hover {
+  background: var(--surface3);
+  color: var(--text);
+}
+
+.share-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.share-content {
+  padding: 20px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.share-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface2);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  width: 100%;
+}
+
+.share-option:hover {
+  background: var(--surface3);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.share-icon {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-dim);
+  border-radius: var(--r);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.share-option-text h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 4px 0;
+}
+
+.share-option-text p {
+  font-size: 12px;
+  color: var(--text-2);
+  margin: 0;
+}
+
+.share-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
 /* ── COLLECTIONS PANEL ── */
 .collections-panel {
   position: fixed;
