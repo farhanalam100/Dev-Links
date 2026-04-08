@@ -1011,13 +1011,37 @@ function loadFavicons() {
   try {
     document.querySelectorAll('.card').forEach(card => {
       const href = getHref(card);
-      const iconEl = card.querySelector('.card-icon');
+      const iconWrap = card.querySelector('.card-icon-wrap');
+      const iconEl = iconWrap ? iconWrap.querySelector('.card-icon') : null;
       if (!href || !iconEl) return;
       loadFaviconFor(iconEl, href, card.querySelector('h3')?.textContent || '?');
     });
   } catch (error) {
     console.warn('Error loading favicons:', error);
   }
+}
+
+// Also trigger logo loading for dynamically added cards
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach(mutation => {
+    if (mutation.type === 'childList') {
+      mutation.addedNodes.forEach(node => {
+        if (node.nodeType === 1 && node.classList.contains('card')) {
+          const href = getHref(node);
+          const iconEl = node.querySelector('.card-icon');
+          if (href && iconEl) {
+            setTimeout(() => loadFaviconFor(iconEl, href, node.querySelector('h3')?.textContent || '?'), 100);
+          }
+        }
+      });
+    }
+  });
+});
+
+// Start observing the card grid for dynamic content
+const cardGrid = document.querySelector('.card-grid');
+if (cardGrid) {
+  observer.observe(cardGrid, { childList: true, subtree: true });
 }
 
 function loadFaviconFor(iconEl, href, title) {
@@ -1035,8 +1059,8 @@ function loadFaviconFor(iconEl, href, title) {
     // Try multiple CDN sources for better reliability
     const cdnSources = [
       `https://cdn.simpleicons.org/${slug}/ffffff`,
-      `https://cdn.jsdelivr.net/npm/simple-icons@v5/svg/${slug}.svg`,
-      `https://unpkg.com/simple-icons@v5/svg/${slug}.svg`
+      `https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/${slug}.svg`,
+      `https://unpkg.com/simple-icons@v5/icons/${slug}.svg`
     ];
     
     let currentSource = 0;
