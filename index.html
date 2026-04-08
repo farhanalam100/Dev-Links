@@ -68,6 +68,11 @@
       </nav>
 
       <div class="sidebar-footer">
+        <button class="sidebar-close-btn" onclick="toggleMobileSidebar()" title="Close menu" aria-label="Close mobile menu">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
         <button class="sidebar-action" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle dark mode">
           <span>ð</span> Dark mode
         </button>
@@ -257,19 +262,6 @@
             <button class="search-filters-btn" onclick="toggleSearchFilters()" aria-label="Toggle search filters">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M3 4h18M3 12h18M3 20h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </button>
-          </div>
-          <div class="search-controls">
-            <select id="sortSelect" onchange="applySorting()" aria-label="Sort resources">
-              <option value="name">Name</option>
-              <option value="category">Category</option>
-              <option value="date">Date Added</option>
-              <option value="saved">Saved First</option>
-            </select>
-            <button class="view-toggle-btn" onclick="toggleViewMode()" aria-label="Toggle view mode">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </button>
           </div>
