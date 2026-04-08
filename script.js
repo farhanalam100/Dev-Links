@@ -65,6 +65,8 @@ function initDomCache() {
 window.addEventListener('DOMContentLoaded', () => {
   initDomCache();
   restoreTheme();
+  applyStoredAccentColor();
+  updateThemePanelState();
   renderCustomCards();
   updateAllCounts();
   restoreSavedButtons();
@@ -335,6 +337,159 @@ function clearFilters() {
 function toggleViewMode() {
   const newView = currentView === 'grid' ? 'list' : 'grid';
   setView(newView);
+}
+
+/* ── THEME CUSTOMIZATION ── */
+function openThemePanel() {
+  const panel = document.getElementById('themePanel');
+  panel.classList.remove('hidden');
+  updateThemePanelState();
+}
+
+function closeThemePanel() {
+  const panel = document.getElementById('themePanel');
+  panel.classList.add('hidden');
+}
+
+function setThemeMode(mode) {
+  const html = document.documentElement;
+  const btn = document.getElementById('theme-btn');
+  
+  // Remove active class from all theme options
+  document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+  
+  // Add active class to selected option
+  document.getElementById(`theme-${mode}`).classList.add('active');
+  
+  if (mode === 'dark') {
+    html.removeAttribute('data-theme');
+    if (btn) btn.innerHTML = '<span>🌙</span> Dark mode';
+    safeSetItem('devlinks-theme', 'dark');
+  } else if (mode === 'light') {
+    html.setAttribute('data-theme', 'light');
+    if (btn) btn.innerHTML = '<span>☀️</span> Light mode';
+    safeSetItem('devlinks-theme', 'light');
+  } else if (mode === 'auto') {
+    // Auto mode - could detect system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      html.removeAttribute('data-theme');
+      if (btn) btn.innerHTML = '<span>🌙</span> Dark mode';
+    } else {
+      html.setAttribute('data-theme', 'light');
+      if (btn) btn.innerHTML = '<span>☀️</span> Light mode';
+    }
+    safeSetItem('devlinks-theme', 'auto');
+  }
+  
+  // Apply accent color
+  applyStoredAccentColor();
+}
+
+function updateAccentColor(color) {
+  const root = document.documentElement;
+  root.style.setProperty('--accent', color);
+  
+  // Generate complementary colors
+  const rgb = hexToRgb(color);
+  const dimColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.08)`;
+  const glowColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`;
+  
+  root.style.setProperty('--accent-dim', dimColor);
+  root.style.setProperty('--accent-glow', glowColor);
+  
+  // Update color picker
+  const picker = document.getElementById('accentColorPicker');
+  if (picker) picker.value = color;
+  
+  // Save to localStorage
+  safeSetItem('devlinks-accent', color);
+  
+  showToast('Theme color updated!', 't-success');
+}
+
+function applyStoredAccentColor() {
+  const storedColor = safeGetItem('devlinks-accent');
+  if (storedColor) {
+    updateAccentColor(storedColor);
+  }
+}
+
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
+function adjustFontSize(delta) {
+  const root = document.documentElement;
+  const currentSize = parseInt(getComputedStyle(root).fontSize) || 16;
+  const newSize = Math.max(12, Math.min(20, currentSize + delta));
+  
+  root.style.fontSize = `${newSize}px`;
+  
+  // Update display
+  const display = document.getElementById('fontSizeValue');
+  if (display) display.textContent = `${newSize}px`;
+  
+  // Save to localStorage
+  safeSetItem('devlinks-font-size', newSize.toString());
+  
+  showToast(`Font size: ${newSize}px`, 't-info');
+}
+
+function resetTheme() {
+  // Reset to default theme
+  const html = document.documentElement;
+  html.removeAttribute('data-theme');
+  html.style.fontSize = '';
+  
+  // Reset accent color
+  updateAccentColor('#ef4160');
+  
+  // Reset theme mode selection
+  document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+  document.getElementById('theme-dark').classList.add('active');
+  
+  // Update button
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.innerHTML = '<span>🌙</span> Dark mode';
+  
+  // Clear localStorage
+  safeSetItem('devlinks-theme', 'dark');
+  safeSetItem('devlinks-accent', '#ef4160');
+  safeSetItem('devlinks-font-size', '16');
+  
+  // Update display
+  const display = document.getElementById('fontSizeValue');
+  if (display) display.textContent = '16px';
+  
+  showToast('Theme reset to default', 't-info');
+}
+
+function saveTheme() {
+  showToast('Theme preferences saved!', 't-success');
+  closeThemePanel();
+}
+
+function updateThemePanelState() {
+  // Update current theme mode
+  const currentTheme = safeGetItem('devlinks-theme') || 'dark';
+  document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+  document.getElementById(`theme-${currentTheme}`).classList.add('active');
+  
+  // Update current accent color
+  const currentAccent = safeGetItem('devlinks-accent') || '#ef4160';
+  const picker = document.getElementById('accentColorPicker');
+  if (picker) picker.value = currentAccent;
+  
+  // Update current font size
+  const currentFontSize = safeGetItem('devlinks-font-size') || '16';
+  const display = document.getElementById('fontSizeValue');
+  if (display) display.textContent = `${currentFontSize}px`;
 }
 
 /* ══════════════════════════════

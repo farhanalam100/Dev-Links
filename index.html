@@ -77,8 +77,163 @@
         <button class="sidebar-action" onclick="openAddForm()" aria-label="Add new resource">
           <span>＋</span> Add resource
         </button>
+        <button class="sidebar-action" onclick="openDashboard()" aria-label="Open dashboard">
+          <span>📊</span> Dashboard
+        </button>
       </div>
     </aside>
+
+    <!-- ══ COMMAND PALETTE ══ -->
+  <div class="cmd-overlay hidden" id="cmd-overlay" onclick="handleCmdOverlayClick(event)">
+    <div class="cmd-modal">
+      <div class="cmd-search">
+        <svg class="cmd-icon" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+          <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <input type="text" id="cmd-input" placeholder="Type a command or search..." autocomplete="off">
+      </div>
+      <div class="cmd-results" id="cmd-results"></div>
+    </div>
+  </div>
+
+  <!-- ══ DASHBOARD PANEL ══ -->
+  <div class="dashboard-panel hidden" id="dashboardPanel">
+    <div class="dashboard-modal">
+      <div class="dashboard-header">
+        <h3>📊 Analytics Dashboard</h3>
+        <button class="dashboard-close" onclick="closeDashboard()" aria-label="Close dashboard">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="dashboard-content">
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div class="stat-info">
+              <div class="stat-number" id="dashboard-total-resources">0</div>
+              <div class="stat-label">Total Resources</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-info">
+              <div class="stat-number" id="dashboard-saved-resources">0</div>
+              <div class="stat-label">Saved Resources</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎨</div>
+            <div class="stat-info">
+              <div class="stat-number" id="dashboard-custom-resources">0</div>
+              <div class="stat-label">Custom Resources</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-charts">
+          <div class="chart-container">
+            <h4>Resources by Category</h4>
+            <div class="category-chart" id="categoryChart">
+              <div class="chart-bar" data-category="design" style="width: 0%">
+                <span class="chart-label">Design</span>
+                <span class="chart-value">0</span>
+              </div>
+              <div class="chart-bar" data-category="coding" style="width: 0%">
+                <span class="chart-label">Coding</span>
+                <span class="chart-value">0</span>
+              </div>
+              <div class="chart-bar" data-category="hosting" style="width: 0%">
+                <span class="chart-label">Hosting</span>
+                <span class="chart-value">0</span>
+              </div>
+              <div class="chart-bar" data-category="ai" style="width: 0%">
+                <span class="chart-label">AI Tools</span>
+                <span class="chart-value">0</span>
+              </div>
+              <div class="chart-bar" data-category="learning" style="width: 0%">
+                <span class="chart-label">Learning</span>
+                <span class="chart-value">0</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="chart-container">
+            <h4>Recent Activity</h4>
+            <div class="activity-list" id="activityList">
+              <div class="activity-item">No recent activity</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-actions">
+          <button class="btn-secondary" onclick="exportData()">📤 Export Data</button>
+          <button class="btn-primary" onclick="importData()">📥 Import Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ THEME CUSTOMIZATION PANEL ══ -->
+  <div class="theme-panel hidden" id="themePanel">
+    <div class="theme-modal">
+      <div class="theme-header">
+        <h3>Customize Theme</h3>
+        <button class="theme-close" onclick="closeThemePanel()" aria-label="Close theme panel">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="theme-content">
+        <div class="theme-group">
+          <label>Theme Mode</label>
+          <div class="theme-options">
+            <button class="theme-option" onclick="setThemeMode('dark')" id="theme-dark">
+              <span class="theme-preview dark-theme"></span>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setThemeMode('light')" id="theme-light">
+              <span class="theme-preview light-theme"></span>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setThemeMode('auto')" id="theme-auto">
+              <span class="theme-preview auto-theme"></span>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+        <div class="theme-group">
+          <label>Accent Color</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="accentColorPicker" value="#ef4160" onchange="updateAccentColor(this.value)">
+            <div class="preset-colors">
+              <button class="color-preset" style="background: #ef4160" onclick="updateAccentColor('#ef4160')"></button>
+              <button class="color-preset" style="background: #3b82f6" onclick="updateAccentColor('#3b82f6')"></button>
+              <button class="color-preset" style="background: #10b981" onclick="updateAccentColor('#10b981')"></button>
+              <button class="color-preset" style="background: #8b5cf6" onclick="updateAccentColor('#8b5cf6')"></button>
+              <button class="color-preset" style="background: #f59e0b" onclick="updateAccentColor('#f59e0b')"></button>
+              <button class="color-preset" style="background: #ec4899" onclick="updateAccentColor('#ec4899')"></button>
+            </div>
+          </div>
+        </div>
+        <div class="theme-group">
+          <label>Font Size</label>
+          <div class="font-size-controls">
+            <button class="font-size-btn" onclick="adjustFontSize(-1)">A-</button>
+            <span class="font-size-value" id="fontSizeValue">16px</span>
+            <button class="font-size-btn" onclick="adjustFontSize(1)">A+</button>
+          </div>
+        </div>
+        <div class="theme-actions">
+          <button class="btn-secondary" onclick="resetTheme()">Reset to Default</button>
+          <button class="btn-primary" onclick="saveTheme()">Save Theme</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- ══ MAIN ══ -->
     <main class="main">
