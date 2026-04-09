@@ -79,16 +79,6 @@ window.addEventListener('DOMContentLoaded', () => {
     initAdvancedKeyboard();
   }
   
-  // Add direct Ctrl+K listener as backup
-  document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log('Ctrl+K pressed - opening command palette');
-      openCmdPalette();
-    }
-  });
-  
   // Event delegation for custom card actions
   document.addEventListener('click', (e) => {
     const customActions = e.target.closest('.custom-actions');
