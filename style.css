@@ -1732,6 +1732,24 @@ body {
   flex-shrink: 0;
 }
 
+.card-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .card-icon-wrap {
+  background: #ffffff;
+  border: 1px solid var(--border);
+}
+
 .notification-message {
   flex: 1;
   font-size: 14px;
