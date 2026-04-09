@@ -1237,16 +1237,7 @@ body {
 
 /* ── SHARE PANEL ── */
 .share-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 400px;
-  height: 100vh;
-  background: var(--surface);
-  border-left: 1px solid var(--border-md);
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  transform: translateX(100%);
+  display: none !important;
 }
 
 .share-panel:not(.hidden) {
@@ -1362,16 +1353,7 @@ body {
 
 /* ── COLLECTIONS PANEL ── */
 .collections-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 320px;
-  height: 100vh;
-  background: var(--surface);
-  border-left: 1px solid var(--border-md);
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-  z-index: 2000;
-  transform: translateX(100%);
+  display: none !important;
 }
 
 .collections-panel:not(.hidden) {
