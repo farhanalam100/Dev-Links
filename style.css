@@ -943,6 +943,12 @@ body {
   transition: all 0.2s;
 }
 
+.theme-preview svg {
+  width: 20px;
+  height: 20px;
+  stroke: inherit;
+}
+
 .dark-theme {
   background: #1a1a1a;
   color: #ffffff;
