@@ -1,888 +1,451 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DevLinks — The ultimate developer resource hub." />
   <title>DevLinks — Developer Resource Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Sans:wght@400;500;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+<div class="app">
 
-  <!-- BACKGROUND GRAIN -->
-  <div class="grain" aria-hidden="true"></div>
-
-  <div class="app">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-brand">
-        <div class="logo-mark" role="img" aria-label="DevLinks Logo">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="12" cy="12" r="5" fill="white" />
-            <circle cx="28" cy="28" r="5" fill="white" />
-            <line x1="12" y1="17" x2="28" y2="23" stroke="white" stroke-width="4" stroke-linecap="round" />
-          </svg>
-        </div>
-        <div>
-          <div class="brand-name">Dev<span>Links</span></div>
-          <div class="brand-sub">resource hub</div>
-        </div>
-      </div>
-
-      <nav class="sidebar-nav">
-        <button class="nav-btn active" data-cat="all" onclick="filterCategory('all',this)" aria-label="All Resources" aria-pressed="true">
-          <span class="nav-icon" aria-hidden="true">ALL</span> All Resources
-        </button>
-        <button class="nav-btn" data-cat="saved" onclick="filterCategory('saved',this)" aria-label="Saved Resources">
-          <span class="nav-icon" aria-hidden="true">SAV</span> Saved
-          <span class="nav-count" id="nc-saved" aria-label="0 resources">0</span>
-        </button>
-        <div class="nav-divider">Categories</div>
-        <button class="nav-btn" data-cat="design" onclick="filterCategory('design',this)" aria-label="Design Resources">
-          <span class="nav-icon cat-design" aria-hidden="true">UI</span> Design
-        </button>
-        <button class="nav-btn" data-cat="coding" onclick="filterCategory('coding',this)" aria-label="Coding Resources">
-          <span class="nav-icon cat-coding" aria-hidden="true">{ }</span> Coding
-        </button>
-        <button class="nav-btn" data-cat="hosting" onclick="filterCategory('hosting',this)" aria-label="Hosting Resources">
-          <span class="nav-icon cat-hosting" aria-hidden="true">WEB</span> Hosting
-        </button>
-        <button class="nav-btn" data-cat="ai" onclick="filterCategory('ai',this)" aria-label="AI Tools Resources">
-          <span class="nav-icon cat-ai" aria-hidden="true">AI</span> AI Tools
-        </button>
-        <button class="nav-btn" data-cat="learning" onclick="filterCategory('learning',this)" aria-label="Learning Resources">
-          <span class="nav-icon cat-learning" aria-hidden="true">LRN</span> Learning
-        </button>
-      </nav>
-
-      <div class="sidebar-footer">
-        <button class="sidebar-close-btn" onclick="toggleMobileSidebar()" title="Close menu" aria-label="Close mobile menu">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button class="sidebar-action" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle dark mode">
-          <span class="action-icon">THM</span> Theme
-        </button>
-        <button class="sidebar-action" onclick="openThemePanel()" aria-label="Open theme customization panel">
-          <span class="action-icon">SET</span> Customize
-        </button>
-        <button class="sidebar-action" onclick="openDashboard()" aria-label="Open analytics dashboard">
-          <span class="action-icon">DATA</span> Dashboard
-        </button>
-        <button class="sidebar-action" onclick="openSharePanel()" aria-label="Open share panel">
-          <span class="action-icon">LINK</span> Share
-        </button>
-        <button class="sidebar-action" onclick="openCollectionsPanel()" aria-label="Open collections">
-          <span class="action-icon">COL</span> Collections
-        </button>
-        <button class="sidebar-action" onclick="openAddForm()" aria-label="Add new resource">
-          <span class="action-icon">+</span> Add resource
-        </button>
-      </div>
-    </aside>
-
-    <!-- COMMAND PALETTE -->
-  <div class="cmd-modal hidden" id="cmd-modal">
-    <div class="cmd-header">
-      <div class="cmd-search">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="m21 21-1.5-1.5-1.5"/>
-          <path d="m4 4 12 12"/>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo-mark">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="12" cy="12" r="5" fill="white"/>
+          <circle cx="28" cy="28" r="5" fill="white"/>
+          <line x1="12" y1="17" x2="28" y2="23" stroke="white" stroke-width="4" stroke-linecap="round"/>
         </svg>
-        <input type="text" id="cmd-input" placeholder="Type a command or search..." autocomplete="off">
       </div>
-      <button class="cmd-close" onclick="closeCmdPalette()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 6L6 18M6 6l12 12"/>
-        </svg>
+      <div>
+        <div class="brand-name">Dev<span>Links</span></div>
+        <div class="brand-sub">resource hub</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-cat="all" onclick="filterCategory('all',this)">
+        <span class="nav-icon">ALL</span> All Resources
+        <span class="nav-count" id="nc-all">20</span>
+      </button>
+      <button class="nav-btn" data-cat="saved" onclick="filterCategory('saved',this)">
+        <span class="nav-icon">★</span> Saved
+        <span class="nav-count" id="nc-saved">0</span>
+      </button>
+      <div class="nav-divider">Categories</div>
+      <button class="nav-btn" data-cat="design" onclick="filterCategory('design',this)">
+        <span class="nav-icon cat-design">UI</span> Design
+        <span class="nav-count" id="nc-design">4</span>
+      </button>
+      <button class="nav-btn" data-cat="coding" onclick="filterCategory('coding',this)">
+        <span class="nav-icon cat-coding">{ }</span> Coding
+        <span class="nav-count" id="nc-coding">4</span>
+      </button>
+      <button class="nav-btn" data-cat="hosting" onclick="filterCategory('hosting',this)">
+        <span class="nav-icon cat-hosting">▲</span> Hosting
+        <span class="nav-count" id="nc-hosting">4</span>
+      </button>
+      <button class="nav-btn" data-cat="ai" onclick="filterCategory('ai',this)">
+        <span class="nav-icon cat-ai">AI</span> AI Tools
+        <span class="nav-count" id="nc-ai">4</span>
+      </button>
+      <button class="nav-btn" data-cat="learning" onclick="filterCategory('learning',this)">
+        <span class="nav-icon cat-learning">LRN</span> Learning
+        <span class="nav-count" id="nc-learning">4</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="sidebar-close-btn" onclick="toggleMobileSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Close Menu
+      </button>
+      <button class="sidebar-action" onclick="toggleTheme()" id="theme-btn">
+        <span class="action-icon">THM</span> Toggle Theme
+      </button>
+      <button class="sidebar-action" onclick="openThemePanel()">
+        <span class="action-icon">SET</span> Customize
+      </button>
+      <button class="sidebar-action" onclick="openDashboard()">
+        <span class="action-icon">📊</span> Dashboard
+      </button>
+      <button class="sidebar-action" onclick="openSharePanel()">
+        <span class="action-icon">🔗</span> Share
+      </button>
+      <button class="sidebar-action" onclick="openCollectionsPanel()">
+        <span class="action-icon">📁</span> Collections
+      </button>
+      <button class="sidebar-action" onclick="openAddForm()">
+        <span class="action-icon">+</span> Add Resource
       </button>
     </div>
-    <div class="cmd-results" id="cmd-results"></div>
-  </div>
+  </aside>
 
-  <!-- ══ DASHBOARD PANEL ══ -->
-  <div class="dashboard-panel hidden" id="dashboardPanel">
-    <div class="dashboard-modal">
-      <div class="dashboard-header">
-        <h3>📊 Analytics Dashboard</h3>
-        <button class="dashboard-close" onclick="closeDashboard()" aria-label="Close dashboard">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-      <div class="dashboard-content">
-        <div class="dashboard-stats">
-          <div class="stat-card">
-            <div class="stat-icon">📚</div>
-            <div class="stat-info">
-              <div class="stat-number" id="dashboard-total-resources">0</div>
-              <div class="stat-label">Total Resources</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">⭐</div>
-            <div class="stat-info">
-              <div class="stat-number" id="dashboard-saved-resources">0</div>
-              <div class="stat-label">Saved Resources</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🎨</div>
-            <div class="stat-info">
-              <div class="stat-number" id="dashboard-custom-resources">0</div>
-              <div class="stat-label">Custom Resources</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="dashboard-charts">
-          <div class="chart-container">
-            <h4>Resources by Category</h4>
-            <div class="category-chart" id="categoryChart">
-              <div class="chart-bar" data-category="design" style="width: 0%">
-                <span class="chart-label">Design</span>
-              </div>
-              <div class="chart-bar" data-category="coding" style="width: 0%">
-                <span class="chart-label">Coding</span>
-              </div>
-              <div class="chart-bar" data-category="hosting" style="width: 0%">
-                <span class="chart-label">Hosting</span>
-              </div>
-              <div class="chart-bar" data-category="ai" style="width: 0%">
-                <span class="chart-label">AI Tools</span>
-              </div>
-              <div class="chart-bar" data-category="learning" style="width: 0%">
-                <span class="chart-label">Learning</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="chart-container">
-            <h4>Recent Activity</h4>
-            <div class="activity-list" id="activityList">
-              <div class="activity-item">No recent activity</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="dashboard-actions">
-          <button class="btn-secondary" onclick="exportData()">📤 Export Data</button>
-          <button class="btn-primary" onclick="importData()">📥 Import Data</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- MOBILE OVERLAY -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMobileSidebar()"></div>
 
-  <!-- ══ THEME CUSTOMIZATION PANEL ══ -->
-  <div class="theme-panel hidden" id="themePanel">
-    <div class="theme-modal">
-      <div class="theme-header">
-        <h3>Customize Theme</h3>
-        <button class="theme-close" onclick="closeThemePanel()" aria-label="Close theme panel">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-      <div class="theme-content">
-        <div class="theme-group">
-          <label>Theme Mode</label>
-          <div class="theme-options">
-            <button class="theme-option" onclick="setThemeMode('dark')" id="theme-dark">
-              <span class="theme-preview dark-theme">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-              </span>
-              <span>Dark</span>
-            </button>
-            <button class="theme-option" onclick="setThemeMode('light')" id="theme-light">
-              <span class="theme-preview light-theme">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="5"></circle>
-                  <line x1="12" y1="1" x2="12" y2="3"></line>
-                  <line x1="12" y1="21" x2="12" y2="23"></line>
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                  <line x1="1" y1="12" x2="3" y2="12"></line>
-                  <line x1="21" y1="12" x2="23" y2="12"></line>
-                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-              </span>
-              <span>Light</span>
-            </button>
-            <button class="theme-option" onclick="setThemeMode('auto')" id="theme-auto">
-              <span class="theme-preview auto-theme">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="23 4 23 10 17 10"></polyline>
-                  <polyline points="1 20 1 14 7 14"></polyline>
-                  <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
-                </svg>
-              </span>
-              <span>Auto</span>
-            </button>
-          </div>
-        </div>
-        <div class="theme-group">
-          <label>Accent Color</label>
-          <div class="color-picker-wrapper">
-            <input type="color" id="accentColorPicker" value="#ef4160" onchange="updateAccentColor(this.value)">
-            <div class="preset-colors">
-              <button class="color-preset" style="background: #ef4160" onclick="updateAccentColor('#ef4160')"></button>
-              <button class="color-preset" style="background: #3b82f6" onclick="updateAccentColor('#3b82f6')"></button>
-              <button class="color-preset" style="background: #10b981" onclick="updateAccentColor('#10b981')"></button>
-              <button class="color-preset" style="background: #8b5cf6" onclick="updateAccentColor('#8b5cf6')"></button>
-              <button class="color-preset" style="background: #f59e0b" onclick="updateAccentColor('#f59e0b')"></button>
-              <button class="color-preset" style="background: #ec4899" onclick="updateAccentColor('#ec4899')"></button>
-            </div>
-          </div>
-        </div>
-        <div class="theme-group">
-          <label>Font Size</label>
-          <div class="font-size-controls">
-            <button class="font-size-btn" onclick="adjustFontSize(-1)">A-</button>
-            <span class="font-size-value" id="fontSizeValue">16px</span>
-            <button class="font-size-btn" onclick="adjustFontSize(1)">A+</button>
-          </div>
-        </div>
-        <div class="theme-actions">
-          <button class="btn-secondary" onclick="resetTheme()">Reset to Default</button>
-          <button class="btn-primary" onclick="saveTheme()">Save Theme</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- MAIN -->
+  <main class="main">
 
-    <!-- ══ MAIN ══ -->
-    <main class="main">
-
-      <!-- TOP BAR -->
-      <header class="topbar">
-        <div class="topbar-search">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none">
-            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
-            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          <div class="search-input-wrapper">
-            <input type="text" id="searchInput" placeholder="Search resources... or press Ctrl K" oninput="filterCards()"
-              autocomplete="off" aria-label="Search resources" />
-          </div>
-        </div>
-        
-        <!-- Advanced Search Filters Panel -->
-        <div class="search-filters-panel hidden" id="searchFiltersPanel">
-          <div class="filters-header">
-            <h3>Advanced Filters</h3>
-            <button class="filters-close" onclick="toggleSearchFilters()" aria-label="Close filters">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </button>
-          </div>
-          <div class="filters-content">
-            <div class="filter-group">
-              <label>Categories</label>
-              <div class="filter-checkboxes">
-                <label><input type="checkbox" value="design" onchange="updateActiveFilters()" checked> Design</label>
-                <label><input type="checkbox" value="coding" onchange="updateActiveFilters()" checked> Coding</label>
-                <label><input type="checkbox" value="hosting" onchange="updateActiveFilters()" checked> Hosting</label>
-                <label><input type="checkbox" value="ai" onchange="updateActiveFilters()" checked> AI Tools</label>
-                <label><input type="checkbox" value="learning" onchange="updateActiveFilters()" checked> Learning</label>
-              </div>
-            </div>
-            <div class="filter-group">
-              <label>Resource Type</label>
-              <div class="filter-checkboxes">
-                <label><input type="checkbox" value="builtin" onchange="updateActiveFilters()" checked> Built-in</label>
-                <label><input type="checkbox" value="custom" onchange="updateActiveFilters()" checked> Custom</label>
-                <label><input type="checkbox" value="saved" onchange="updateActiveFilters()"> Saved Only</label>
-              </div>
-            </div>
-          <div class="filters-actions">
-            <button class="btn-secondary" onclick="clearFilters()">Clear All</button>
-            <button class="btn-primary" onclick="updateActiveFilters()">Apply Filters</button>
-          </div>
-        </div>
-        <div class="topbar-actions">
-          <button class="topbar-btn" onclick="openAddForm()" title="Add resource" aria-label="Add new resource">
-            <svg viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
-              <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </button>
-          <button class="topbar-btn mobile-menu-btn" onclick="toggleMobileSidebar()" title="Menu" aria-label="Toggle mobile menu" aria-expanded="false">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </button>
-        </div>
-      </header>
-
-      <!-- HERO STATS -->
-      <div class="hero-stats" id="hero-stats">
-        <div class="hero-stat">
-          <span class="hero-stat-num" id="total-links">20</span>
-          <span class="hero-stat-label">Resources</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-num" id="total-categories">5</span>
-          <span class="hero-stat-label">Categories</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-num" id="total-saved">0</span>
-          <span class="hero-stat-label">Saved</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-num" id="total-custom">0</span>
-          <span class="hero-stat-label">Custom</span>
-        </div>
-      </div>
-
-      <!-- SECTION HEADER -->
-      <div class="section-header">
-        <div>
-          <h1 class="section-title" id="section-title">All Resources</h1>
-          <p class="section-sub" id="section-sub">Curated tools and references for developers</p>
-        </div>
-        <div class="view-toggle">
-          <button class="view-btn active" id="view-grid" onclick="setView('grid')" title="Grid view">
-            <svg viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2" />
-              <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2" />
-              <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2" />
-              <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2" />
-            </svg>
-          </button>
-          <button class="view-btn" id="view-list" onclick="setView('list')" title="List view">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- CARD GRID -->
-      <div class="card-grid" id="cardGrid">
-
-        <a class="card" href="https://figma.com" target="_blank" rel="noreferrer" data-category="design"
-          data-tags="ui ux wireframe prototype vector">
-          <div class="card-icon-wrap cat-design">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Figma</h3>
-              <span class="card-badge cat-design">Design</span>
-            </div>
-            <p>Professional UI/UX design tool used by top product teams worldwide.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">figma.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://coolors.co" target="_blank" rel="noreferrer" data-category="design"
-          data-tags="colors palette generator">
-          <div class="card-icon-wrap cat-design">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Coolors</h3>
-              <span class="card-badge cat-design">Design</span>
-            </div>
-            <p>Generate stunning color palettes instantly with a single keypress.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">coolors.co</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://fonts.google.com" target="_blank" rel="noreferrer" data-category="design"
-          data-tags="typography fonts web google">
-          <div class="card-icon-wrap cat-design">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Google Fonts</h3>
-              <span class="card-badge cat-design">Design</span>
-            </div>
-            <p>Free, open-source fonts for your websites and apps.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">fonts.google.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://undraw.co" target="_blank" rel="noreferrer" data-category="design"
-          data-tags="illustrations svg free open-source">
-          <div class="card-icon-wrap cat-design">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>unDraw</h3>
-              <span class="card-badge cat-design">Design</span>
-            </div>
-            <p>Free open-source illustrations for any project, customizable colors.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">undraw.co</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://developer.mozilla.org" target="_blank" rel="noreferrer" data-category="coding"
-          data-tags="html css javascript docs reference mdn">
-          <div class="card-icon-wrap cat-coding">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>MDN Web Docs</h3>
-              <span class="card-badge cat-coding">Coding</span>
-            </div>
-            <p>The definitive reference for HTML, CSS, and JavaScript on the web.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">developer.mozilla.org</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://codepen.io" target="_blank" rel="noreferrer" data-category="coding"
-          data-tags="frontend playground editor demo snippet">
-          <div class="card-icon-wrap cat-coding">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>CodePen</h3>
-              <span class="card-badge cat-coding">Coding</span>
-            </div>
-            <p>Build, share, and discover front-end snippets right in your browser.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">codepen.io</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://caniuse.com" target="_blank" rel="noreferrer" data-category="coding"
-          data-tags="browser support compatibility css javascript">
-          <div class="card-icon-wrap cat-coding">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Can I Use</h3>
-              <span class="card-badge cat-coding">Coding</span>
-            </div>
-            <p>Check browser support for CSS and JS features before you ship.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">caniuse.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://stackoverflow.com" target="_blank" rel="noreferrer" data-category="coding"
-          data-tags="qa answers community questions bugs">
-          <div class="card-icon-wrap cat-coding">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Stack Overflow</h3>
-              <span class="card-badge cat-coding">Coding</span>
-            </div>
-            <p>The world's largest developer Q&amp;A community for coding problems.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">stackoverflow.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://vercel.com" target="_blank" rel="noreferrer" data-category="hosting"
-          data-tags="deploy serverless frontend edge cdn">
-          <div class="card-icon-wrap cat-hosting">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Vercel</h3>
-              <span class="card-badge cat-hosting">Hosting</span>
-            </div>
-            <p>Deploy websites and APIs instantly with zero-config from GitHub.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">vercel.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://netlify.com" target="_blank" rel="noreferrer" data-category="hosting"
-          data-tags="static deploy drag drop forms lambda">
-          <div class="card-icon-wrap cat-hosting">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Netlify</h3>
-              <span class="card-badge cat-hosting">Hosting</span>
-            </div>
-            <p>Free hosting with drag-and-drop deployment and form handling.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">netlify.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://pages.github.com" target="_blank" rel="noreferrer" data-category="hosting"
-          data-tags="github static pages free repo">
-          <div class="card-icon-wrap cat-hosting">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>GitHub Pages</h3>
-              <span class="card-badge cat-hosting">Hosting</span>
-            </div>
-            <p>Host static sites directly from your GitHub repository for free.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">pages.github.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://railway.app" target="_blank" rel="noreferrer" data-category="hosting"
-          data-tags="backend database postgres redis deploy">
-          <div class="card-icon-wrap cat-hosting">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Railway</h3>
-              <span class="card-badge cat-hosting">Hosting</span>
-            </div>
-            <p>Deploy backend apps and databases with a beautifully simple interface.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">railway.app</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://claude.ai" target="_blank" rel="noreferrer" data-category="ai"
-          data-tags="llm anthropic chat assistant coding">
-          <div class="card-icon-wrap cat-ai">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>Claude</h3>
-              <span class="card-badge cat-ai">AI Tools</span>
-            </div>
-            <p>Anthropic's AI assistant — exceptional for coding, writing and analysis.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">claude.ai</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://github.com/features/copilot" target="_blank" rel="noreferrer" data-category="ai"
-          data-tags="github copilot autocomplete vscode ide">
-          <div class="card-icon-wrap cat-ai">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>GitHub Copilot</h3>
-              <span class="card-badge cat-ai">AI Tools</span>
-            </div>
-            <p>AI pair programmer that suggests whole lines and functions as you type.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">github.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://v0.dev" target="_blank" rel="noreferrer" data-category="ai"
-          data-tags="ui generator react components vercel prompt">
-          <div class="card-icon-wrap cat-ai">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>v0 by Vercel</h3>
-              <span class="card-badge cat-ai">AI Tools</span>
-            </div>
-            <p>Generate polished UI components from plain text prompts instantly.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">v0.dev</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://chat.openai.com" target="_blank" rel="noreferrer" data-category="ai"
-          data-tags="openai gpt chatgpt assistant chat">
-          <div class="card-icon-wrap cat-ai">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>ChatGPT</h3>
-              <span class="card-badge cat-ai">AI Tools</span>
-            </div>
-            <p>OpenAI's conversational AI for coding, writing, and problem-solving.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">chat.openai.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://freecodecamp.org" target="_blank" rel="noreferrer" data-category="learning"
-          data-tags="free courses html css javascript certification">
-          <div class="card-icon-wrap cat-learning">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>freeCodeCamp</h3>
-              <span class="card-badge cat-learning">Learning</span>
-            </div>
-            <p>Free, structured coding courses from HTML basics to machine learning.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">freecodecamp.org</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://theodinproject.com" target="_blank" rel="noreferrer" data-category="learning"
-          data-tags="fullstack curriculum web ruby javascript free">
-          <div class="card-icon-wrap cat-learning">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>The Odin Project</h3>
-              <span class="card-badge cat-learning">Learning</span>
-            </div>
-            <p>A comprehensive, free full-stack web development curriculum.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">theodinproject.com</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://cs50.harvard.edu" target="_blank" rel="noreferrer" data-category="learning"
-          data-tags="harvard cs computer science intro free mooc">
-          <div class="card-icon-wrap cat-learning">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>CS50</h3>
-              <span class="card-badge cat-learning">Learning</span>
-            </div>
-            <p>Harvard's legendary intro to computer science — completely free online.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">cs50.harvard.edu</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-        <a class="card" href="https://javascript.info" target="_blank" rel="noreferrer" data-category="learning"
-          data-tags="javascript tutorial modern es6 in-depth">
-          <div class="card-icon-wrap cat-learning">
-            <div class="card-icon"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-header-row">
-              <h3>JavaScript.info</h3>
-              <span class="card-badge cat-learning">Learning</span>
-            </div>
-            <p>The best modern JavaScript tutorial — from basics to advanced concepts.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-domain">javascript.info</span>
-            <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </a>
-
-      </div>
-
-      <!-- NO RESULTS -->
-      <div class="no-results hidden" id="noResults">
-        <div class="no-results-icon">⊘</div>
-        <p id="noResultsText">No resources found</p>
-        <span>Try a different search or category</span>
-      </div>
-
-      <!-- FOOTER -->
-      <footer class="footer">
-        <span>Made with</span>
-        <svg class="footer-heart" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="topbar-search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+          <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <span>for <a href="https://game.hackclub.com" target="_blank">Hack Club</a></span>
-        <span class="footer-dot">·</span>
-        <span id="footer-count">20 resources</span>
-      </footer>
-    </main>
-  </div>
+        <input type="text" id="searchInput" placeholder="Search resources... (Press / to focus)" oninput="filterCards()" autocomplete="off"/>
+        <kbd class="search-kbd">⌘K</kbd>
+      </div>
+      <div class="topbar-actions">
+        <button class="topbar-btn" onclick="openAddForm()" title="Add resource">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
 
-  <!-- ══ ADD/EDIT RESOURCE MODAL ══ -->
-  <div class="modal hidden" id="modal">
+    <!-- HERO STATS -->
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="total-links">20</span>
+        <span class="hero-stat-label">Resources</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="total-categories">5</span>
+        <span class="hero-stat-label">Categories</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="total-saved">0</span>
+        <span class="hero-stat-label">Saved</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="total-custom">0</span>
+        <span class="hero-stat-label">Custom</span>
+      </div>
+    </div>
+
+    <!-- SECTION HEADER -->
+    <div class="section-header">
+      <div>
+        <h1 class="section-title" id="section-title">All Resources</h1>
+        <p class="section-sub" id="section-sub">Curated tools and references for developers</p>
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="view-grid" onclick="setView('grid')" title="Grid view">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/>
+            <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/>
+            <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+        <button class="view-btn" id="view-list" onclick="setView('list')" title="List view">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD GRID -->
+    <div class="card-grid" id="cardGrid">
+
+      <a class="card" href="https://figma.com" target="_blank" rel="noreferrer" data-category="design" data-tags="ui ux wireframe prototype vector design">
+        <div class="card-icon-wrap cat-design"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Figma</h3><span class="card-badge cat-design">Design</span></div>
+          <p>Professional UI/UX design tool used by top product teams worldwide.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">figma.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://coolors.co" target="_blank" rel="noreferrer" data-category="design" data-tags="colors palette generator design">
+        <div class="card-icon-wrap cat-design"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Coolors</h3><span class="card-badge cat-design">Design</span></div>
+          <p>Generate stunning color palettes instantly with a single keypress.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">coolors.co</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://fonts.google.com" target="_blank" rel="noreferrer" data-category="design" data-tags="typography fonts web google design">
+        <div class="card-icon-wrap cat-design"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Google Fonts</h3><span class="card-badge cat-design">Design</span></div>
+          <p>Free, open-source fonts optimized for the web and apps.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">fonts.google.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://undraw.co" target="_blank" rel="noreferrer" data-category="design" data-tags="illustrations svg free open-source design">
+        <div class="card-icon-wrap cat-design"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>unDraw</h3><span class="card-badge cat-design">Design</span></div>
+          <p>Free open-source illustrations for any project, with customizable colors.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">undraw.co</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://developer.mozilla.org" target="_blank" rel="noreferrer" data-category="coding" data-tags="html css javascript docs reference mdn coding">
+        <div class="card-icon-wrap cat-coding"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>MDN Web Docs</h3><span class="card-badge cat-coding">Coding</span></div>
+          <p>The definitive reference for HTML, CSS, and JavaScript on the web.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">developer.mozilla.org</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://codepen.io" target="_blank" rel="noreferrer" data-category="coding" data-tags="frontend playground editor demo snippet coding">
+        <div class="card-icon-wrap cat-coding"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>CodePen</h3><span class="card-badge cat-coding">Coding</span></div>
+          <p>Build, share, and discover front-end snippets right in your browser.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">codepen.io</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://caniuse.com" target="_blank" rel="noreferrer" data-category="coding" data-tags="browser support compatibility css javascript coding">
+        <div class="card-icon-wrap cat-coding"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Can I Use</h3><span class="card-badge cat-coding">Coding</span></div>
+          <p>Check browser support for CSS and JS features before you ship.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">caniuse.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://stackoverflow.com" target="_blank" rel="noreferrer" data-category="coding" data-tags="qa answers community questions bugs coding">
+        <div class="card-icon-wrap cat-coding"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Stack Overflow</h3><span class="card-badge cat-coding">Coding</span></div>
+          <p>The world's largest developer Q&amp;A community for coding problems.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">stackoverflow.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://vercel.com" target="_blank" rel="noreferrer" data-category="hosting" data-tags="deploy serverless frontend edge cdn hosting">
+        <div class="card-icon-wrap cat-hosting"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Vercel</h3><span class="card-badge cat-hosting">Hosting</span></div>
+          <p>Deploy websites and APIs instantly with zero-config from GitHub.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">vercel.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://netlify.com" target="_blank" rel="noreferrer" data-category="hosting" data-tags="static deploy drag drop forms hosting">
+        <div class="card-icon-wrap cat-hosting"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Netlify</h3><span class="card-badge cat-hosting">Hosting</span></div>
+          <p>Free hosting with drag-and-drop deployment and built-in form handling.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">netlify.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://pages.github.com" target="_blank" rel="noreferrer" data-category="hosting" data-tags="github static pages free repo hosting">
+        <div class="card-icon-wrap cat-hosting"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>GitHub Pages</h3><span class="card-badge cat-hosting">Hosting</span></div>
+          <p>Host static sites directly from your GitHub repository for free.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">pages.github.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://railway.app" target="_blank" rel="noreferrer" data-category="hosting" data-tags="backend database postgres redis deploy hosting">
+        <div class="card-icon-wrap cat-hosting"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Railway</h3><span class="card-badge cat-hosting">Hosting</span></div>
+          <p>Deploy backend apps and databases with a beautifully simple interface.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">railway.app</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://claude.ai" target="_blank" rel="noreferrer" data-category="ai" data-tags="llm anthropic chat assistant coding ai">
+        <div class="card-icon-wrap cat-ai"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>Claude</h3><span class="card-badge cat-ai">AI Tools</span></div>
+          <p>Anthropic's AI assistant — exceptional for coding, writing and analysis.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">claude.ai</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/features/copilot" target="_blank" rel="noreferrer" data-category="ai" data-tags="github copilot autocomplete vscode ide ai">
+        <div class="card-icon-wrap cat-ai"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>GitHub Copilot</h3><span class="card-badge cat-ai">AI Tools</span></div>
+          <p>AI pair programmer that suggests whole lines and functions as you type.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">github.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://v0.dev" target="_blank" rel="noreferrer" data-category="ai" data-tags="ui generator react components vercel prompt ai">
+        <div class="card-icon-wrap cat-ai"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>v0 by Vercel</h3><span class="card-badge cat-ai">AI Tools</span></div>
+          <p>Generate polished UI components from plain text prompts instantly.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">v0.dev</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://chat.openai.com" target="_blank" rel="noreferrer" data-category="ai" data-tags="openai gpt chatgpt assistant chat ai">
+        <div class="card-icon-wrap cat-ai"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>ChatGPT</h3><span class="card-badge cat-ai">AI Tools</span></div>
+          <p>OpenAI's conversational AI for coding, writing, and problem-solving.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">chat.openai.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://freecodecamp.org" target="_blank" rel="noreferrer" data-category="learning" data-tags="free courses html css javascript certification learning">
+        <div class="card-icon-wrap cat-learning"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>freeCodeCamp</h3><span class="card-badge cat-learning">Learning</span></div>
+          <p>Free, structured coding courses from HTML basics to machine learning.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">freecodecamp.org</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://theodinproject.com" target="_blank" rel="noreferrer" data-category="learning" data-tags="fullstack curriculum web javascript free learning">
+        <div class="card-icon-wrap cat-learning"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>The Odin Project</h3><span class="card-badge cat-learning">Learning</span></div>
+          <p>A comprehensive, free full-stack web development curriculum.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">theodinproject.com</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://cs50.harvard.edu" target="_blank" rel="noreferrer" data-category="learning" data-tags="harvard cs computer science intro free mooc learning">
+        <div class="card-icon-wrap cat-learning"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>CS50</h3><span class="card-badge cat-learning">Learning</span></div>
+          <p>Harvard's legendary intro to computer science — completely free online.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">cs50.harvard.edu</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+      <a class="card" href="https://javascript.info" target="_blank" rel="noreferrer" data-category="learning" data-tags="javascript tutorial modern es6 in-depth learning">
+        <div class="card-icon-wrap cat-learning"><div class="card-icon"></div></div>
+        <div class="card-body">
+          <div class="card-header-row"><h3>JavaScript.info</h3><span class="card-badge cat-learning">Learning</span></div>
+          <p>The best modern JavaScript tutorial — from basics to advanced concepts.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-domain">javascript.info</span>
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- NO RESULTS -->
+    <div class="no-results hidden" id="noResults">
+      <div class="no-results-icon">⊘</div>
+      <p id="noResultsText">No resources found</p>
+      <span>Try a different search or category</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>Made with</span>
+      <svg class="footer-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      <span>for <a href="https://game.hackclub.com" target="_blank">Hack Club</a></span>
+      <span class="footer-dot">·</span>
+      <span id="footer-count">20 resources</span>
+    </footer>
+  </main>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay hidden" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
     <div class="modal-header">
       <h2 id="modalTitle">Add Resource</h2>
-      <button class="modal-close" onclick="closeModal()" aria-label="Close modal">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+      <button class="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
-    <form id="resourceForm" onsubmit="handleResourceSubmit(event)">
+    <form id="resourceForm" onsubmit="handleResourceForm(event)">
+      <input type="hidden" id="resourceId"/>
       <div class="form-field">
         <label for="resourceTitle">Title <span class="required">*</span></label>
-        <input type="text" id="resourceTitle" placeholder="Resource title" autocomplete="off" />
+        <input type="text" id="resourceTitle" placeholder="e.g. Tailwind CSS" autocomplete="off"/>
         <span class="field-error" id="err-title"></span>
       </div>
       <div class="form-field">
         <label for="resourceUrl">URL <span class="required">*</span></label>
-        <input type="url" id="resourceUrl" placeholder="https://example.com" autocomplete="off" />
+        <input type="url" id="resourceUrl" placeholder="https://example.com" autocomplete="off"/>
         <span class="field-error" id="err-url"></span>
       </div>
-        <div class="form-field">
+      <div class="form-field">
         <label for="resourceDescription">Description <span class="required">*</span></label>
         <textarea id="resourceDescription" rows="3" placeholder="Short description of the resource"></textarea>
         <span class="field-error" id="err-desc"></span>
@@ -907,93 +470,165 @@
   </div>
 </div>
 
-  <!-- TOAST -->
-  <div class="toast hidden" id="toast"></div>
-
-  <!-- SHARE PANEL -->
-  <div class="share-panel hidden" id="sharePanel">
-    <div class="share-modal">
-      <div class="share-header">
-        <h3>Share Your Resources</h3>
-        <button class="share-close" onclick="closeSharePanel()" aria-label="Close share panel">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+<!-- COMMAND PALETTE -->
+<div class="cmd-overlay hidden" id="cmd-overlay" onclick="handleCmdOverlayClick(event)">
+  <div class="cmd-modal" id="cmd-modal">
+    <div class="cmd-header">
+      <div class="cmd-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="cmd-input" placeholder="Search or type a command..." autocomplete="off"/>
       </div>
-      <div class="share-content">
-        <div class="share-options">
-          <button class="share-option" onclick="shareAsLink()">
-            <span class="share-icon">ð</span>
-            <div class="share-option-text">
-              <h4>Share as Link</h4>
-              <p>Get a shareable link to your collection</p>
-            </div>
-          </button>
-          <button class="share-option" onclick="exportAsJSON()">
-            <span class="share-icon">ð¼</span>
-            <div class="share-option-text">
-              <h4>Export as JSON</h4>
-              <p>Download your resources as JSON file</p>
-            </div>
-          </button>
-          <button class="share-option" onclick="exportAsCSV()">
-            <span class="share-icon">ð</span>
-            <div class="share-option-text">
-              <h4>Export as CSV</h4>
-              <p>Download your resources as CSV file</p>
-            </div>
-          </button>
-          <button class="share-option" onclick="copyToClipboard()">
-            <span class="share-icon">ð</span>
-            <div class="share-option-text">
-              <h4>Copy to Clipboard</h4>
-              <p>Copy all resources to clipboard</p>
-            </div>
-          </button>
+      <button class="cmd-close" onclick="closeCmdPalette()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cmd-results" id="cmd-results"></div>
+    <div class="cmd-footer">
+      <span><kbd>↑↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> select</span>
+      <span><kbd>esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD PANEL -->
+<div class="dashboard-panel hidden" id="dashboardPanel">
+  <div class="dashboard-modal">
+    <div class="dashboard-header">
+      <h3>📊 Analytics Dashboard</h3>
+      <button class="dashboard-close" onclick="closeDashboard()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dashboard-content">
+      <div class="dashboard-stats">
+        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-info"><div class="stat-number" id="dashboard-total-resources">0</div><div class="stat-label">Total Resources</div></div></div>
+        <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-info"><div class="stat-number" id="dashboard-saved-resources">0</div><div class="stat-label">Saved Resources</div></div></div>
+        <div class="stat-card"><div class="stat-icon">🎨</div><div class="stat-info"><div class="stat-number" id="dashboard-custom-resources">0</div><div class="stat-label">Custom Resources</div></div></div>
+      </div>
+      <div class="dashboard-charts">
+        <div class="chart-container">
+          <h4>Resources by Category</h4>
+          <div class="category-chart" id="categoryChart">
+            <div class="chart-bar" data-category="design"><span class="chart-label">Design</span></div>
+            <div class="chart-bar" data-category="coding"><span class="chart-label">Coding</span></div>
+            <div class="chart-bar" data-category="hosting"><span class="chart-label">Hosting</span></div>
+            <div class="chart-bar" data-category="ai"><span class="chart-label">AI Tools</span></div>
+            <div class="chart-bar" data-category="learning"><span class="chart-label">Learning</span></div>
+          </div>
         </div>
-        <div class="share-actions">
-          <button class="btn-secondary" onclick="closeSharePanel()">Cancel</button>
+        <div class="chart-container">
+          <h4>Recent Activity</h4>
+          <div class="activity-list" id="activityList"><div class="activity-item">No recent activity</div></div>
         </div>
+      </div>
+      <div class="dashboard-actions">
+        <button class="btn-secondary" onclick="exportData()">📤 Export Data</button>
+        <button class="btn-primary" onclick="importData()">📥 Import Data</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- COLLECTIONS PANEL -->
-  <div class="collections-panel hidden" id="collectionsPanel">
-    <div class="collections-modal">
-      <div class="collections-header">
-        <h3>📁 Collections</h3>
-        <button class="collections-close" onclick="closeCollectionsPanel()" aria-label="Close collections panel">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>   
+<!-- THEME PANEL -->
+<div class="theme-panel hidden" id="themePanel">
+  <div class="theme-modal">
+    <div class="theme-header">
+      <h3>🎨 Customize Theme</h3>
+      <button class="theme-close" onclick="closeThemePanel()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="theme-content">
+      <div class="theme-group">
+        <label>Theme Mode</label>
+        <div class="theme-options">
+          <button class="theme-option active" onclick="setThemeMode('dark')" id="theme-dark"><span class="theme-preview dark-theme">🌙</span><span>Dark</span></button>
+          <button class="theme-option" onclick="setThemeMode('light')" id="theme-light"><span class="theme-preview light-theme">☀️</span><span>Light</span></button>
+          <button class="theme-option" onclick="setThemeMode('auto')" id="theme-auto"><span class="theme-preview auto-theme">🖥️</span><span>Auto</span></button>
+        </div>
       </div>
-      <div class="collections-content">
-        <div class="collections-actions">
-          <button class="btn-primary" onclick="createCollection()">
-            <span>＋</span> New Collection
-          </button>
-          <button class="btn-secondary" onclick="showAllCollections()">
-            <span>📚</span> Show All Resources
-          </button>
+      <div class="theme-group">
+        <label>Accent Color</label>
+        <div class="color-picker-wrapper">
+          <input type="color" id="accentColorPicker" value="#ef4160" onchange="updateAccentColor(this.value)"/>
+          <div class="preset-colors">
+            <button class="color-preset" style="background:#ef4160" onclick="updateAccentColor('#ef4160')"></button>
+            <button class="color-preset" style="background:#3b82f6" onclick="updateAccentColor('#3b82f6')"></button>
+            <button class="color-preset" style="background:#10b981" onclick="updateAccentColor('#10b981')"></button>
+            <button class="color-preset" style="background:#8b5cf6" onclick="updateAccentColor('#8b5cf6')"></button>
+            <button class="color-preset" style="background:#f59e0b" onclick="updateAccentColor('#f59e0b')"></button>
+            <button class="color-preset" style="background:#ec4899" onclick="updateAccentColor('#ec4899')"></button>
+          </div>
         </div>
-        <div class="collections-list" id="collectionsList">
-          <!-- Collections will be rendered here -->
+      </div>
+      <div class="theme-group">
+        <label>Font Size</label>
+        <div class="font-size-controls">
+          <button class="font-size-btn" onclick="adjustFontSize(-1)">A−</button>
+          <span class="font-size-value" id="fontSizeValue">16px</span>
+          <button class="font-size-btn" onclick="adjustFontSize(1)">A+</button>
         </div>
+      </div>
+      <div class="theme-actions">
+        <button class="btn-secondary" onclick="resetTheme()">Reset Default</button>
+        <button class="btn-primary" onclick="saveTheme()">Save Theme</button>
       </div>
     </div>
   </div>
+</div>
 
-  <script src="script.js"></script>
-  <script src="dashboard.js"></script>
-  <script src="shortcuts.js"></script>
-  <script src="collections.js"></script>
-  <script src="suggestions.js"></script>
-  <script src="premium-components.js"></script>
-  <script src="sharing.js"></script>
+<!-- SHARE PANEL -->
+<div class="share-panel hidden" id="sharePanel">
+  <div class="share-modal">
+    <div class="share-header">
+      <h3>🔗 Share DevLinks</h3>
+      <button class="share-close" onclick="closeSharePanel()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="share-content">
+      <div class="share-options">
+        <button class="share-option" onclick="shareAsLink()"><span class="share-icon">🔗</span><div class="share-option-text"><h4>Share as Link</h4><p>Get a shareable link to your collection</p></div></button>
+        <button class="share-option" onclick="exportAsJSON()"><span class="share-icon">📦</span><div class="share-option-text"><h4>Export as JSON</h4><p>Download your resources as a JSON file</p></div></button>
+        <button class="share-option" onclick="exportAsCSV()"><span class="share-icon">📄</span><div class="share-option-text"><h4>Export as CSV</h4><p>Download your resources as a CSV file</p></div></button>
+        <button class="share-option" onclick="copyAllToClipboard()"><span class="share-icon">📋</span><div class="share-option-text"><h4>Copy to Clipboard</h4><p>Copy all resource links to clipboard</p></div></button>
+      </div>
+      <div class="share-actions">
+        <button class="btn-secondary" onclick="closeSharePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COLLECTIONS PANEL -->
+<div class="collections-panel hidden" id="collectionsPanel">
+  <div class="collections-modal">
+    <div class="collections-header">
+      <h3>📁 Collections</h3>
+      <button class="collections-close" onclick="closeCollectionsPanel()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="collections-content">
+      <div class="collections-actions">
+        <button class="btn-primary" onclick="promptCreateCollection()">＋ New Collection</button>
+        <button class="btn-secondary" onclick="showAllResources()">📚 Show All</button>
+      </div>
+      <div class="collections-list" id="collectionsList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast hidden" id="toast" role="alert" aria-live="polite"></div>
+
+<script src="script.js"></script>
+<script src="dashboard.js"></script>
+<script src="collections.js"></script>
+<script src="suggestions.js"></script>
+<script src="sharing.js"></script>
+<script src="shortcuts.js"></script>
+<script src="premium-components.js"></script>
 </body>
 </html>
-
-            
