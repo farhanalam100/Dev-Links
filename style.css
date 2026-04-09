@@ -186,7 +186,7 @@ select {
 
 body {
   font-family: 'Instrument Sans', system-ui, sans-serif;
-  background: transparent !important;
+  background: var(--bg);
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
@@ -812,7 +812,17 @@ body {
 
 /* ── THEME CUSTOMIZATION PANEL ── */
 .theme-panel {
-  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: none;
 }
 
 .theme-modal {
@@ -1035,7 +1045,17 @@ body {
 
 /* ── DASHBOARD PANEL ── */
 .dashboard-panel {
-  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: none;
 }
 
 .dashboard-modal {
@@ -1238,7 +1258,16 @@ body {
 
 /* ── SHARE PANEL ── */
 .share-panel {
-  display: none !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background: var(--surface);
+  border-left: 1px solid var(--border-md);
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transform: translateX(100%);
 }
 
 .share-panel:not(.hidden) {
@@ -3143,8 +3172,16 @@ body {
 }
 
 .cmd-modal {
-  flex-direction: column !important;
-  overflow: hidden !important;
+  width: 100%;
+  max-width: 600px;
+  background: var(--surface);
+  border: 1px solid var(--border-md);
+  border-radius: var(--r-xl);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transform: scale(0.96) translateY(-10px);
+  display: flex;
+  flex-direction: column;
 }
 
 .cmd-overlay:not(.hidden) .cmd-modal {
