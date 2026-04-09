@@ -1406,23 +1406,23 @@ function initKeyboard() {
 }
 
 function isCmdPaletteOpen() {
-  const overlay = document.getElementById('cmd-overlay');
+  const overlay = document.getElementById('cmd-modal');
   return overlay && !overlay.classList.contains('hidden');
 }
 
 function openCmdPalette() {
-  const overlay = document.getElementById('cmd-overlay');
+  const overlay = document.getElementById('cmd-modal');
   const input = document.getElementById('cmd-input');
   if (overlay && input) {
     overlay.classList.remove('hidden');
     input.value = '';
+    input.focus();
     updateCmdResults();
-    setTimeout(() => input.focus(), 50);
   }
 }
 
 function closeCmdPalette() {
-  const overlay = document.getElementById('cmd-overlay');
+  const overlay = document.getElementById('cmd-modal');
   if (overlay) {
     overlay.classList.add('hidden');
     document.getElementById('cmd-input').blur();
