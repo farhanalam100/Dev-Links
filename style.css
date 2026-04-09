@@ -811,17 +811,7 @@ body {
 
 /* ── THEME CUSTOMIZATION PANEL ── */
 .theme-panel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  backdrop-filter: none;
+  display: none !important;
 }
 
 .theme-modal {
@@ -1044,17 +1034,7 @@ body {
 
 /* ── DASHBOARD PANEL ── */
 .dashboard-panel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  backdrop-filter: none;
+  display: none !important;
 }
 
 .dashboard-modal {
@@ -2667,14 +2647,7 @@ body {
    MODAL
 ══════════════════════════════ */
 .modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: transparent;
-  backdrop-filter: none;
-  z-index: 5000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none !important;
 }
 
 @keyframes fadeIn {
@@ -3196,18 +3169,7 @@ body {
    COMMAND PALETTE
 ══════════════════════════════ */
 .cmd-overlay {
-  position: fixed;
-  inset: 0;
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  z-index: 1000;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 12vh;
-  opacity: 1;
-  pointer-events: auto;
+  display: none !important;
 }
 
 .cmd-overlay:not(.hidden) {

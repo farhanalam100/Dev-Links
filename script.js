@@ -1430,7 +1430,7 @@ function closeCmdPalette() {
 }
 
 function handleCmdOverlayClick(e) {
-  if (e.target === document.getElementById('cmd-overlay')) {
+  if (e.target === document.getElementById('cmd-modal')) {
     closeCmdPalette();
   }
 }
