@@ -1156,13 +1156,80 @@ function updateAllCounts() {
    MODAL HELPERS
 ══════════════════════════════ */
 function openModal() {
-  document.getElementById('modalOverlay').classList.remove('hidden');
+  document.getElementById('modal').classList.remove('hidden');
   setTimeout(() => document.getElementById('resourceTitle').focus(), 100);
 }
 
 function closeModal() {
-  document.getElementById('modalOverlay').classList.add('hidden');
+  document.getElementById('modal').classList.add('hidden');
   editingId = null;
+}
+
+function handleResourceSubmit(event) {
+  event.preventDefault();
+  
+  const title = document.getElementById('resourceTitle').value.trim();
+  const url = document.getElementById('resourceUrl').value.trim();
+  const description = document.getElementById('resourceDescription').value.trim();
+  const category = document.getElementById('resourceCategory').value;
+  
+  // Clear previous errors
+  clearFieldErrors();
+  
+  // Validate
+  let hasError = false;
+  if (!title) {
+    setFieldError('err-title', 'Title is required');
+    hasError = true;
+  }
+  if (!url) {
+    setFieldError('err-url', 'URL is required');
+    hasError = true;
+  }
+  if (!description) {
+    setFieldError('err-desc', 'Description is required');
+    hasError = true;
+  }
+  if (!category) {
+    setFieldError('err-cat', 'Category is required');
+    hasError = true;
+  }
+  
+  if (hasError) return;
+  
+  // Create or update resource
+  if (editingId) {
+    // Update existing
+    const customCards = JSON.parse(safeGetItem('devlinks-custom') || '[]');
+    const index = customCards.findIndex(c => c.id === editingId);
+    if (index !== -1) {
+      customCards[index] = { ...customCards[index], title, url, description, category };
+      safeSetItem('devlinks-custom', JSON.stringify(customCards));
+      showToast('Resource updated!', 't-success');
+    }
+  } else {
+    // Create new
+    const customCards = JSON.parse(safeGetItem('devlinks-custom') || '[]');
+    const newCard = {
+      id: crypto.randomUUID ? crypto.randomUUID() : `c-${Date.now()}`,
+      title,
+      url,
+      description,
+      category,
+      tags: category,
+      created: new Date().toISOString()
+    };
+    customCards.push(newCard);
+    safeSetItem('devlinks-custom', JSON.stringify(customCards));
+    showToast('Resource added!', 't-success');
+  }
+  
+  // Reset and close
+  document.getElementById('resourceForm').reset();
+  closeModal();
+  renderCustomCards();
+  updateAllCounts();
+  applyFilters();
 }
 
 function handleOverlayClick(e) {
