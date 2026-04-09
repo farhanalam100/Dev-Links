@@ -1135,8 +1135,10 @@ function loadFaviconFor(iconEl, href, title) {
     img.style.cssText = 'width:24px;height:24px;object-fit:contain;display:block;';
     
     // Try multiple CDN sources for better reliability
+    const isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
+    const iconColor = isLightTheme ? '000000' : 'ffffff';
     const cdnSources = [
-      `https://cdn.simpleicons.org/${slug}/ffffff`,
+      `https://cdn.simpleicons.org/${slug}/${iconColor}`,
       `https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/${slug}.svg`,
       `https://unpkg.com/simple-icons@v5/icons/${slug}.svg`
     ];

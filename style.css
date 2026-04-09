@@ -1746,8 +1746,28 @@ body {
 }
 
 [data-theme="light"] .card-icon-wrap {
-  background: #ffffff;
+  background: #f8f9fa;
   border: 1px solid var(--border);
+}
+
+[data-theme="light"] .cat-design {
+  background: #fef3c7 !important;
+}
+
+[data-theme="light"] .cat-coding {
+  background: #dbeafe !important;
+}
+
+[data-theme="light"] .cat-hosting {
+  background: #d1fae5 !important;
+}
+
+[data-theme="light"] .cat-ai {
+  background: #e9d5ff !important;
+}
+
+[data-theme="light"] .cat-learning {
+  background: #fef9c3 !important;
 }
 
 .notification-message {
