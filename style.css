@@ -1770,6 +1770,27 @@ body {
   background: #fff8e1 !important;
 }
 
+/* Dark mode icon backgrounds for logo visibility */
+[data-theme="dark"] .cat-design {
+  background: #2d1b1b !important;
+}
+
+[data-theme="dark"] .cat-coding {
+  background: #1a2b3d !important;
+}
+
+[data-theme="dark"] .cat-hosting {
+  background: #1b2d2d !important;
+}
+
+[data-theme="dark"] .cat-ai {
+  background: #2d1b3d !important;
+}
+
+[data-theme="dark"] .cat-learning {
+  background: #2d2b1b !important;
+}
+
 .notification-message {
   flex: 1;
   font-size: 14px;
