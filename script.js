@@ -534,12 +534,79 @@ function setSavedLinks(arr) {
 }
 
 function getCustomLinks() {
-  try { return JSON.parse(safeGetItem('dl-custom') || '[]'); }
+  try { return JSON.parse(safeGetItem('devlinks-custom') || '[]'); }
   catch { return []; }
 }
 
-function setCustomLinks(arr) {
-  safeSetItem('dl-custom', JSON.stringify(arr));
+function setCustomLinks(items) {
+  safeSetItem('devlinks-custom', JSON.stringify(items));
+}
+
+function renderCustomCards() {
+  const container = document.getElementById('cardGrid');
+  if (!container) return;
+  
+  const customCards = getCustomLinks();
+  
+  // Remove existing custom cards
+  container.querySelectorAll('.custom-card').forEach(card => card.remove());
+  
+  // Add custom cards
+  customCards.forEach((card, index) => {
+    const cardEl = document.createElement('div');
+    cardEl.className = 'card custom-card';
+    cardEl.dataset.category = card.category;
+    cardEl.dataset.tags = card.tags || card.category;
+    cardEl.href = card.url;
+    cardEl.target = '_blank';
+    cardEl.rel = 'noreferrer';
+    
+    cardEl.innerHTML = `
+      <div class="card-icon-wrap cat-${card.category}">
+        <div class="card-icon"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-header-row">
+          <h3>${escHtml(card.title)}</h3>
+          <span class="card-badge cat-${card.category}">${card.category}</span>
+        </div>
+        <p>${escHtml(card.description)}</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-domain">${new URL(card.url).hostname}</span>
+        <div class="custom-actions" data-id="${card.id}">
+          <button class="save-btn" onclick="event.preventDefault();toggleSaveCard(this)">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button class="custom-action-btn" data-action="edit" title="Edit">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+          <button class="custom-action-btn" data-action="delete" title="Delete">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    `;
+    
+    container.appendChild(cardEl);
+  });
+  
+  // Load favicons for new cards
+  setTimeout(() => loadFavicons(), 100);
+}
+
+function escHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 /* ══════════════════════════════
