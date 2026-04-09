@@ -42,8 +42,8 @@ const domCache = {
 function initDomCache() {
   domCache.searchInput = document.getElementById('searchInput');
   domCache.cardGrid = document.getElementById('cardGrid');
-  domCache.modalOverlay = document.getElementById('modalOverlay');
-  domCache.cmdOverlay = document.getElementById('cmd-overlay');
+  domCache.modal = document.getElementById('modal');
+  domCache.cmdModal = document.getElementById('cmd-modal');
   domCache.cmdInput = document.getElementById('cmd-input');
   domCache.cmdResults = document.getElementById('cmd-results');
   domCache.sidebar = document.getElementById('sidebar');
