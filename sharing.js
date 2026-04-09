@@ -241,7 +241,7 @@ function fallbackCopy(text) {
   document.body.removeChild(textArea);
 }
 
-function createShareModal() {
+function createShareModal() { 
   const existing = document.getElementById('shareModal');
   if (existing) return;
   
