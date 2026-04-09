@@ -1,245 +1,116 @@
-/* ── PREMIUM UI COMPONENTS ── */
+/* ── PREMIUM COMPONENTS ── */
 
-// Animated background particles
-function createParticleBackground() {
-  const canvas = document.createElement('canvas');
-  canvas.style.position = 'fixed';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.width = '100%';
-  canvas.style.height = '100%';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = '-1';
-  canvas.style.opacity = '0.1';
-  document.body.appendChild(canvas);
-  
-  const ctx = canvas.getContext('2d');
-  const particles = [];
-  const particleCount = 50;
-  
-  // Create particles
-  for (let i = 0; i < particleCount; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      size: Math.random() * 3 + 1,
-      opacity: Math.random() * 0.5 + 0.2
-    });
-  }
-  
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent');
-    
-    particles.forEach(particle => {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      
-      // Bounce off edges
-      if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-      if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-      
-      // Draw particle
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = accentColor + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0');
-      ctx.fill();
-    });
-    
-    requestAnimationFrame(animate);
-  }
-  
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-  animate();
-}
-
-// Floating action buttons
-function createFloatingActions() {
-  const existing = document.getElementById('floatingActions');
-  if (existing) return;
-  
-  const container = document.createElement('div');
-  container.id = 'floatingActions';
-  container.className = 'floating-actions';
-  container.innerHTML = `
-    <button class="floating-btn" onclick="scrollToTop()" title="Scroll to top">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M7 14l5-5 5-5M12 8l0 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-    <button class="floating-btn" onclick="toggleFullscreen()" title="Toggle fullscreen">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M8 3H5a2 2 0 0 0-2 2v3m2 4h3a2 2 0 0 0 2-2V7M8 3v6l8-8h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-    <button class="floating-btn" onclick="printPage()" title="Print page">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M6 9V2h12v7M6 18H4a2 2 0 0 0-2-2v-2a2 2 0 0 0-2 2h16a2 2 0 0 0 2 2v2a2 2 0 0 0 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
+/* ── SCROLL TO TOP BUTTON ── */
+function initScrollToTop() {
+  const btn = document.createElement('button');
+  btn.id = 'scrollTopBtn';
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+    <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+  btn.title = 'Scroll to top';
+  btn.style.cssText = `
+    position:fixed;bottom:28px;right:28px;
+    width:44px;height:44px;
+    background:var(--accent);color:white;
+    border:none;border-radius:50%;cursor:pointer;
+    display:none;align-items:center;justify-content:center;
+    box-shadow:0 4px 16px var(--accent-glow);
+    z-index:500;
+    transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
   `;
-  
-  document.body.appendChild(container);
-}
+  btn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  btn.addEventListener('mouseenter', () => { btn.style.transform = 'translateY(-3px) scale(1.05)'; });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  document.body.appendChild(btn);
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    document.exitFullscreen();
-  }
-}
-
-function printPage() {
-  window.print();
-}
-
-// Loading screens with skeleton
-function showLoadingState() {
-  const main = document.querySelector('.main');
-  if (!main) return;
-  
-  const loadingOverlay = document.createElement('div');
-  loadingOverlay.className = 'loading-overlay';
-  loadingOverlay.innerHTML = `
-    <div class="loading-spinner"></div>
-    <div class="loading-text">Loading amazing content...</div>
-  `;
-  
-  main.appendChild(loadingOverlay);
-}
-
-function hideLoadingState() {
-  const loadingOverlay = document.querySelector('.loading-overlay');
-  if (loadingOverlay) {
-    loadingOverlay.remove();
-  }
-}
-
-// Progress bar for page loading
-function createProgressBar() {
-  const progress = document.createElement('div');
-  progress.className = 'page-progress';
-  progress.innerHTML = '<div class="progress-bar"></div>';
-  document.body.appendChild(progress);
-  
   window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset;
+    btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  }, { passive:true });
+}
+
+/* ── PAGE PROGRESS BAR ── */
+function initProgressBar() {
+  const bar = document.createElement('div');
+  bar.style.cssText = `
+    position:fixed;top:0;left:0;height:2px;
+    background:var(--accent);z-index:9999;
+    width:0%;transition:width 0.1s linear;
+    box-shadow:0 0 8px var(--accent-glow);
+  `;
+  document.body.appendChild(bar);
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    progress.querySelector('.progress-bar').style.width = scrollPercent + '%';
+    bar.style.width = docHeight > 0 ? `${(scrollTop / docHeight) * 100}%` : '0%';
+  }, { passive:true });
+}
+
+/* ── CARD COUNT BADGE ── */
+function updateCardCountBadge() {
+  let badge = document.getElementById('cardCountBadge');
+  if (!badge) {
+    badge = document.createElement('div');
+    badge.id = 'cardCountBadge';
+    badge.style.cssText = `
+      position:fixed;top:80px;right:20px;
+      background:var(--surface);
+      border:1px solid var(--border-md);
+      border-radius:20px;padding:6px 14px;
+      font-size:12px;font-weight:600;
+      color:var(--text-2);z-index:50;
+      transition:all 0.25s ease;
+      box-shadow:0 4px 16px rgba(0,0,0,0.15);
+      pointer-events:none;
+    `;
+    document.body.appendChild(badge);
+  }
+
+  const visible = document.querySelectorAll('.card:not([style*="display: none"])').length;
+  const total = document.querySelectorAll('.card').length;
+  badge.textContent = visible === total ? `${total} resources` : `${visible} of ${total}`;
+  badge.style.opacity = '1';
+  clearTimeout(badge._timeout);
+  badge._timeout = setTimeout(() => { badge.style.opacity = '0'; }, 3000);
+}
+
+/* ── CARD HOVER SOUND EFFECT (visual pulse instead) ── */
+function initCardPulse() {
+  document.addEventListener('mouseover', e => {
+    const card = e.target.closest('.card');
+    if (card && !card._pulsed) {
+      card._pulsed = true;
+      setTimeout(() => { card._pulsed = false; }, 500);
+    }
   });
 }
 
-// Notification system
-function showPremiumNotification(message, type = 'info', duration = 5000) {
-  const notification = document.createElement('div');
-  notification.className = `premium-notification ${type}`;
-  notification.innerHTML = `
-    <div class="notification-content">
-      <div class="notification-icon">${type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ'}</div>
-      <div class="notification-message">${message}</div>
-    </div>
-    <button class="notification-close" onclick="this.parentElement.remove()">×</button>
-  `;
-  
-  document.body.appendChild(notification);
-  
-  setTimeout(() => {
-    notification.classList.add('fade-out');
-    setTimeout(() => notification.remove(), 300);
-  }, duration);
+/* ── WELCOME TOAST ── */
+function showWelcomeMessage() {
+  const lastVisit = localStorage.getItem('devlinks-last-visit');
+  const now = Date.now();
+  const oneDay = 86400000;
+
+  if (!lastVisit || now - parseInt(lastVisit) > oneDay) {
+    setTimeout(() => {
+      if (typeof showToast === 'function') showToast('Welcome to DevLinks! Press ? for shortcuts 🚀', 't-info');
+    }, 1200);
+  }
+  localStorage.setItem('devlinks-last-visit', now.toString());
 }
 
-// Initialize premium components
+/* ── INIT ALL PREMIUM COMPONENTS ── */
 function initPremiumComponents() {
-  // Only initialize if enabled in settings
-  const enableParticles = localStorage.getItem('devlinks-particles') === 'true';
-  const enableFloatingActions = localStorage.getItem('devlinks-floating-actions') === 'true';
-  const enableProgressBar = localStorage.getItem('devlinks-progress-bar') === 'true';
-  
-  if (enableParticles) {
-    createParticleBackground();
-  }
-  
-  if (enableFloatingActions) {
-    createFloatingActions();
-  }
-  
-  if (enableProgressBar) {
-    createProgressBar();
-  }
+  initScrollToTop();
+  initProgressBar();
+  initCardPulse();
+  showWelcomeMessage();
+
+  // Re-run count badge on filter changes
+  const observer = new MutationObserver(() => updateCardCountBadge());
+  const grid = document.getElementById('cardGrid');
+  if (grid) observer.observe(grid, { attributes:true, subtree:true, attributeFilter:['style'] });
 }
 
-// Add settings to enable/disable premium features
-function addPremiumSettings() {
-  const settingsHTML = `
-    <div class="premium-settings">
-      <h3>🎨 Premium Features</h3>
-      <div class="setting-item">
-        <label>
-          <input type="checkbox" id="particlesToggle" ${localStorage.getItem('devlinks-particles') === 'true' ? 'checked' : ''}>
-          Animated Background Particles
-        </label>
-      </div>
-      <div class="setting-item">
-        <label>
-          <input type="checkbox" id="floatingActionsToggle" ${localStorage.getItem('devlinks-floating-actions') === 'true' ? 'checked' : ''}>
-          Floating Action Buttons
-        </label>
-      </div>
-      <div class="setting-item">
-        <label>
-          <input type="checkbox" id="progressBarToggle" ${localStorage.getItem('devlinks-progress-bar') === 'true' ? 'checked' : ''}>
-          Page Progress Bar
-        </label>
-      </div>
-    </div>
-  `;
-  
-  // Add to theme panel
-  const themeContent = document.querySelector('.theme-content');
-  if (themeContent) {
-    themeContent.insertAdjacentHTML('beforeend', settingsHTML);
-    
-    // Add event listeners
-    document.getElementById('particlesToggle').addEventListener('change', (e) => {
-      localStorage.setItem('devlinks-particles', e.target.checked);
-      location.reload();
-    });
-    
-    document.getElementById('floatingActionsToggle').addEventListener('change', (e) => {
-      localStorage.setItem('devlinks-floating-actions', e.target.checked);
-      location.reload();
-    });
-    
-    document.getElementById('progressBarToggle').addEventListener('change', (e) => {
-      localStorage.setItem('devlinks-progress-bar', e.target.checked);
-      location.reload();
-    });
-  }
-}
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    initPremiumComponents();
-    addPremiumSettings();
-  });
-} else {
-  initPremiumComponents();
-  addPremiumSettings();
-}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPremiumComponents);
+else initPremiumComponents();
