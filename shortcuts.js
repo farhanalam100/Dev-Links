@@ -1,119 +1,53 @@
-/* ── ADVANCED KEYBOARD SHORTCUTS ── */
-const shortcuts = {
-  // Navigation
-  'ctrl+k': () => openCmdPalette(),
-  'ctrl+shift+f': () => {
-    document.getElementById('searchInput')?.focus();
-    toggleSearchFilters();
-  },
-  'ctrl+shift+d': () => openDashboard(),
-  'ctrl+shift+t': () => openThemePanel(),
-  'ctrl+shift+a': () => openAddForm(),
-  'ctrl+shift+e': () => exportData(),
-  'ctrl+shift+i': () => importData(),
-  
-  // View controls
-  'ctrl+1': () => filterCategory('all', document.querySelector('[data-cat="all"]')),
-  'ctrl+2': () => filterCategory('saved', document.querySelector('[data-cat="saved"]')),
-  'ctrl+3': () => filterCategory('design', document.querySelector('[data-cat="design"]')),
-  'ctrl+4': () => filterCategory('coding', document.querySelector('[data-cat="coding"]')),
-  'ctrl+5': () => filterCategory('hosting', document.querySelector('[data-cat="hosting"]')),
-  'ctrl+6': () => filterCategory('ai', document.querySelector('[data-cat="ai"]')),
-  'ctrl+7': () => filterCategory('learning', document.querySelector('[data-cat="learning"]')),
-  
-  // Theme shortcuts
-  'ctrl+shift+l': () => setThemeMode('light'),
-  'ctrl+shift+d': () => setThemeMode('dark'),
-  'ctrl+shift+]': () => setThemeMode('auto'),
-  
-  // View modes
-  'ctrl+shift+g': () => setView('grid'),
-  'ctrl+shift+list': () => setView('list'),
-  
-  // Utility
-  'escape': () => {
-    closeDashboard();
-    closeThemePanel();
-    closeSearchFilters();
-    closeModal();
-  },
-  'ctrl+r': () => {
-    renderCustomCards();
-    updateAllCounts();
-    applyFilters();
-    showToast('Refreshed!', 't-info');
-  },
-  'ctrl+shift+c': () => {
-    // Clear search
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-      searchInput.value = '';
-      applyFilters();
-    }
-  },
-  'ctrl+shift+s': () => {
-    // Toggle saved filter
-    const savedCheckbox = document.querySelector('input[value="saved"]');
-    if (savedCheckbox) {
-      savedCheckbox.checked = !savedCheckbox.checked;
-      updateActiveFilters();
-    }
-  }
-};
+/* ── KEYBOARD SHORTCUTS HELP OVERLAY ── */
 
-function initAdvancedKeyboard() {
-  document.addEventListener('keydown', (e) => {
-    // Handle Ctrl+K specifically first
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      openCmdPalette();
-      return;
-    }
-    
-    // Don't trigger shortcuts when typing in input fields
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-      // Allow some shortcuts even in inputs
-      if (e.key === 'Escape') {
-        shortcuts.escape?.();
-      }
-      return;
-    }
-    
-    const key = [];
-    if (e.ctrlKey) key.push('ctrl');
-    if (e.shiftKey) key.push('shift');
-    if (e.altKey) key.push('alt');
-    
-    // Handle special keys
-    if (e.key === 'Escape') {
-      shortcuts.escape?.();
-      e.preventDefault();
-      return;
-    }
-    
-    // Build key combination string
-    if (e.key && !e.key.match(/[a-z0-9]$/i)) {
-      key.push(e.key.toLowerCase());
-    } else if (e.key === '[') {
-      key.push('[');
-    } else if (e.key === ']') {
-      key.push(']');
-    } else if (e.key === 'list') {
-      key.push('list');
-    }
-    
-    const combo = key.join('+');
-    
-    if (shortcuts[combo]) {
-      e.preventDefault();
-      shortcuts[combo]();
-    }
-  });
+function showShortcutsHelp() {
+  let overlay = document.getElementById('shortcutsOverlay');
+  if (overlay) { overlay.classList.toggle('hidden'); return; }
+
+  overlay = document.createElement('div');
+  overlay.id = 'shortcutsOverlay';
+  overlay.style.cssText = `
+    position:fixed;inset:0;background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(8px);z-index:3000;
+    display:flex;align-items:center;justify-content:center;padding:20px;
+  `;
+  overlay.innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border-md);border-radius:20px;
+      padding:32px;max-width:480px;width:100%;animation:slideUp 0.2s ease;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <h2 style="font-family:'Cabinet Grotesk',sans-serif;font-size:20px;font-weight:800;color:var(--text);">⌨️ Keyboard Shortcuts</h2>
+        <button onclick="document.getElementById('shortcutsOverlay').classList.add('hidden')"
+          style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+          padding:6px 10px;color:var(--text-2);cursor:pointer;font-size:13px;">✕ Close</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        ${[
+          ['/', 'Focus search bar'],
+          ['Ctrl + K', 'Open command palette'],
+          ['A', 'Add new resource'],
+          ['T', 'Toggle dark / light mode'],
+          ['Escape', 'Close modal / palette'],
+          ['↑↓', 'Navigate command palette'],
+          ['Enter', 'Select command palette item'],
+        ].map(([key, desc]) => `
+          <div style="display:flex;align-items:center;justify-content:space-between;
+            padding:10px 14px;background:var(--surface2);border-radius:10px;
+            border:1px solid var(--border);">
+            <span style="font-size:13px;color:var(--text-2);">${desc}</span>
+            <kbd style="background:var(--surface3);border:1px solid var(--border-md);
+              padding:4px 10px;border-radius:6px;font-size:12px;
+              font-family:monospace;color:var(--text);white-space:nowrap;">${key}</kbd>
+          </div>`).join('')}
+      </div>
+    </div>`;
+
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.add('hidden'); });
+  document.body.appendChild(overlay);
 }
 
-// Initialize shortcuts when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initAdvancedKeyboard);
-} else {
-  initAdvancedKeyboard();
-}
+// Add ? shortcut to show help
+document.addEventListener('keydown', e => {
+  const tag = document.activeElement?.tagName;
+  const inInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+  if (e.key === '?' && !inInput) showShortcutsHelp();
+});
