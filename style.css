@@ -871,27 +871,7 @@ body {
 }
 
 .theme-close {
-  background: var(--accent-dim);
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  cursor: pointer;
-  padding: 8px;
-  border-radius: var(--r);
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.theme-close:hover {
-  background: var(--accent);
-  color: white;
-  transform: scale(1.1);
-}
-
-.theme-close svg {
-  width: 20px;
-  height: 20px;
+  display: none !important;
 }
 
 .theme-content {
