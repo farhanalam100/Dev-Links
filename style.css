@@ -856,7 +856,26 @@ body {
 }
 
 .theme-close {
-  display: none !important;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r);
+  transition: all 0.2s;
+}
+
+.theme-close:hover {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.1);
+}
+
+.theme-close svg {
+  width: 20px;
+  height: 20px;
 }
 
 .theme-content {
@@ -1067,13 +1086,12 @@ body {
   background: var(--accent-dim);
   border: 1px solid var(--accent);
   color: var(--accent);
-  cursor: pointer;
-  padding: 8px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
   border-radius: var(--r);
   transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .dashboard-close:hover {
@@ -1401,13 +1419,12 @@ body {
   background: var(--accent-dim);
   border: 1px solid var(--accent);
   color: var(--accent);
-  cursor: pointer;
-  padding: 8px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
   border-radius: var(--r);
   transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .collections-close:hover {
@@ -2706,10 +2723,11 @@ body {
   height: 32px;
   display: grid;
   place-items: center;
-  border-radius: 9px;
+  border-radius: var(--r);
   background: var(--surface2);
   border: 1px solid var(--border);
   color: var(--text-2);
+  cursor: pointer;
   transition: all .15s;
 }
 
