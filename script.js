@@ -74,6 +74,11 @@ window.addEventListener('DOMContentLoaded', () => {
   applyFilters();
   initKeyboard();
   
+  // Initialize advanced keyboard shortcuts
+  if (typeof initAdvancedKeyboard === 'function') {
+    initAdvancedKeyboard();
+  }
+  
   // Event delegation for custom card actions
   document.addEventListener('click', (e) => {
     const customActions = e.target.closest('.custom-actions');
@@ -1381,6 +1386,12 @@ function initKeyboard() {
     // "t" toggles theme (not in input)
     if (e.key === 't' && !inInput && !e.ctrlKey && !e.metaKey) {
       toggleTheme();
+    }
+
+    // Ctrl+K opens command palette
+    if ((e.key === 'k' || e.key === 'K') && e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault();
+      openCmdPalette();
     }
   });
 
