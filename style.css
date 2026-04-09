@@ -1751,44 +1751,44 @@ body {
 }
 
 [data-theme="light"] .cat-design {
-  background: #fff3e0 !important;
+  background: #ff9800 !important;
 }
 
 [data-theme="light"] .cat-coding {
-  background: #e3f2fd !important;
+  background: #2196f3 !important;
 }
 
 [data-theme="light"] .cat-hosting {
-  background: #e8f5e8 !important;
+  background: #4caf50 !important;
 }
 
 [data-theme="light"] .cat-ai {
-  background: #f3e5f5 !important;
+  background: #9c27b0 !important;
 }
 
 [data-theme="light"] .cat-learning {
-  background: #fff8e1 !important;
+  background: #ffc107 !important;
 }
 
 /* Dark mode icon backgrounds for logo visibility */
 [data-theme="dark"] .cat-design {
-  background: #2d1b1b !important;
+  background: #bf360c !important;
 }
 
 [data-theme="dark"] .cat-coding {
-  background: #1a2b3d !important;
+  background: #0d47a1 !important;
 }
 
 [data-theme="dark"] .cat-hosting {
-  background: #1b2d2d !important;
+  background: #1b5e20 !important;
 }
 
 [data-theme="dark"] .cat-ai {
-  background: #2d1b3d !important;
+  background: #4a148c !important;
 }
 
 [data-theme="dark"] .cat-learning {
-  background: #2d2b1b !important;
+  background: #f57c00 !important;
 }
 
 .notification-message {
