@@ -22,8 +22,8 @@ let activeFilters = {
 const domCache = {
   searchInput: null,
   cardGrid: null,
-  modal: null,
-  cmdModal: null,
+  modalOverlay: null,
+  cmdOverlay: null,
   cmdInput: null,
   cmdResults: null,
   sidebar: null,
@@ -42,8 +42,8 @@ const domCache = {
 function initDomCache() {
   domCache.searchInput = document.getElementById('searchInput');
   domCache.cardGrid = document.getElementById('cardGrid');
-  domCache.modal = document.getElementById('modal');
-  domCache.cmdModal = document.getElementById('cmd-modal');
+  domCache.modalOverlay = document.getElementById('modalOverlay');
+  domCache.cmdOverlay = document.getElementById('cmd-overlay');
   domCache.cmdInput = document.getElementById('cmd-input');
   domCache.cmdResults = document.getElementById('cmd-results');
   domCache.sidebar = document.getElementById('sidebar');
@@ -1156,17 +1156,17 @@ function updateAllCounts() {
    MODAL HELPERS
 ══════════════════════════════ */
 function openModal() {
-  document.getElementById('modal').classList.remove('hidden');
+  document.getElementById('modalOverlay').classList.remove('hidden');
   setTimeout(() => document.getElementById('resourceTitle').focus(), 100);
 }
 
 function closeModal() {
-  document.getElementById('modal').classList.add('hidden');
+  document.getElementById('modalOverlay').classList.add('hidden');
   editingId = null;
 }
 
 function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modal')) closeModal();
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
 }
 
 function setFieldError(id, msg) {
@@ -1255,15 +1255,15 @@ function initKeyboard() {
 }
 
 function isCmdPaletteOpen() {
-  const modal = document.getElementById('cmd-modal');
-  return modal && !modal.classList.contains('hidden');
+  const overlay = document.getElementById('cmd-overlay');
+  return overlay && !overlay.classList.contains('hidden');
 }
 
 function openCmdPalette() {
-  const modal = document.getElementById('cmd-modal');
+  const overlay = document.getElementById('cmd-overlay');
   const input = document.getElementById('cmd-input');
-  if (modal && input) {
-    modal.classList.remove('hidden');
+  if (overlay && input) {
+    overlay.classList.remove('hidden');
     input.value = '';
     updateCmdResults();
     setTimeout(() => input.focus(), 50);
@@ -1271,15 +1271,15 @@ function openCmdPalette() {
 }
 
 function closeCmdPalette() {
-  const modal = document.getElementById('cmd-modal');
-  if (modal) {
-    modal.classList.add('hidden');
+  const overlay = document.getElementById('cmd-overlay');
+  if (overlay) {
+    overlay.classList.add('hidden');
     document.getElementById('cmd-input').blur();
   }
 }
 
 function handleCmdOverlayClick(e) {
-  if (e.target === document.getElementById('cmd-modal')) {
+  if (e.target === document.getElementById('cmd-overlay')) {
     closeCmdPalette();
   }
 }
@@ -1420,3 +1420,5 @@ function appendCmdGroup(label, items, container) {
     container.appendChild(el);
   });
 }
+
+

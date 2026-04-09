@@ -24,7 +24,7 @@ const shortcuts = {
   // Theme shortcuts
   'ctrl+shift+l': () => setThemeMode('light'),
   'ctrl+shift+d': () => setThemeMode('dark'),
-  'ctrl+shift+[': () => setThemeMode('auto'),
+  'ctrl+shift+]': () => setThemeMode('auto'),
   
   // View modes
   'ctrl+shift+g': () => setView('grid'),
