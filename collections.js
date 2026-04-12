@@ -127,3 +127,4 @@ function escHtml(str) {
 // Init
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCollections);
 else initCollections();
+
