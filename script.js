@@ -421,18 +421,7 @@ function deleteResource(id) {
    FAVICONS
 ══════════════════════════════ */
 const LOGO_MAP = {
-  'figma.com':'figma','coolors.co':'coolors','fonts.google.com':'googlefonts',
-  'undraw.co':'undraw','developer.mozilla.org':'mdnwebdocs','codepen.io':'codepen',
-  'caniuse.com':'caniuse','stackoverflow.com':'stackoverflow','vercel.com':'vercel',
-  'netlify.com':'netlify','pages.github.com':'github','railway.app':'railway',
-  'claude.ai':'anthropic','github.com':'github','v0.dev':'vercel',
-  'chat.openai.com':'openai','freecodecamp.org':'freecodecamp',
-  'theodinproject.com':'theodinproject','cs50.harvard.edu':'harvard',
-  'javascript.info':'javascript','replit.com':'replit','codesandbox.io':'codesandbox',
-  'tailwindcss.com':'tailwindcss','reactjs.org':'react','nextjs.org':'nextdotjs',
-  'nodejs.org':'nodedotjs','typescript':'typescript','heroku.com':'heroku',
-  'digitalocean.com':'digitalocean','firebase.google.com':'firebase','supabase.com':'supabase',
-  'huggingface.co':'huggingface','openai.com':'openai','anthropic.com':'anthropic',
+  // kept in case we want to extend, but simplified loading below
 };
 
 function loadFavicons() {
@@ -447,20 +436,20 @@ function loadFavicons() {
 function loadFaviconFor(iconEl, href, title) {
   try {
     const host = new URL(href).hostname.replace(/^www\./,'');
-    const slug = LOGO_MAP[host] || host.split('.')[0];
     iconEl.innerHTML = '';
     const img = document.createElement('img');
     img.alt = `${title} logo`;
     img.style.cssText = 'width:24px;height:24px;object-fit:contain;display:block;';
 
     const sources = [
-      `https://cdn.simpleicons.org/${slug}/ffffff`,
-      `https://www.google.com/s2/favicons?sz=64&domain=${host}`,
+      `https://icons.duckduckgo.com/ip3/${host}.ico`,
+      `https://www.google.com/s2/favicons?sz=64&domain=${host}`
     ];
     let idx = 0;
 
     function tryNext() {
       if (idx >= sources.length) {
+        iconEl.innerHTML = '';
         iconEl.textContent = title.charAt(0).toUpperCase();
         iconEl.classList.add('logo-missing');
         return;
@@ -473,6 +462,7 @@ function loadFaviconFor(iconEl, href, title) {
     iconEl.appendChild(img);
   } catch {
     if (iconEl && title) {
+      iconEl.innerHTML = '';
       iconEl.textContent = title.charAt(0).toUpperCase();
       iconEl.classList.add('logo-missing');
     }
