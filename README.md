@@ -45,8 +45,7 @@ code .
 3. Open `index.html` with Live Server or just double-click it
 
  Submitted To
-
-[Hack Club: The Game](https://game.hackclub.com) — building projects to compete in the IRL hackathon in Manhattan!
+Horizons Hack Club — building projects to compete in the IRL hackathon in Manhattan!
 
 ## 📄 License
 
