@@ -46,7 +46,7 @@ code .
 
  Submitted To
 Horizons Hack Club — building projects to compete in the IRL hackathon in Manhattan!
-
+Used Antigravity for smoothening but learnt each step
 ## 📄 License
 
 MIT — free to use and modify!
