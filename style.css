@@ -4,31 +4,59 @@
    Fonts: Cabinet Grotesk + Instrument Sans
 ══════════════════════════════════════════ */
 
-/* ── TOKENS ── */
+/* 
+ * DevLinks - Main Stylesheet
+ * Author: Farhan Alam
+ * Started working on this in October 2024
+ * 
+ * Going for that dark, professional dev tool aesthetic.
+ * Using Cabinet Grotesk for headers and Instrument Sans for body text.
+ * 
+ * NOTE: Some of these colors might need tweaking - the accent color
+ * especially feels a bit too aggressive sometimes.
+ * 
+ * TODO: Maybe add a high contrast mode for accessibility?
+ * FIXME: Mobile responsiveness could be better on smaller screens
+*/
+
+/* CSS Custom Properties - trying to keep things organized */
 :root {
-  --bg: #0c0c10;
-  --surface: #111118;
-  --surface2: #18181f;
-  --surface3: #202028;
-  --border: rgba(255,255,255,0.07);
-  --border-md: rgba(255,255,255,0.12);
-  --text: #f2f2f7;
-  --text-2: #8b8b9e;
-  --text-3: #4a4a60;
-  --accent: #ef4160;
-  --accent-dim: rgba(239,65,96,0.14);
-  --accent-glow: rgba(239,65,96,0.28);
-  --cat-design: #f97316;
-  --cat-coding: #3b82f6;
-  --cat-hosting: #10b981;
-  --cat-ai: #a855f7;
-  --cat-learning: #eab308;
-  --r: 10px;
-  --r-lg: 16px;
-  --r-xl: 22px;
-  --sidebar-w: 280px;
+  /* Base colors - dark theme by default */
+  --bg: #0c0c10;          /* Main background */
+  --surface: #111118;      /* Card backgrounds */
+  --surface2: #18181f;     /* Hover states */
+  --surface3: #202028;     /* Active/hovered elements */
+  
+  /* Border colors - keeping them subtle */
+  --border: rgba(255,255,255,0.07);  /* Light borders */
+  --border-md: rgba(255,255,255,0.12); /* Medium borders */
+  
+  /* Text colors - good contrast ratio */
+  --text: #f2f2f7;         /* Primary text */
+  --text-2: #8b8b9e;       /* Secondary text */
+  --text-3: #4a4a60;       /* Muted text */
+  
+  /* Accent colors - this red might be too much? */
+  --accent: #ef4160;       /* Primary accent */
+  --accent-dim: rgba(239,65,96,0.14); /* Subtle accent */
+  --accent-glow: rgba(239,65,96,0.28); /* Glow effect */
+  
+  /* Category colors - trying to keep them distinct */
+  --cat-design: #f97316;   /* Orange for design */
+  --cat-coding: #3b82f6;   /* Blue for coding */
+  --cat-hosting: #10b981;  /* Green for hosting */
+  --cat-ai: #a855f7;       /* Purple for AI */
+  --cat-learning: #eab308; /* Yellow for learning */
+  
+  /* Layout variables */
+  --r: 10px;               /* Small radius */
+  --r-lg: 16px;            /* Large radius */
+  --r-xl: 22px;            /* Extra large radius */
+  --sidebar-w: 280px;      /* Sidebar width */
+  
+  /* Animation and effects */
   --transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --glass-blur: blur(16px);
+  --glass-blur: blur(16px); /* For glassmorphism effects */
 }
 
 [data-theme="light"] {
