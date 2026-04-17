@@ -116,18 +116,3 @@ MIT - feel free to use and modify!
 
 *Built with passion by Farhan Alam*  
 *Started in October 2024, still learning and improving*
-
-How to Run Locally
-
-1. Clone the repo
-```bash
-git clone https://github.com/YOUR_USERNAME/devlinks.git
-```
-
-2. Open the folder in VS Code
-```bash
-cd devlinks
-code .
-```
-
-3. Open `index.html` with Live Server or just double-click it
