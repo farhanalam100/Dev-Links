@@ -5,15 +5,22 @@
 ══════════════════════════════════════════ */
 
 /* ── STATE ── */
-let activeCategory = 'all';
-let currentView = 'grid';
-let editingId = null;
-let currentSort = 'default';
+// Global state variables - maybe move these to a class later?
+let activeCategory = 'all';  // Currently selected category
+let currentView = 'grid';    // Grid or list view
+let editingId = null;        // ID of resource being edited
+let currentSort = 'default'; // Sort order (not fully implemented yet)
 
 /* ── INIT ── */
+// Initialize the app when the DOM is ready
 window.addEventListener('DOMContentLoaded', () => {
+  // Restore theme from storage
   restoreTheme();
+  
+  // Apply stored accent color
   applyStoredAccentColor();
+  
+  // Restore font size from storage
   restoreFontSize();
   restoreView();
   renderCustomCards();
