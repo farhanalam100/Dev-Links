@@ -14,6 +14,8 @@ let currentSort = 'default'; // Sort order (not fully implemented yet)
 /* ── INIT ── */
 // Initialize the app when the DOM is ready
 window.addEventListener('DOMContentLoaded', () => {
+  console.log('DevLinks starting up...');
+  
   // Restore theme from storage
   restoreTheme();
   
@@ -29,7 +31,10 @@ window.addEventListener('DOMContentLoaded', () => {
   loadFavicons();
   applyFilters();
   initKeyboard();
-
+  
+  // TODO: Add error handling for initialization
+  console.log('DevLinks initialized successfully!');
+  
   // Event delegation for custom card actions
   document.addEventListener('click', e => {
     const actions = e.target.closest('.custom-actions');

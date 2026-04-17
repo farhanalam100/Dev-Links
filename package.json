@@ -1,0 +1,45 @@
+{
+  "name": "devlinks",
+  "version": "1.2.0",
+  "description": "A curated collection of developer tools and resources",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'No build process needed for static site'",
+    "deploy": "echo 'Deploy to Netlify or GitHub Pages'",
+    "lint": "echo 'Add ESLint configuration later'",
+    "test": "echo 'Add tests later'"
+  },
+  "keywords": [
+    "developer",
+    "tools",
+    "resources",
+    "web-development",
+    "design",
+    "coding",
+    "frontend",
+    "backend"
+  ],
+  "author": {
+    "name": "Farhan Alam",
+    "email": "farhan@example.com",
+    "url": "https://github.com/farhanalam100"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/farhanalam100/Dev-Links.git"
+  },
+  "bugs": {
+    "url": "https://github.com/farhanalam100/Dev-Links/issues"
+  },
+  "homepage": "https://github.com/farhanalam100/Dev-Links#readme",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
